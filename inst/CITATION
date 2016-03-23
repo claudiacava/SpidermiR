@@ -1,0 +1,27 @@
+citHeader("To cite SpidermiR in publications use:")
+
+citEntry(entry = "Article",
+         title        = "SpidermiR: An R/Bioconductor package for integrative network analysis with
+    miRNA data",
+         author       = personList(as.person("Claudia Cava"),
+                                   as.person("Antonio Colaprico"),
+                                   as.person("Alex Graudenzi"),
+                                   as.person("Gloria Bertoli"),
+								   as.person("Tiago C. Silva"),
+								   as.person("Catharina Olsen"),
+								   as.person("Houtan Noushmehr"),
+                                   as.person("Gianluca Bontempi"),
+                                   as.person("Giancarlo Mauri"),
+                                   as.person("Isabella Castiglioni")
+         ),
+         journal = "manuscript in preparation",
+         year         = "2016",
+         journal      = "",
+         textVersion  =
+             paste("Claudia Cava, Antonio Colaprico, Alex Graudenzi,",
+                   "Gloria Bertoli, Tiago C. Silva, Catharina Olsen,Houtan Noushmehr, Gianluca Bontempi, Giancarlo Mauri,",
+                   "Isabella Castiglioni (2016).",
+                   "SpidermiR: An R/Bioconductor package for integrative network analysis with
+    miRNA data.")
+)
+
