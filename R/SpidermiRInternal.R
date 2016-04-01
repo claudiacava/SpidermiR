@@ -33,11 +33,9 @@
 }
 
 
-
+#it creates link 
 url_cache <- local({
   env <- new.env(parent=emptyenv())
-  
-  
   env[["miRtar"]] <-
     "http://watson.compbio.iupui.edu:8080/miR2Disease/download/miRtar.txt"
   env[["miRwalk"]] <-
@@ -48,7 +46,6 @@ url_cache <- local({
     "http://atlas.dmi.unict.it/mirandola/download/miRandola_version_1.7_10-06-2015.csv"
   env[["geneMania"]] <-
     "http://genemania.org/data/current/"
-  
   list(
     get=function(elt) {
       stopifnot(is.character(elt), length(elt) == 1L, elt %in%

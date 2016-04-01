@@ -2,7 +2,7 @@
 % Please edit documentation in R/SpidermiRanalyze.R
 \name{SpidermiRanalyze_Community_detection_net}
 \alias{SpidermiRanalyze_Community_detection_net}
-\title{Find the network of community detection}
+\title{Find the network of community detection and direct biormarker}
 \usage{
 SpidermiRanalyze_Community_detection_net(data, comm_det, size)
 }
@@ -17,7 +17,7 @@ SpidermiRanalyze_Community_detection_net(data, comm_det, size)
 dataframe with the interatcions
 }
 \description{
-SpidermiRanalyze_Community_detection_net find the direct interactions from a specific community
+SpidermiRanalyze_direct_net find the direct interactions from a specific community
 }
 \examples{
 miRNA_cN <-data.frame(gA=c('hsa-let-7a','hsa-miR-300'),gB=c('FOXM1','KPNA4'),stringsAsFactors=FALSE)

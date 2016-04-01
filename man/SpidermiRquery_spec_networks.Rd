@@ -28,7 +28,7 @@ The user can visualize the database or reference where the information came from
 }
 \examples{
 org<-SpidermiRquery_species(species)
-net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[18,],
+net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[9,],
                                         network = "SHpd")
                                         
                                         

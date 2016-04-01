@@ -40,7 +40,8 @@ SpidermiRvisualize_mirnanet<-function(data){
     return(
       forceNetwork(Links = dataIDs2, Nodes = attr2, Source = "V1", Target = "V2", NodeID = "name", Group= "Group",height = 
                                                          800, width = 800, opacity = 1, zoom = FALSE, bounded = TRUE, legend= TRUE, opacityNoHover= 0.5,
-                                                       colourScale=JS("d3.scale.category10()"),fontSize = 12)
+                                                       colourScale=JS("d3.scale.category10()")
+                   ,fontSize = 12)
     )
   }
   if( length(grep("hsa",data$V1)) ==0){
@@ -92,7 +93,9 @@ SpidermiRvisualize_BI<-function(data,BI){
   # Order rows
   attr2 <- attr2[order(attr2$ID),]
   return(
-    forceNetwork(Links = dataIDs2, Nodes = attr2, Source = "V1", Target = "V2", NodeID = "name", Group= "Group",height = 800, width = 800, opacity = 1, zoom = FALSE, bounded = TRUE, legend= TRUE, opacityNoHover= 0.5,colourScale=JS("d3.scale.category20c()"),fontSize = 12))
+    forceNetwork(Links = dataIDs2, Nodes = attr2, Source = "V1", Target = "V2", NodeID = "name", Group= "Group",height = 800, width = 800, opacity = 1, zoom = FALSE, bounded = TRUE, legend= TRUE, opacityNoHover= 0.5,
+                 colourScale=JS("d3.scale.category20c()")
+                 ,fontSize = 12))
 }
 
 

@@ -438,8 +438,8 @@ SpidermiRanalyze_Community_detection<-function(data,type){
 #' @examples
 #' miRNA_cN <-data.frame(gA=c('hsa-let-7a','hsa-miR-300'),gB=c('FOXM1','KPNA4'),stringsAsFactors=FALSE)
 #' comm<-  SpidermiRanalyze_Community_detection(data=miRNA_cN,type="FC") 
-#' cd_net<-SpidermiRanalyze_Community_detection_net(data=miRNA_cN,comm_det=comm,size=1)
-SpidermiRanalyze_Community_detection_net<-function(data,comm_det,size){
+#' cd_net<-SpidermiRanalyze_Community_detection_subnet(data=miRNA_cN,comm_det=comm,size=1)
+SpidermiRanalyze_Community_detection_subnet<-function(data,comm_det,size){
   colnames(data) <- c("gene_symbolA", "gene_symbolB")
   #want to find the vertices in cluster 
   if(is.data.frame(comm_det)!='TRUE'){
@@ -448,6 +448,32 @@ SpidermiRanalyze_Community_detection_net<-function(data,comm_det,size){
     as<-SpidermiRanalyze_direct_subnetwork(data,a)
     return(as)
   }}
+
+
+
+#' @title Find the network of community detection and direct biormarker
+#' @description SpidermiRanalyze_direct_net find the direct interactions from a specific community
+#' @param data  SpidermiRanalyze_mirna_network output or SpidermiRanalyze_mirna_gene_complnet
+#' @param comm_det SpidermiRanalyze_Community_detection
+#' @param size the index of community detection obtained from SpidermiRanalyze_Community_detection
+#' @export
+#' @return dataframe with the interatcions
+#' @examples
+#' miRNA_cN <-data.frame(gA=c('hsa-let-7a','hsa-miR-300'),gB=c('FOXM1','KPNA4'),stringsAsFactors=FALSE)
+#' comm<-  SpidermiRanalyze_Community_detection(data=miRNA_cN,type="FC") 
+#' cd_net<-SpidermiRanalyze_Community_detection_net(data=miRNA_cN,comm_det=comm,size=1)
+SpidermiRanalyze_Community_detection_net<-function(data,comm_det,size){
+  colnames(data) <- c("gene_symbolA", "gene_symbolB")
+  #want to find the vertices in cluster 
+  if(is.data.frame(comm_det)!='TRUE'){
+    z<-as.data.frame(which(clusters(comm_det)$membership == size))
+    a<-rownames(z)
+    as<-SpidermiRanalyze_direct_net(data,a)
+    return(as)
+  }}
+
+
+
 
 
 
@@ -485,9 +511,19 @@ SpidermiRanalyze_Community_detection_bi<-function(data,BI){
 } 
 
 
-
-
-
-
-
+#' @title Integration of pharmacomiR in the network
+#' @description SpidermiRanalyze_mirnanet_pharm integrates both miRNA targeting of the gene and the gene-drug interaction from PharmacomiR database in the network
+#' @param mir_ph SpidermiRdownload_pharmacomir output
+#' @param net a network data (e.g. SpidermiRanalyze_mirna_network or SpidermiRanalyze_mirna_gene_complnet output)
+#' @export
+#' @return a dataframe with the integation of network and pharmacomiR data
+#' @examples
+#' mir_p <-data.frame(gA=c('hsa-let-7a','CASP3'),gB=c('CASP3','paclitaxel'),stringsAsFactors=FALSE)
+#' net_p <-data.frame(gA=c('hsa-let-7a','hsa-miR-300'),gB=c('FOXM1','KPNA4'),stringsAsFactors=FALSE)
+#' mol<-SpidermiRanalyze_mirnanet_pharm(mir_ph=mir_p,net=net_p)
+SpidermiRanalyze_mirnanet_pharm<-function(mir_ph,net){
+  sss<-rbind(net,mir_ph)
+  s2<-as.data.frame(sss[!duplicated(sss), ]) 
+  return(s2)
+}
 

@@ -14,9 +14,9 @@ citEntry(entry = "Article",
                                    as.person("Giancarlo Mauri"),
                                    as.person("Isabella Castiglioni")
          ),
-         journal = "Nucleic Acids Research manuscript in submission",
+         journal = "manuscript in preparation",
          year         = "2016",
-         journal      = "Nucleic Acids Research",
+         journal      = "",
          textVersion  =
              paste("Claudia Cava, Antonio Colaprico, Alex Graudenzi,",
                    "Gloria Bertoli, Tiago C. Silva, Catharina Olsen,Houtan Noushmehr, Gianluca Bontempi, Giancarlo Mauri,",

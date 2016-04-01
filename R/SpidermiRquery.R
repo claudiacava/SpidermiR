@@ -29,6 +29,9 @@ SpidermiRquery_species <- function(species) {
   tabOrgd$Species <- organismID
  # organismID  <- as.matrix(organismID)
   #colnames(organismID) <- "Species"
+  tabOrgd<-tabOrgd[- grep("COMBINED", tabOrgd$Species),]
+  
+  tabOrgd<-as.data.frame(tabOrgd)
   return(tabOrgd)
   
 }
@@ -44,7 +47,7 @@ SpidermiRquery_species <- function(species) {
 #' @export
 #' @examples
 #' org<-SpidermiRquery_species(species)
-#' net_type<-SpidermiRquery_networks_type(organismID=org[18,])
+#' net_type<-SpidermiRquery_networks_type(organismID=org[9,])
 #' @return a list of network categories in a specie indicated.
 SpidermiRquery_networks_type<-function(organismID) {
   vd<-list()
@@ -81,7 +84,7 @@ SpidermiRquery_networks_type<-function(organismID) {
 #' @export
 #' @examples
 #' org<-SpidermiRquery_species(species)
-#' net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[18,],
+#' net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[9,],
 #'                                         network = "SHpd")
 #'                                         
 #'                                         

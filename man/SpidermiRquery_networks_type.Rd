@@ -17,6 +17,6 @@ The user can visualize the network types supported by GeneMania for a specific s
 }
 \examples{
 org<-SpidermiRquery_species(species)
-net_type<-SpidermiRquery_networks_type(organismID=org[18,])
+net_type<-SpidermiRquery_networks_type(organismID=org[9,])
 }
 

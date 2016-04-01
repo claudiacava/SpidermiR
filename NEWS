@@ -7,6 +7,7 @@
 * SpidermiRquery_spec_networks	Searching by species, and network categories.
 * SpidermiRquery_disease	Searching by miRNA-disease.
 * SpidermiRdownload_net	Downloading network data.
+* SpidermiRdownload_pharmacomir	Download both miRNA target and the gene-drug interaction from PharmacomiR database.
 * SpidermiRprepare_NET	Prepare matrix of gene network with Ensembl Gene ID, and gene symbols.
 * SpidermiRanalyze_mirna_network	Integration of microRNA-target interactions.
 * SpidermiRanalyze_mirna_gene_complnet	 Integration of microRNA-target complete interactions.
