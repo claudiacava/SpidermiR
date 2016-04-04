@@ -5,7 +5,7 @@
 #' @export
 #' @return table of species
 SpidermiRquery_species <- function(species) {
-  site <- url_cache$get("geneMania")
+  site <- .url_cache$get("geneMania")
   site1<-.DownloadURL(site)
   site1<-site1[-1]
   Tableorganism <- matrix(0, length(site1), 1)
@@ -51,7 +51,7 @@ SpidermiRquery_species <- function(species) {
 #' @return a list of network categories in a specie indicated.
 SpidermiRquery_networks_type<-function(organismID) {
   vd<-list()
-  Tableorganism<-paste(url_cache$get("geneMania"),organismID,"/networks.txt",sep="")
+  Tableorganism<-paste(.url_cache$get("geneMania"),organismID,"/networks.txt",sep="")
   sd<-read.delim(Tableorganism,header = TRUE,stringsAsFactors=FALSE)
   net_t<-sd[!duplicated(sd$Network_Group_Name), ]
   net_t<-net_t$Network_Group_Name
@@ -91,7 +91,7 @@ SpidermiRquery_networks_type<-function(organismID) {
 #' @return a list of the database or reference where the information came from.
 SpidermiRquery_spec_networks<-function(organismID,network) {
   vd<-list()
-  Tableorganism<-paste(url_cache$get("geneMania"),organismID,"/",sep="")
+  Tableorganism<-paste(.url_cache$get("geneMania"),organismID,"/",sep="")
   Site_sec <- .DownloadURL(Tableorganism)
   qst_find_sitep_sub<-gsub("<a href=","",Site_sec)
   qst_find_site2_subp_sub <- substr(qst_find_sitep_sub,3,nchar(qst_find_sitep_sub)-1)
@@ -137,7 +137,7 @@ SpidermiRquery_spec_networks<-function(organismID,network) {
 #' disease<-SpidermiRquery_disease(diseaseID)
 #' @return a list of disease.
 SpidermiRquery_disease<-function(diseaseID) {
-all_entries<-url_cache$get("miR2Disease")
+all_entries<-.url_cache$get("miR2Disease")
 disease_ref<-read.delim(all_entries,header = FALSE,quote = "",stringsAsFactors=FALSE)
 disease<- unique(disease_ref$V2)
 disease<-disease[disease != ""]

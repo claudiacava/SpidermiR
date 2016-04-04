@@ -15,7 +15,7 @@
 
 #identifier_mappings for a particular 
 .identifier<-function(organism_1) {
-  Tableorganism<-paste(url_cache$get("geneMania"),organism_1,"/identifier_mappings.txt",sep="")
+  Tableorganism<-paste(.url_cache$get("geneMania"),organism_1,"/identifier_mappings.txt",sep="")
   Tableorganism<-unlist(Tableorganism)
   return(Tableorganism)
 }
@@ -34,7 +34,7 @@
 
 
 #it creates link 
-url_cache <- local({
+.url_cache <- local({
   env <- new.env(parent=emptyenv())
   env[["miRtar"]] <-
     "http://watson.compbio.iupui.edu:8080/miR2Disease/download/miRtar.txt"

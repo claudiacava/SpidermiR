@@ -10,11 +10,11 @@
 #' miRNA_NET<-SpidermiRanalyze_mirna_network(data=GS_net,disease="prostate cancer")
 SpidermiRanalyze_mirna_network<-function(data,disease=NULL){
   # querying miRtar database (validated interaction miRNA-gene)
-  site_mir2disease<-url_cache$get("miRtar")
+  site_mir2disease<-.url_cache$get("miRtar")
   mir2disease<-read.delim(site_mir2disease,header = FALSE,quote = "",stringsAsFactors=FALSE)
   # querying miRNA WALK database (validated interaction miRNA-gene)
   temp <- tempfile()
-  download.file(url_cache$get("miRwalk"),temp)
+  download.file(.url_cache$get("miRwalk"),temp)
   sx<-unz(temp,"hsa-vtm-gene.rdata.Rdata")
   load(sx)
   id<-t(sapply(id, '[', 1:max(sapply(id, length)))) 
@@ -34,7 +34,7 @@ SpidermiRanalyze_mirna_network<-function(data,disease=NULL){
   mir2disease$V4<-NULL
   mir2disease<-rbind(mir2disease,ds)
   #for the disease
-  all_entries<-url_cache$get("miR2Disease")
+  all_entries<-.url_cache$get("miR2Disease")
   disease_ref<-read.delim(all_entries,header = FALSE,quote = "",stringsAsFactors=FALSE)
   #FIND MIRNA LINK TO A PARTICULAR DISEASE
   if( !is.null(disease) ){
@@ -95,11 +95,11 @@ SpidermiRanalyze_mirna_network<-function(data,disease=NULL){
 #' miRNA_cNT<-SpidermiRanalyze_mirna_gene_complnet(data=GS_net,disease="prostate cancer")
 SpidermiRanalyze_mirna_gene_complnet<-function(data,disease=NULL){
   # querying miRtar database (validated interaction miRNA-gene)
-  site_mir2disease<-url_cache$get("miRtar")
+  site_mir2disease<-.url_cache$get("miRtar")
   mir2disease<-read.delim(site_mir2disease,header = FALSE,quote = "",stringsAsFactors=FALSE)
   # querying miRNA WALK database (validated interaction miRNA-gene)
   temp <- tempfile()
-  download.file(url_cache$get("miRwalk"),temp)
+  download.file(.url_cache$get("miRwalk"),temp)
   sx<-unz(temp,"hsa-vtm-gene.rdata.Rdata")
   load(sx)
   id<-t(sapply(id, '[', 1:max(sapply(id, length)))) 
@@ -119,7 +119,7 @@ SpidermiRanalyze_mirna_gene_complnet<-function(data,disease=NULL){
   mir2disease$V4<-NULL
   mir2disease<-rbind(mir2disease,ds)
   #for the disease
-  all_entries<-url_cache$get("miR2Disease")
+  all_entries<-.url_cache$get("miR2Disease")
   disease_ref<-read.delim(all_entries,header = FALSE,quote = "",stringsAsFactors=FALSE)
   #FIND MIRNA LINK TO A PARTICULAR DISEASE
   if(!is.null(disease)){
@@ -189,7 +189,7 @@ SpidermiRanalyze_mirna_gene_complnet<-function(data,disease=NULL){
 #'miRNA_cN <-data.frame(gA=c('hsa-let-7a','hsa-miR-141'),gB=c('FOXM1','CDK'),stringsAsFactors=FALSE)
 #'miRNA_NET_ext_circmT<-SpidermiRanalyze_mirna_extra_cir(data=miRNA_cN,"mT")
 SpidermiRanalyze_mirna_extra_cir<-function(data,type=NULL){
-  site<-url_cache$get("mirandola")
+  site<-.url_cache$get("mirandola")
   mirandola<-read.delim(site,header = TRUE,quote = "",stringsAsFactors=FALSE)
   colnames(data) <- c("V1", "V2")
  vd=list()

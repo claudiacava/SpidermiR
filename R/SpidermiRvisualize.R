@@ -9,12 +9,10 @@
 #' @importFrom networkD3 JS
 #' @export
 #' @return 3D graphic
-
-
 SpidermiRvisualize_mirnanet<-function(data){
   colnames(data) <- c("V1", "V2")
   if( length(grep("hsa",data$V1)) !=0 | length(grep("hsa",data$V2)) !=0){
-    IDs2 <- sort(unique(c(data$V1, data$V2)))
+    IDs2 <- sort.int(unique(c(data$V1, data$V2)),decreasing=FALSE)
     IDs2 <- data.frame(ID= seq_along(IDs2)-1, name= IDs2)
     dataIDs2 <- merge(data, IDs2, by.x= "V1", by.y= "name")
     dataIDs2$V1 <- dataIDs2$ID  
@@ -23,13 +21,18 @@ SpidermiRvisualize_mirnanet<-function(data){
     dataIDs2$V2 <- dataIDs2$ID
     dataIDs2$ID <- NULL
     dataIDs2 <- dataIDs2[,c("V1", "V2")]
-    data2 <- data[order(data$V1, data$V2),]
-    dataIDs2 <- dataIDs2[order(dataIDs2$V1, dataIDs2$V2),]
-    att<-as.data.frame(sort(unique(unlist(data))))
+    data2 <- data[order(data$V1, data$V2,decreasing=FALSE),]
+    dataIDs2 <- dataIDs2[order(dataIDs2$V1, dataIDs2$V2,decreasing=FALSE),]
+    att<-as.data.frame(sort(unique(unlist(data)),decreasing=FALSE))
     colnames(att)[1]<-"v1"
     att$v2 <- "" 
-    att$v2[grep("hsa" ,att$v1)]<- "miRNA"
     att$v2<-replace(att$v2, att$v2 == "", "gene")
+    att$v2[(grep("[a-z]",att$v1))]<- "Pharmaco"
+    att$v2[grep("hsa" ,att$v1)]<- "miRNA"
+    att$v2[grep("orf" ,att$v1)]<- "gene"
+    
+    #att$v3<-NULL
+    att<-as.data.frame(att[order(att$v2,decreasing = FALSE ),]) 
     i <- sapply(att, is.factor)
     att[i] <- lapply(att[i], as.character)
     colnames(att)[1]<-"name"
@@ -37,11 +40,11 @@ SpidermiRvisualize_mirnanet<-function(data){
     attr2 <- merge(att, IDs2)
     # Order rows
     attr2 <- attr2[order(attr2$ID),]
+    #attr2<-as.data.frame(attr2[ order(attr2$Group,decreasing = FALSE ),]) 
     return(
       forceNetwork(Links = dataIDs2, Nodes = attr2, Source = "V1", Target = "V2", NodeID = "name", Group= "Group",height = 
-                                                         800, width = 800, opacity = 1, zoom = FALSE, bounded = TRUE, legend= TRUE, opacityNoHover= 0.5,
-                                                       colourScale=JS("d3.scale.category10()")
-                   ,fontSize = 12)
+                     800, width = 800, opacity = 1, zoom = FALSE, bounded = TRUE, legend= TRUE, opacityNoHover= 0.5,
+                   colourScale=JS("d3.scale.category10()"),fontSize = 12)
     )
   }
   if( length(grep("hsa",data$V1)) ==0){
