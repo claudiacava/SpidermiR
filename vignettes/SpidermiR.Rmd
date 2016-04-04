@@ -75,7 +75,7 @@ references:
 
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{rmarkdown::render()}
+  %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
 
@@ -123,8 +123,8 @@ The user can query the species supported by GeneMania, using the function Spider
 
 
 ```{r, eval = TRUE}
+library(httr)
 org<-SpidermiRquery_species(species)
-
 ```
 
 The list of species is show below:
