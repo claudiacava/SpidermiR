@@ -46,6 +46,8 @@
     "http://atlas.dmi.unict.it/mirandola/download/miRandola_version_1.7_10-06-2015.csv"
   env[["geneMania"]] <-
     "http://genemania.org/data/current/"
+	  env[["pharmacomir"]] <-
+    "http://pharmaco-mir.org/home/download_VERSE_db/pharmacomir_VERSE_DB.csv"
   list(
     get=function(elt) {
       stopifnot(is.character(elt), length(elt) == 1L, elt %in%

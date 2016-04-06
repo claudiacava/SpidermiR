@@ -29,7 +29,7 @@ SpidermiRdownload_net <- function(data){
 #' mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir)
 SpidermiRdownload_pharmacomir<-function(pharmacomir){
   # querying Pharmaco-miR database (Pharmaco-miR validated interaction)
-  pharm_miR<-"http://pharmaco-mir.org/home/download_VERSE_db/pharmacomir_VERSE_DB.csv"
+  pharm_miR <- .url_cache$get("pharmacomir")
   pharm_miR_db<-read.csv(pharm_miR,header = TRUE,stringsAsFactors=FALSE)
   pharm_miR_db$miRNA <- as.character(sub("miR-","hsa-miR-", pharm_miR_db$miRNA))
   pharm_miR_db$miRNA <- as.character(sub("let-","hsa-let-", pharm_miR_db$miRNA))
