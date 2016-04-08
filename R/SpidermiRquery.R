@@ -8,16 +8,18 @@ SpidermiRquery_species <- function(species) {
   site <- .url_cache$get("geneMania")
   site1<-.DownloadURL(site)
   site1<-site1[-1]
+  site1<-site1[-1]
   Tableorganism <- matrix(0, length(site1), 1)
   rownames(Tableorganism)<-paste("organism",c(1:length(site1)),sep="")
   colnames(Tableorganism) <- c("link")
   organism_2=list()
   for ( tbi in 1:nrow(Tableorganism)){
     organism <- site1[tbi]
-    qst_find_sitep <-gsub("<a href=","", as.matrix(unlist(strsplit(organism,">")))[1])
-    qst_find_site2_subp <- substr(qst_find_sitep,3,nchar(qst_find_sitep)-1)
-    organism_2[tbi]<-qst_find_site2_subp
-    newsite_tofind <- paste(site,qst_find_site2_subp,sep="")
+    #qst_find_sitep <-gsub("<a href=","", as.matrix(unlist(strsplit(organism,">")))[1])
+    qst_find_sitep <-gsub("</a","", as.matrix(unlist(strsplit(organism,">")))[1])
+    #qst_find_site2_subp <- substr(qst_find_sitep,3,nchar(qst_find_sitep)-1)
+    organism_2[tbi]<-qst_find_sitep
+    newsite_tofind <- paste(site,qst_find_sitep,sep="")
     Tableorganism[tbi,"link"] <- newsite_tofind
   }
   organismID<-gsub("/","",organism_2)
@@ -30,7 +32,8 @@ SpidermiRquery_species <- function(species) {
  # organismID  <- as.matrix(organismID)
   #colnames(organismID) <- "Species"
   tabOrgd<-tabOrgd[- grep("COMBINED", tabOrgd$Species),]
-  
+  tabOrgd<-as.data.frame(tabOrgd)
+  tabOrgd<-tabOrgd[- grep("README", tabOrgd$tabOrgd),]
   tabOrgd<-as.data.frame(tabOrgd)
   return(tabOrgd)
   
@@ -93,10 +96,11 @@ SpidermiRquery_spec_networks<-function(organismID,network) {
   vd<-list()
   Tableorganism<-paste(.url_cache$get("geneMania"),organismID,"/",sep="")
   Site_sec <- .DownloadURL(Tableorganism)
-  qst_find_sitep_sub<-gsub("<a href=","",Site_sec)
-  qst_find_site2_subp_sub <- substr(qst_find_sitep_sub,3,nchar(qst_find_sitep_sub)-1)
-  qst_find_site2_subp_sub<-qst_find_site2_subp_sub[-1]
-  newsite_tofind_sub_sub <- list(paste(Tableorganism,qst_find_site2_subp_sub,sep=""))
+  #qst_find_sitep_sub<-gsub("<a href=","",Site_sec)
+  qst_find_sitep <-gsub("</a","", as.matrix(unlist(strsplit(Site_sec,">"))))
+  #qst_find_site2_subp_sub <- substr(qst_find_sitep_sub,3,nchar(qst_find_sitep_sub)-1)
+  #qst_find_site2_subp_sub<-qst_find_site2_subp_sub[-1]
+  newsite_tofind_sub_sub <- list(paste(Tableorganism,qst_find_sitep,sep=""))
   mylist<-newsite_tofind_sub_sub
   for (i in 1:length(mylist)){
     mylist_gm<-mylist[i]

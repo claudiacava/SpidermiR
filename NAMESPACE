@@ -3,7 +3,6 @@
 export(SpidermiRanalyze_Community_detection)
 export(SpidermiRanalyze_Community_detection_bi)
 export(SpidermiRanalyze_Community_detection_net)
-export(SpidermiRanalyze_Community_detection_subnet)
 export(SpidermiRanalyze_degree_centrality)
 export(SpidermiRanalyze_direct_net)
 export(SpidermiRanalyze_direct_subnetwork)

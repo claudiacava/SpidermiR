@@ -73,6 +73,20 @@ references:
     year: 2006
 
 
+- id: ref6
+  title: Pharmaco miR linking microRNAs and drug effects.
+  author: 
+  - family: Rukov J, Wilentzik R, Jaffe I, Vinther J, Shomron N.
+    given:
+  journal: Briefings in Bioinformatics
+  volume: 15
+  number: 4
+  pages: 648-59
+  issued:
+    year: 2013
+
+
+
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
@@ -136,7 +150,7 @@ knitr::kable(org, digits = 2,
 
 ## `SpidermiRquery_networks_type`: Searching by network categories
 
-The user can query the network types supported by GeneMania for a specific specie, using the function `SpidermiRquery_networks_type`. The user can select a specific specie using an index obtained by the function `SpidermiRquery_species` (e.g. organismID=org[12,] is the input for Homo_sapiens)
+The user can query the network types supported by GeneMania for a specific specie, using the function `SpidermiRquery_networks_type`. The user can select a specific specie using an index obtained by the function `SpidermiRquery_species` (e.g. organismID=org[6,] is the input for Homo_sapiens)
 
 ```{r, eval = TRUE}
 net_type<-SpidermiRquery_networks_type(organismID=org[9,])
@@ -424,7 +438,7 @@ miRNA_complNET<-SpidermiRanalyze_mirna_gene_complnet(data=geneSymb_net,disease="
 biomark_of_interest<-read.delim("C:/Users/UserInLab05/Google Drive/MIRNA AND GENEMANIA/1 case study/deg_prostate.txt",header=FALSE)
 subnet<-SpidermiRanalyze_direct_subnetwork(data=miRNA_complNET,BI=biomark_of_interest$V1)
 comm2<-  SpidermiRanalyze_Community_detection(data=subnet,type="FC") 
-cd_net<-SpidermiRanalyze_Community_detection_subnet(data=subnet,comm_det=comm2,size=2)
+cd_net<-SpidermiRanalyze_Community_detection_net(data=subnet,comm_det=comm2,size=2)
 SpidermiRvisualize_mirnanet(data=cd_net)
 miRNA_NET<-SpidermiRanalyze_mirna_network(data=geneSymb_net,disease="prostate cancer")
 

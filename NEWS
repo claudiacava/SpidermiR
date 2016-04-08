@@ -19,5 +19,6 @@
 * SpidermiRanalyze_Community_detection	Find community detection.
 * SpidermiRanalyze_Community_detection_net	Find the network of community detection.
 * SpidermiRanalyze_Community_detection_bi	Community detection from biomarkers of interest.
+* SpidermiRanalyze_mirnanet_pharm	Integration of pharmacomiR in the network.
 * SpidermiRvisualize_mirnanet	Visualize Integration of direct gene network and direct-miRNA information.
 * SpidermiRvisualize_BI	Visualize the network from a set of biomarkers of interest.

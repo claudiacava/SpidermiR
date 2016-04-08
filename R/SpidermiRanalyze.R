@@ -428,26 +428,7 @@ SpidermiRanalyze_Community_detection<-function(data,type){
 
 
 
-#' @title Find the network of community detection
-#' @description SpidermiRanalyze_Community_detection_net find the direct interactions from a specific community
-#' @param data  SpidermiRanalyze_mirna_network output or SpidermiRanalyze_mirna_gene_complnet
-#' @param comm_det SpidermiRanalyze_Community_detection
-#' @param size the index of community detection obtained from SpidermiRanalyze_Community_detection
-#' @export
-#' @return dataframe with the interatcions
-#' @examples
-#' miRNA_cN <-data.frame(gA=c('hsa-let-7a','hsa-miR-300'),gB=c('FOXM1','KPNA4'),stringsAsFactors=FALSE)
-#' comm<-  SpidermiRanalyze_Community_detection(data=miRNA_cN,type="FC") 
-#' cd_net<-SpidermiRanalyze_Community_detection_subnet(data=miRNA_cN,comm_det=comm,size=1)
-SpidermiRanalyze_Community_detection_subnet<-function(data,comm_det,size){
-  colnames(data) <- c("gene_symbolA", "gene_symbolB")
-  #want to find the vertices in cluster 
-  if(is.data.frame(comm_det)!='TRUE'){
-    z<-as.data.frame(which(clusters(comm_det)$membership == size))
-    a<-rownames(z)
-    as<-SpidermiRanalyze_direct_subnetwork(data,a)
-    return(as)
-  }}
+
 
 
 

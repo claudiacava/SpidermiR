@@ -1,15 +1,14 @@
-
-
 #' @import utils
 #' @importFrom httr GET content stop_for_status
 .DownloadURL <-
-  function(Site_g){
-    response <- GET(Site_g)
+  function(site){
+    response <- GET(site)
     stop_for_status(response)
     x<-content(response,"text")
     x <- unlist(strsplit(x,"\n"))
     xi <- x[grep("href", x)]
-    x = sapply(strsplit(xi, ">"), function(y) y[2])
+    x <- sapply(strsplit(xi, "href"), function(y) y[2])
+    x <- sapply(strsplit(x, ">"), function(y) y[2])
     return(x)
   }
 
