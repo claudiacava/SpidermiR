@@ -222,7 +222,7 @@ str(out_net)
 The user can download Pharmaco-miR Verified Sets from PharmacomiR database [@ref6].
 
 ```{r, eval = TRUE}
-mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir)
+mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)
 ```
 
 
@@ -279,7 +279,7 @@ miRNA_complNET<-SpidermiRanalyze_mirna_gene_complnet(data=geneSymb_net,disease="
 The user in this step can integrate the pharmacomiR database in order to link miRNA and drug effect in a specific network.
 
 ```{r, eval = FALSE}
-mir_pharmnet<-SpidermiRanalyze_mirnanet_pharm(mir_ph=mir_pharmaco,miRNA_NET)
+mir_pharmnet<-SpidermiRanalyze_mirnanet_pharm(mir_ph=mir_pharmaco,net=miRNA_NET)
 ```
 
 

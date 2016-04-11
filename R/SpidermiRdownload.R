@@ -26,7 +26,7 @@ SpidermiRdownload_net <- function(data){
 #' @export
 #' @return a dataframe with gene-drug, and miR-gene associations
 #' @examples
-#' mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir)
+#' mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)
 SpidermiRdownload_pharmacomir<-function(pharmacomir){
   # querying Pharmaco-miR database (Pharmaco-miR validated interaction)
   pharm_miR <- .url_cache$get("pharmacomir")
