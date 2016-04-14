@@ -114,7 +114,7 @@ However, our understanding of the processes regulated by miRNAs is currently lim
 `SpidermiR` allows the user to query, prepare, download network data (e.g. from GeneMania), and to integrate this information with miRNA data 
 with the possibility to analyze 
 these downloaded data directly in one single R package. 
-This document gives a short overview of the essential `SpidermiR` methods and their application. 
+This techincal report gives a short overview of the essential `SpidermiR` methods and their application. 
 
 
 # Installation
