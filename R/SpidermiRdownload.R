@@ -23,10 +23,11 @@ SpidermiRdownload_net <- function(data){
 #' @title Download both miRNA target and the gene-drug interaction from PharmacomiR database
 #' @description SpidermiRdownload_pharmacomir will download miRNA Pharmacogenomic data
 #' @param pharmacomir variable
-#' @export
-#' @return a dataframe with gene-drug, and miR-gene associations
 #' @examples
 #' mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)
+#' @export
+#' @import stats
+#' @return a dataframe with gene-drug, and miR-gene associations
 SpidermiRdownload_pharmacomir<-function(pharmacomir){
   # querying Pharmaco-miR database (Pharmaco-miR validated interaction)
   pharm_miR <- .url_cache$get("pharmacomir")
