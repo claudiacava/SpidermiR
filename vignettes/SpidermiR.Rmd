@@ -141,7 +141,7 @@ The user can query the species supported by GeneMania, using the function Spider
 org<-SpidermiRquery_species(species)
 ```
 
-The list of species is show below:
+The list of species is shown below:
 ```{r, eval = TRUE, echo = FALSE}
 knitr::kable(org, digits = 2,
              caption = "List of species",row.names = TRUE)
@@ -156,7 +156,7 @@ The user can query the network types supported by GeneMania for a specific speci
 net_type<-SpidermiRquery_networks_type(organismID=org[9,])
 ```
 
-The list of network categories in Saccharomyces cerevisiae is show below:
+The list of network categories in Saccharomyces cerevisiae is shown below:
 
 ```{r, eval = TRUE, echo = FALSE}
 net_type
@@ -181,7 +181,7 @@ net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[9,],
                                     network = "SHpd")
 ```
 
-The databases, which data are collected, are the output of this step. An example is show below ( for Shared protein domains in Saccharomyces_cerevisiae data are collected in INTERPRO, and PFAM):
+The databases, which data are collected, are the output of this step. An example is shown below ( for Shared protein domains in Saccharomyces_cerevisiae data are collected in INTERPRO, and PFAM):
 ```{r, eval = TRUE, echo = FALSE}
 net_shar_prot
 ```
@@ -212,7 +212,7 @@ out_net<-SpidermiRdownload_net(net_shar_prot)
 ```
 
 
-The list of SpidermiRdownload_net is show below:
+The list of SpidermiRdownload_net is shown below:
 ```{r, eval = TRUE, echo = FALSE}
 str(out_net)
 ```
@@ -247,7 +247,7 @@ geneSymb_net<-SpidermiRprepare_NET(organismID = org[9,],
                                     data = out_net)
 ```
 
-The network with gene symbols ID is show below:
+The network with gene symbols ID is shown below:
 ```{r, eval = TRUE, echo = FALSE}
 knitr::kable(geneSymb_net[[1]][1:5,c(1,2,3,5,8)], digits = 2,
              caption = "shared protein domain",row.names = FALSE)
@@ -265,7 +265,7 @@ The miRNA network can be filtered by disease using the name of the disease, as o
 miRNA_NET<-SpidermiRanalyze_mirna_network(data=geneSymb_net,disease="prostate cancer",miR_trg="val")
 ```
 
-The list of miRNA network is show below:
+The list of miRNA network is shown below:
 ```{r, eval = TRUE, echo = FALSE}
 str(miRNA_NET)
 ```
@@ -321,7 +321,7 @@ biomark_of_interest<-c("hsa-miR-214","PTEN","FOXO1","hsa-miR-27a")
 GIdirect_net<-SpidermiRanalyze_direct_net(data=miRNA_NET,BI=biomark_of_interest)
 ```
 
-The data frame of `SpidermiRanalyze_direct_net`, GIdirect_net, is show below:
+The data frame of `SpidermiRanalyze_direct_net`, GIdirect_net, is shown below:
 ```{r, eval = TRUE, echo = FALSE}
 str(GIdirect_net)
 ```
