@@ -47,3 +47,47 @@ SpidermiRdownload_pharmacomir<-function(pharmacomir){
   #SpidermiRvisualize_mirnanet(data=pmir_c)
 }
 
+
+#' @title Download miRNA validated database
+#' @description SpidermiRdownload_miRNAprediction will download miRNA validated target
+#' @param mirna_list miRNA list of interest
+#' @examples
+#' mirna<-c('hsa-miR-567','hsa-miR-566')
+#' list<-SpidermiRdownload_miRNAprediction(mirna_list=mirna)
+#' @export
+#' @import stats
+#' @import org.Hs.eg.db
+#' @import miRNAtap.db
+#' @importFrom miRNAtap getPredictedTargets 
+#' @importFrom org.Hs.eg.db org.Hs.egSYMBOL2EG
+#' @importFrom AnnotationDbi mappedkeys as.list
+#' @return a dataframe with miRNA target validated interactions
+SpidermiRdownload_miRNAprediction<-function(mirna_list){
+  dop=list()
+  for (k in  1:length(mirna_list)){
+    targets <- getPredictedTargets(mirna_list[k],species='hsa', method ='geom')
+    dop[[k]]<-targets
+    names(dop)[[k]]<-mirna_list[k]
+  }
+  x <- org.Hs.egSYMBOL2EG
+  mapped_genes <- mappedkeys(x)
+  xx <- as.list(x[mapped_genes])
+  top <- matrix(0, length(xx), length(dop))
+  rownames(top) <- names(xx)
+  colnames(top)<- names(dop)
+  #j=39
+  #k=1
+  for (j in  1:length(xx)){
+    for (k in  1:length(dop)){
+      if (length(intersect(xx[[j]],rownames(dop[[k]]))!=0)){
+        #print (j)
+        top[j,k]<-names(xx[j])
+      }
+    }  
+  }
+  top[top == 0] <- NA
+  top[apply(top,1,function(x)any(!is.na(x))),]
+  top<-t(top)
+  return(top)
+}
+

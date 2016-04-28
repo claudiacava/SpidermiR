@@ -2,13 +2,16 @@
 #' @description SpidermiRanalyze_mirna_network creates a data frame with miRNA gene interaction. The user can filter the search by disease.
 #' @param data  SpidermiRprepare_NET output
 #' @param disease miRNA gene interaction can be filtered by disease using the parameters obatined from SpidermiRquery_disease
+#' @param miR_trg a parameter to indicate miRNA target database used. The user can use: 1) validated database (val) or 2) predicted database (pred)
+#' @param mirna_t a list given by the user with miRNA list of interest
 #' @export
 #' @import stats
 #' @return dataframe with miRNA gene interaction data
 #' @examples
 #' GS_net <- data.frame(gA=c('SMAD','MYC'),gB=c('FOXM1','KRAS'),stringsAsFactors=FALSE)
-#' miRNA_NET<-SpidermiRanalyze_mirna_network(data=GS_net,disease="prostate cancer")
-SpidermiRanalyze_mirna_network<-function(data,disease=NULL){
+#' miRNA_NET<-SpidermiRanalyze_mirna_network(data=GS_net,disease="prostate cancer",miR_trg="val")
+SpidermiRanalyze_mirna_network<-function(data,miR_trg,mirna_t=NULL,disease=NULL){
+  if( miR_trg=="val"){
   # querying miRtar database (validated interaction miRNA-gene)
   site_mir2disease<-.url_cache$get("miRtar")
   mir2disease<-read.delim(site_mir2disease,header = FALSE,quote = "",stringsAsFactors=FALSE)
@@ -18,41 +21,39 @@ SpidermiRanalyze_mirna_network<-function(data,disease=NULL){
   sx<-unz(temp,"hsa-vtm-gene.rdata.Rdata")
   load(sx)
   id<-t(sapply(id, '[', 1:max(sapply(id, length)))) 
-  se=list()
-  for (j in 1:nrow(id)){
-    az<-id[j,]
-    de<-as.data.frame(az)
-    de[,2]<-rep(rownames(id)[j],length(de))
-    de<-de[complete.cases(de),]
-    se[[j]]<-de
-  }
-  ds<-do.call("rbind", se)
-  ds<-ds[c(2,1)]
-  # merging miRtar and miRNA walk information
-  colnames(ds) <- c("V1", "V2")
+  se<-int(id)
+ # merging miRtar and miRNA walk information
   mir2disease$V3<-NULL
   mir2disease$V4<-NULL
-  mir2disease<-rbind(mir2disease,ds)
+  mir2disease<-rbind(mir2disease,se)
+  }
+  if( miR_trg=="pred"){
+    a<-SpidermiRdownload_miRNAprediction(mirna_t)
+    mir2disease<-int(a)
+  }
   #for the disease
   all_entries<-.url_cache$get("miR2Disease")
   disease_ref<-read.delim(all_entries,header = FALSE,quote = "",stringsAsFactors=FALSE)
   #FIND MIRNA LINK TO A PARTICULAR DISEASE
   if( !is.null(disease) ){
       AZXC<-disease_ref[disease_ref$V2==disease,]
+      trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+      AZXC$V1<-trim(AZXC$V1)
+      am<-match(mir2disease$V1,AZXC$V1)
+      st3 <- cbind( mir2disease, AZXC[am,] )
+      ASWQ<-na.omit(st3)
+      ASWQ<-as.data.frame(ASWQ[!duplicated(ASWQ), ]) 
+      if (length(ASWQ)==0){
+        print("there are not miRNAs linked in this disease")
+      }
   }
   if (is.null(disease)) {
-    AZXC<-disease_ref
+    ASWQ<-mir2disease
   }
   #rownames(AZXC)<-AZXC$V1
-  trim <- function (x) gsub("^\\s+|\\s+$", "", x)
-  AZXC$V1<-trim(AZXC$V1)
-  am<-match(mir2disease$V1,AZXC$V1)
-  st3 <- cbind( mir2disease, AZXC[am,] )
-  ASWQ<-na.omit(st3)
-  ASWQ<-as.data.frame(ASWQ[!duplicated(ASWQ), ]) 
   vd<-list()
   if(is.data.frame(data)=='FALSE'){
-  data<-do.call("rbind", data)
+    data<-do.call("rbind", data)
   }
   data<-as.data.frame(data[!duplicated(data), ]) 
   if(ncol(data)==2){
@@ -87,13 +88,16 @@ SpidermiRanalyze_mirna_network<-function(data,disease=NULL){
 #' @description SpidermiRanalyze_mirna_gene_complnet creates a data frame with miRNA target gene interaction. The user can filter the search by disease.
 #' @param data SpidermiRprepare_NET output
 #' @param disease miRNA target gene interaction can be filtered by disease using the parameters obatined from SpidermiRquery_disease
+#' @param miR_trg a parameter to indicate miRNA target database used. The user can use: 1) validated database (val) or 2) predicted database (pred)
+#' @param mirna_t a list given by the user with miRNA list of interest
 #' @export
 #' @import stats
 #' @return dataframe with miRNA target gene interaction data
 #' @examples
 #' GS_net <- data.frame(gA=c('SMAD','MYC'),gB=c('FOXM1','KRAS'),stringsAsFactors=FALSE)
-#' miRNA_cNT<-SpidermiRanalyze_mirna_gene_complnet(data=GS_net,disease="prostate cancer")
-SpidermiRanalyze_mirna_gene_complnet<-function(data,disease=NULL){
+#' miRNA_cNT<-SpidermiRanalyze_mirna_gene_complnet(data=GS_net,disease="prostate cancer",miR_trg="val")
+SpidermiRanalyze_mirna_gene_complnet<-function(data,miR_trg,mirna_t=NULL,disease=NULL){
+  if( miR_trg=="val"){
   # querying miRtar database (validated interaction miRNA-gene)
   site_mir2disease<-.url_cache$get("miRtar")
   mir2disease<-read.delim(site_mir2disease,header = FALSE,quote = "",stringsAsFactors=FALSE)
@@ -103,38 +107,41 @@ SpidermiRanalyze_mirna_gene_complnet<-function(data,disease=NULL){
   sx<-unz(temp,"hsa-vtm-gene.rdata.Rdata")
   load(sx)
   id<-t(sapply(id, '[', 1:max(sapply(id, length)))) 
-  se=list()
-  for (j in 1:nrow(id)){
-    az<-id[j,]
-    de<-as.data.frame(az)
-    de[,2]<-rep(rownames(id)[j],length(de))
-    de<-de[complete.cases(de),]
-    se[[j]]<-de
-  }
-  ds<-do.call("rbind", se)
-  ds<-ds[c(2,1)]
+  
+  se<-int(id)
+  
   # merging miRtar and miRNA walk information
-  colnames(ds) <- c("V1", "V2")
   mir2disease$V3<-NULL
   mir2disease$V4<-NULL
-  mir2disease<-rbind(mir2disease,ds)
+  mir2disease<-rbind(mir2disease,se)
+  
+  }
+  
+  if( miR_trg=="pred"){
+    a<-SpidermiRdownload_miRNAprediction(mirna_t)
+    mir2disease<-int(a)
+  }
+  
   #for the disease
   all_entries<-.url_cache$get("miR2Disease")
   disease_ref<-read.delim(all_entries,header = FALSE,quote = "",stringsAsFactors=FALSE)
   #FIND MIRNA LINK TO A PARTICULAR DISEASE
-  if(!is.null(disease)){
-      AZXC<-disease_ref[disease_ref$V2==disease,]
+  if( !is.null(disease) ){
+    AZXC<-disease_ref[disease_ref$V2==disease,]
+    trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+    AZXC$V1<-trim(AZXC$V1)
+    am<-match(mir2disease$V1,AZXC$V1)
+    st3 <- cbind( mir2disease, AZXC[am,] )
+    ASWQ<-na.omit(st3)
+    ASWQ<-as.data.frame(ASWQ[!duplicated(ASWQ), ]) 
+    if (length(ASWQ)==0){
+      print("there are not miRNAs linked in this disease")
     }
+  }
   if (is.null(disease)) {
-    AZXC<-disease_ref
-  }  
-  trim <- function (x) gsub("^\\s+|\\s+$", "", x)
-  AZXC$V1<-trim(AZXC$V1)
-  am<-match(mir2disease$V1,AZXC$V1)
-  st3 <- cbind( mir2disease, AZXC[am,] )
-  ASWQ<-na.omit(st3)
-  ASWQ<-as.data.frame(ASWQ[!duplicated(ASWQ), ]) 
-  list_network_mirna<-list()
+    ASWQ<-mir2disease
+  }
+list_network_mirna<-list()
   vd<-list()
   vdb<-list()
   if(is.data.frame(data)=='FALSE'){
@@ -156,8 +163,7 @@ SpidermiRanalyze_mirna_gene_complnet<-function(data,disease=NULL){
     vdb[[j]]<-deb
     #print(paste(" Download genes n. ", j," ",ASWQ$V2[j], " and miRNAs ",ASWQ$V1[j], " of ",length(ASWQ$V2), sep = ""))
   }
-  
-  ds<-do.call("rbind", vd)
+ ds<-do.call("rbind", vd)
   dsb<-do.call("rbind", vdb)
   dat<-cbind(ds$miRNASyA,ds$gene_symbolA)
   dat2<-cbind(ds$gene_symbolA,ds$gene_symbolB)

@@ -61,6 +61,22 @@
     })
 })
 
+#internal function 
+int<-function(at){
+  se2=list()
+  for (j in 1:nrow(at)){
+    az<-at[j,]
+    de<-as.data.frame(az)
+    de[,2]<-rep(rownames(at)[j],length(de))
+    de<-de[complete.cases(de),]
+    se2[[j]]<-de
 
-
+  }
+  ds<-do.call("rbind", se2)
+  ds<-ds[c(2,1)]
+  # merging miRtar and miRNA walk information
+  colnames(ds) <- c("V1", "V2")
+  
+  return(ds)
+}
 

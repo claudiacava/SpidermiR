@@ -137,7 +137,7 @@ The user can query the species supported by GeneMania, using the function Spider
 
 
 ```{r, eval = TRUE}
-library(httr)
+
 org<-SpidermiRquery_species(species)
 ```
 
@@ -217,6 +217,14 @@ The list of SpidermiRdownload_net is show below:
 str(out_net)
 ```
 
+## `SpidermiRdownload_miRNAprediction`: Downloading miRNA predicted data target
+The user can download the miRNA predicted data target from 4 database:DIANA, Miranda, PicTar and TargetScan 
+
+```{r, eval = FALSE}
+mirna<-c('hsa-miR-567','hsa-miR-566')
+SpidermiRdownload_miRNAprediction(mirna_list=mirna)
+```
+
 
 ## `SpidermiRdownload_pharmacomir`: Download Pharmaco-miR Verified Sets from PharmacomiR database
 The user can download Pharmaco-miR Verified Sets from PharmacomiR database [@ref6].
@@ -254,7 +262,7 @@ The miRNA network can be filtered by disease using the name of the disease, as o
 
 
 ```{r, eval = TRUE}
-miRNA_NET<-SpidermiRanalyze_mirna_network(data=geneSymb_net,disease="prostate cancer")
+miRNA_NET<-SpidermiRanalyze_mirna_network(data=geneSymb_net,disease="prostate cancer",miR_trg="val")
 ```
 
 The list of miRNA network is show below:
@@ -271,7 +279,7 @@ The miRNA network can be filtered by disease using the name of the disease, as o
 
 
 ```{r, eval = FALSE}
-miRNA_complNET<-SpidermiRanalyze_mirna_gene_complnet(data=geneSymb_net,disease="prostate cancer")
+miRNA_complNET<-SpidermiRanalyze_mirna_gene_complnet(data=geneSymb_net,disease="prostate cancer",miR_trg="val")
 ```
 
 
