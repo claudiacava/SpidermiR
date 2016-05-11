@@ -2,13 +2,8 @@ Package: SpidermiR
 Type: Package
 Title: SpidermiR: An R/Bioconductor package for integrative network analysis
     with miRNA data
-<<<<<<< .mine
 Version: 1.1.1
 Date: 05-11-2016
-=======
-Version: 1.1.0
-Date: 04-28-2016
->>>>>>> .r117300
 Author: Claudia Cava,
     Antonio Colaprico,
     Alex Graudenzi,
