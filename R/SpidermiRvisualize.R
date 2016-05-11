@@ -103,3 +103,31 @@ SpidermiRvisualize_BI<-function(data,BI){
 
 
 
+#' @title Visualize results obtained by SpidermiRanalyze_mirna_network 
+#' @description It shows a plot with miRNAs and the number of their targets in the network
+#' @param miRnet The input data is a dataframe containing miRNA network data (e.g. output of SpidermiRanalyze_mirna_network.
+#' @examples 
+#' cd<-data.frame(gA=c('hsa-let-7a','hsa-miR-141'),gB=c('FOXM1','CDK'),stringsAsFactors=FALSE)
+#' SpidermiRvisualize_plot_target(miRnet=cd)
+#' @importFrom ggplot2 ggplot 
+#' @importFrom ggplot2 aes 
+#' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 element_text
+#' @importFrom ggplot2 coord_flip
+#' @importFrom ggplot2 theme
+#' @importFrom gridExtra grid.arrange
+#' @export
+#' @return plot
+SpidermiRvisualize_plot_target<-function(miRnet){
+p<-table(miRnet[,1])
+as<-as.data.frame(p)
+D<-as[order(as$Freq,decreasing=TRUE),]
+names(D)[1]<-"miRNAs"
+names(D)[2]<-"miRNAs_target"
+D$miRNAs<-factor(D$miRNAs, levels=D[order(D$miRNAs_target),"miRNAs"])
+
+
+return(grid.arrange(ggplot(D, aes(x = miRNAs, y = miRNAs_target)) + geom_bar(stat = "identity")+ coord_flip(),ncol=2) + theme(axis.title.x = element_text(face="bold", size=16),
+          axis.text.x  = element_text(angle=360, vjust=0.5, size=16),axis.title.y = element_text(face="bold", size=16),
+          axis.text.y  = element_text(angle=360, vjust=0.5, size=16)))
+}

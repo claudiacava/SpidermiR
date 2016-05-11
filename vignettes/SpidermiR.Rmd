@@ -286,7 +286,7 @@ miRNA_complNET<-SpidermiRanalyze_mirna_gene_complnet(data=geneSymb_net,disease="
 ## `SpidermiRanalyze_mirnanet_pharm`: Integration of pharmacomiR in the network
 The user in this step can integrate the pharmacomiR database in order to link miRNA and drug effect in a specific network.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 mir_pharmnet<-SpidermiRanalyze_mirnanet_pharm(mir_ph=mir_pharmaco,net=miRNA_NET)
 ```
 
@@ -408,9 +408,8 @@ The user can easily visualize network data.
 
 ```{r, eval = TRUE}
 library(networkD3)
-miRNA_complNET <-data.frame(gA=c('hsa-let-7a','hsa-miR-141','hsa-miR-300','FOXM1','hsa-let-7a','IMP1','hsa-let-7'),gB=c('FOXM1','CDK','KPNA4','FOXO1','CDK','taxol','IMP1'),stringsAsFactors=FALSE)
 
-SpidermiRvisualize_mirnanet(data=miRNA_complNET)
+SpidermiRvisualize_mirnanet(data=mir_pharmnet[sample(nrow(mir_pharmnet), 150), ] )
 ```
 
 ## `SpidermiRvisualize_BI`: Visualize the network from a set of biomarkers of interest. 
@@ -418,12 +417,18 @@ SpidermiRvisualize_mirnanet(data=miRNA_complNET)
 The user can visualize  results obtained by SpidermiR analysis starting form a set of biomarker of interest
 
 ```{r, eval = TRUE}
-miRNA_complNET <-data.frame(gA=c('hsa-let-7a','hsa-miR-141','hsa-miR-300','FOXM1','hsa-let-7a'),gB=c('FOXM1','CDK','KPNA4','FOXO1','CDK'),stringsAsFactors=FALSE)
-biomark_of_interest<-c("hsa-let-7a","CDK","FOXO1","hsa-miR-27a")
-SpidermiRvisualize_BI(data=miRNA_complNET,BI=biomark_of_interest)
 
+biomark_of_interest<-c("hsa-let-7b","MUC1","PEX7","hsa-miR-222")
+SpidermiRvisualize_BI(data=miRNA_NET,BI=biomark_of_interest)
 ```
 
+## `SpidermiRvisualize_plot_target`: Visualize the network from a set of biomarkers of interest. 
+The user can Visualize results obtained by `SpidermiRanalyze_mirna_network` showing a plot with miRNAs and the number of their targets in the network.
+
+```{r, eval = TRUE}
+
+SpidermiRvisualize_plot_target(miRnet=miRNA_NET)
+```
 
 
 # SpidermiR Downstream Analysis: Case Study
