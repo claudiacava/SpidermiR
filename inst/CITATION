@@ -16,7 +16,6 @@ citEntry(entry = "Article",
          ),
          journal = "manuscript in preparation",
          year         = "2016",
-         journal      = "",
          textVersion  =
              paste("Claudia Cava, Antonio Colaprico, Alex Graudenzi,",
                    "Gloria Bertoli, Tiago C. Silva, Catharina Olsen,Houtan Noushmehr, Gianluca Bontempi, Giancarlo Mauri,",
@@ -25,3 +24,18 @@ citEntry(entry = "Article",
     miRNA data.")
 )
 
+citEntry(entry = "Article",
+         title        = "Integrating genetics and epigenetics in
+breast cancer: biological insights, experimental, computational methods and
+therapeutic potential.",
+         author       = personList(as.person("Claudia Cava"),
+                                   as.person("Gloria Bertoli"),
+                                   as.person("Isabella Castiglioni")
+         ),
+         journal = "BMC Syst Biol",
+         year         = "2015",
+         textVersion  =
+             paste("Cava C, Bertoli G, Castiglioni I. Integrating genetics and epigenetics in
+breast cancer: biological insights, experimental, computational methods and
+therapeutic potential. BMC Syst Biol.2015;9:62")
+)

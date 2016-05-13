@@ -22,3 +22,5 @@
 * SpidermiRanalyze_mirnanet_pharm	Integration of pharmacomiR in the network.
 * SpidermiRvisualize_mirnanet	Visualize Integration of direct gene network and direct-miRNA information.
 * SpidermiRvisualize_BI	Visualize the network from a set of biomarkers of interest.
+* SpidermiRvisualize_plot_target Visualize the plot with miRNAs and the number of their targets in the network. 
+
