@@ -422,7 +422,7 @@ biomark_of_interest<-c("hsa-let-7b","MUC1","PEX7","hsa-miR-222")
 SpidermiRvisualize_BI(data=miRNA_NET,BI=biomark_of_interest)
 ```
 
-## `SpidermiRvisualize_plot_target`: Visualize plot with miRNAs and the number of their targets in the network. 
+## `SpidermiRvisualize_plot_target`: Visualize the plot with miRNAs and the number of their targets in the network. 
 The user can Visualize results obtained by `SpidermiRanalyze_mirna_network` showing a plot with miRNAs and the number of their targets in the network.
 
 ```{r, eval = TRUE}

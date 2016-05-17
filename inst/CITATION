@@ -34,6 +34,8 @@ therapeutic potential.",
          ),
          journal = "BMC Syst Biol",
          year         = "2015",
+		 	volume = 9,
+	number = 62,
          textVersion  =
              paste("Cava C, Bertoli G, Castiglioni I. Integrating genetics and epigenetics in
 breast cancer: biological insights, experimental, computational methods and
