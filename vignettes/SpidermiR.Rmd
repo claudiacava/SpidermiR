@@ -224,6 +224,12 @@ The user can download the miRNA predicted data target from 4 database:DIANA, Mir
 mirna<-c('hsa-miR-567','hsa-miR-566')
 SpidermiRdownload_miRNAprediction(mirna_list=mirna)
 ```
+## `SpidermiRdownload_miRNAvalidate`: Downloading miRNA validated data target
+The user can download the miRNA validated data target from: miRTAR and miRwalk. 
+
+```{r, eval = FALSE}
+list<-SpidermiRdownload_miRNAvalidate(validated)
+```
 
 
 ## `SpidermiRdownload_pharmacomir`: Download Pharmaco-miR Verified Sets from PharmacomiR database

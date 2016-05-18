@@ -48,8 +48,8 @@ SpidermiRdownload_pharmacomir<-function(pharmacomir){
 }
 
 
-#' @title Download miRNA validated database
-#' @description SpidermiRdownload_miRNAprediction will download miRNA validated target
+#' @title Download miRNA predicted database
+#' @description SpidermiRdownload_miRNAprediction will download miRNA predicted target
 #' @param mirna_list miRNA list of interest
 #' @examples
 #' mirna<-c('hsa-miR-567','hsa-miR-566')
@@ -89,5 +89,33 @@ SpidermiRdownload_miRNAprediction<-function(mirna_list){
   top[apply(top,1,function(x)any(!is.na(x))),]
   top<-t(top)
   return(top)
+}
+
+
+
+#' @title Download miRNA validated database
+#' @description SpidermiRdownload_miRNAprediction will download miRNA validated target
+#' @param mirna_list miRNA list of interest
+#' @examples
+#' list<-SpidermiRdownload_miRNAvalidate(validated)
+#' @export
+#' @import stats
+#' @return a dataframe with miRNA target validated interactions
+SpidermiRdownload_miRNAvalidate<-function(validated){
+    # querying miRtar database (validated interaction miRNA-gene)
+    site_mir2disease<-.url_cache$get("miRtar")
+    mir2disease<-read.delim(site_mir2disease,header = FALSE,quote = "",stringsAsFactors=FALSE)
+    # querying miRNA WALK database (validated interaction miRNA-gene)
+    temp <- tempfile()
+    download.file(.url_cache$get("miRwalk"),temp)
+    sx<-unz(temp,"hsa-vtm-gene.rdata.Rdata")
+    load(sx)
+    id<-t(sapply(id, '[', 1:max(sapply(id, length)))) 
+    se<-int(id)
+    # merging miRtar and miRNA walk information
+    mir2disease$V3<-NULL
+    mir2disease$V4<-NULL
+    mir_validated_targe<-rbind(mir2disease,se)
+    return(mir_validated_targe)
 }
 
