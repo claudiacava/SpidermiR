@@ -1,0 +1,465 @@
+---
+title: "Working with SpidermiR package_pdf"
+author: "Claudia Cava, Antonio Colaprico, Alex Graudenzi, Gloria Bertoli,Tiago C. Silva,Catharina Olsen,Houtan Noushmehr, Gianluca Bontempi, Giancarlo Mauri, Isabella Castiglioni"
+date: "`r Sys.Date()`"
+output: pdf_document
+
+
+
+references:
+- id: ref1
+  title: The Gene Mania prediction server biological network integration for gene prioritization and predicting gene function
+  author: 
+  - family:  Warde-Farley D, Donaldson S, Comes O, Zuberi K, Badrawi R, and others
+    given:
+  journal: Nucleic Acids Res.
+  volume: 38
+  number: 2
+  pages: 214-220
+  issued:
+    year: 2010
+
+- id: ref2
+  title: miR2Disease a manually curated database for microRNA deregulation in human disease. 
+  author: 
+  - family: Jiang Q, Wang Y, Hao Y, Juan L, Teng M, Zhang X, Li M, Wang G, Liu Y.
+    given:
+  journal: Nucleic Acids Res.
+  volume: 37
+  number: 1
+  pages: 98-104
+  issued:
+    year: 2009
+
+
+- id: ref3
+  title: miRWalk - database prediction of possible miRNA binding sites by "walking" the genes of 3 genomes.
+  author: 
+  - family: Dweep H, Sticht C, Pandey P, Gretz N.
+    given:
+  journal: Journal of Biomedical Informatics
+  volume: 44
+  number: 1
+  pages: 839-7
+  issued:
+    year: 2011
+
+- id: ref4
+  title: miRandola Extracellular Circulating microRNAs Database.
+  author: 
+  - family: Russo F, Di Bella S, Nigita G, Macca V, Lagana A, Giugno R, Pulvirenti A, Ferro A.
+    given:
+  journal: PLoS ONE
+  volume: 7
+  number: 10
+  pages: e47786
+  issued:
+    year: 2012
+
+- id: ref5
+  title: The igraph software package for complex network research.
+  author: 
+  - family: Csardi G, Nepusz T.
+    given:
+  journal: InterJournal
+  volume: Complex Systems
+  number: 
+  pages: 1695
+  issued:
+    year: 2006
+
+
+- id: ref6
+  title: Pharmaco miR linking microRNAs and drug effects.
+  author: 
+  - family: Rukov J, Wilentzik R, Jaffe I, Vinther J, Shomron N.
+    given:
+  journal: Briefings in Bioinformatics
+  volume: 15
+  number: 4
+  pages: 648-59
+  issued:
+    year: 2013
+
+
+vignette: >
+    %\VignetteIndexEntry{SpidermiR_pdf}}
+    %\VignetteEngine{knitr::rmarkdown}
+    \usepackage[utf8]{inputenc}
+---
+
+# Introduction 
+
+Biological systems are composed of multiple layers of dynamic interaction networks. These networks can be decomposed, for example, into: co-expression, physical, co-localization, genetic, pathway, and shared protein domains.
+
+GeneMania provides us with an enormous collection of data sets for interaction network studies [@ref1]. The data can be accessed and downloaded from different database, using a web portal.  But currently, there is not a R-package to query and download these data.
+
+An important regulatory mechanism of these network data involves microRNAs (miRNAs). miRNAs are involved in various cellular functions, such as differentiation, proliferation, and tumourigenesis. 
+However, our understanding of the processes regulated by miRNAs is currently limited and the integration of miRNA data in these networks provides a comprehensive genome-scale analysis of miRNA regulatory networks.Actually, GeneMania doesn't integrate the information of miRNAs and their interactions in the network.
+
+`SpidermiR` allows the user to query, prepare, download network data (e.g. from GeneMania), and to integrate this information with miRNA data 
+with the possibility to analyze 
+these downloaded data directly in one single R package. 
+This techincal report gives a short overview of the essential `SpidermiR` methods and their application. 
+
+
+# Installation
+
+To install use the code below.
+
+```{r, eval = FALSE}
+source("https://bioconductor.org/biocLite.R")
+biocLite("SpidermiR")
+```
+
+
+
+# `SpidermiRquery`: Searching network 
+
+
+You can easily search GeneMania data using the `SpidermiRquery` function.
+
+
+## `SpidermiRquery_species`: Searching by species
+The user can query the species supported by GeneMania, using the function SpidermiRquery_species:
+
+
+```{r, eval = TRUE}
+
+org<-SpidermiRquery_species(species)
+```
+
+The list of species is shown below:
+```{r, eval = TRUE, echo = TRUE}
+knitr::kable(org, digits = 2,
+             caption = "List of species",row.names = TRUE)
+```
+
+
+## `SpidermiRquery_networks_type`: Searching by network categories
+
+The user can query the network types supported by GeneMania for a specific specie, using the function `SpidermiRquery_networks_type`. The user can select a specific specie using an index obtained by the function `SpidermiRquery_species` (e.g. organismID=org[6,] is the input for Homo_sapiens)
+
+```{r, eval = TRUE}
+net_type<-SpidermiRquery_networks_type(organismID=org[9,])
+```
+
+The list of network categories in Saccharomyces cerevisiae is shown below:
+
+```{r, eval = TRUE, echo = TRUE}
+net_type
+```
+
+
+## `SpidermiRquery_spec_networks`: Searching by species, and network categories
+You can filter the search by species using organism ID (above reported), and the network category.
+The network category can be filtered using the following parameters: 
+
+* **COexp** Co-expression 
+* **PHint** Physical_interactions 
+* **COloc**  Co-localization 
+* **GENint** Genetic_interactions 
+* **PATH** Pathway 
+* **SHpd**  Shared_protein_domains 
+
+
+```{r, eval = TRUE}
+
+net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[9,],
+                                    network = "SHpd")
+```
+
+The databases, which data are collected, are the output of this step. An example is shown below ( for Shared protein domains in Saccharomyces_cerevisiae data are collected in INTERPRO, and PFAM):
+```{r, eval = TRUE, echo = TRUE}
+net_shar_prot
+```
+
+
+## `SpidermiRquery_disease`: Searching by miRNA-disease 
+
+The user can visualize the disease supported by SpidermiR, in order to focus only on miRNAs have already studied in a particular disease (retrieving data from miR2Disease [@ref2]).
+
+```{r, eval = FALSE}
+disease<-SpidermiRquery_disease(diseaseID)
+```
+
+
+
+# `SpidermiRdownload`: Downloading network data
+The user in this step can download the data, as previously queried.
+
+## `SpidermiRdownload_net`: Download network
+The user can download the data (previously queried) with `SpidermiRdownload_net`.
+
+```{r, eval = TRUE}
+out_net<-SpidermiRdownload_net(net_shar_prot)
+```
+
+
+
+## `SpidermiRdownload_miRNAprediction`: Downloading miRNA predicted data target
+The user can download the miRNA predicted data target from 4 database:DIANA, Miranda, PicTar and TargetScan 
+
+```{r, eval = FALSE}
+mirna<-c('hsa-miR-567','hsa-miR-566')
+SpidermiRdownload_miRNAprediction(mirna_list=mirna)
+```
+## `SpidermiRdownload_miRNAvalidate`: Downloading miRNA validated data target
+The user can download the miRNA validated data target from: miRTAR and miRwalk. 
+
+```{r, eval = FALSE}
+list<-SpidermiRdownload_miRNAvalidate(validated)
+```
+
+
+## `SpidermiRdownload_pharmacomir`: Download Pharmaco-miR Verified Sets from PharmacomiR database
+The user can download Pharmaco-miR Verified Sets from PharmacomiR database [@ref6].
+
+```{r, eval = TRUE}
+mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)
+```
+
+
+
+# `SpidermiRprepare`: Preparing the data
+
+## `SpidermiRprepare_NET`: Prepare matrix of gene network  with Ensembl Gene ID, and gene symbols
+The user in this step obtained a gene network matrix with the integration of gene symbols ID. 
+
+
+```{r, eval = TRUE}
+
+geneSymb_net<-SpidermiRprepare_NET(organismID = org[9,],
+                                    data = out_net)
+```
+
+
+# `SpidermiRanalyze`: : Analyze data from network data
+
+## `SpidermiRanalyze_mirna_network`: Integration of microRNA-target interactions. 
+The user in this step obtained a network matrix with miRNA-target interactions starting from a specific network. The user can focus on miRNAs have already linked to a particular disease or take all miRNAs. miRNA-gene interactions include data from validated studies (currently, mirTAR, miR2disease, and miRNAwalk [@ref2] [@ref3]).
+You can filter the search by disease.
+The miRNA network can be filtered by disease using the name of the disease, as obtained from `SpidermiRquery_disease`.
+
+
+```{r, eval = TRUE}
+miRNA_NET<-SpidermiRanalyze_mirna_network(data=geneSymb_net,disease="prostate cancer",
+                                             miR_trg="val")
+```
+
+
+
+## `SpidermiRanalyze_mirna_gene_complnet`: Integration of microRNA-target complete interactions 
+The user in this step obtained a gene network matrix with interaction miRNA and target,  and gene-gene interaction. 
+The user can focus on miRNA have already linked to a particular disease or take all miRNAs. miRNA-gene interactions include data from validated studies (currently, mirTAR, miR2disease, and miRNAwalk [@ref2] [@ref3]).
+The miRNA network can be filtered by disease using the name of the disease, as obtained from `SpidermiRquery_disease`.
+
+
+```{r, eval = FALSE}
+miRNA_complNET<-SpidermiRanalyze_mirna_gene_complnet(data=geneSymb_net,disease="prostate cancer",
+                                                          miR_trg="val")
+```
+
+
+## `SpidermiRanalyze_mirnanet_pharm`: Integration of pharmacomiR in the network
+The user in this step can integrate the pharmacomiR database in order to link miRNA and drug effect in a specific network.
+
+```{r, eval = TRUE}
+mir_pharmnet<-SpidermiRanalyze_mirnanet_pharm(mir_ph=mir_pharmaco,net=miRNA_NET)
+```
+
+
+
+## `SpidermiRanalyze_mirna_extra_cir`: Integration of Extracellular/Circulating miRNA
+
+The user can select the extracellular/circulating miRNAs found in the network obtained from `SpidermiRanalyze_mirna_network` or `SpidermiRanalyze_mirna_gene_complnet`.
+Extracellular/circulating miRNAs include data from mirandola database [@ref4].
+The user using the following parameteres can specify the network type: 
+
+* **mT** to obtain a microRNA-target interactions
+* **mCT** to obtain a miRNA and target,  and gene-gene interaction.
+
+```{r, eval = FALSE}
+miRNA_NET_ext_circmT<-SpidermiRanalyze_mirna_extra_cir(data=miRNA_complNET,"mT")
+```
+
+
+
+```{r, eval = FALSE}
+miRNA_NET_ext_circmCT<-SpidermiRanalyze_mirna_extra_cir(data=miRNA_complNET,"mCT")
+```
+
+## `SpidermiRanalyze_direct_net`: Searching by biomarkers of interest with direct interaction
+
+This function finds other genes that are related to a set of biomarkers of interest (the input of user) with direct interations.
+
+```{r, eval = FALSE}
+biomark_of_interest<-c("hsa-miR-214","PTEN","FOXO1","hsa-miR-27a")
+
+GIdirect_net<-SpidermiRanalyze_direct_net(data=miRNA_NET,BI=biomark_of_interest)
+```
+
+The data frame of `SpidermiRanalyze_direct_net`, GIdirect_net, is shown below:
+```{r, eval = FALSE, echo = FALSE}
+str(GIdirect_net)
+```
+
+## `SpidermiRanalyze_direct_subnetwork`: Network composed by only the nodes in a set of biomarkers of interest
+
+This function create a sub-network composed by only the nodes in genes of interest and the edges between them.
+
+```{r, eval = FALSE}
+
+subnet<-SpidermiRanalyze_direct_subnetwork(data=miRNA_NET,BI=biomark_of_interest)
+
+```
+
+
+
+## `SpidermiRanalyze_subnetwork_neigh`: Network composed by the nodes in biomarker of interest and all the edges among this brunch of nodes. 
+
+This function create a sub-network composed by the nodes in BI and, if some of them are connected to other nodes (even if not in BI), take also them 
+(include all the edges among this bunch of nodes). 
+
+
+```{r, eval = FALSE}
+
+GIdirect_net_neigh<-SpidermiRanalyze_subnetwork_neigh(data=miRNA_NET,BI=biomark_of_interest)
+```
+
+
+
+## `SpidermiRanalyze_degree_centrality`: Ranking degree centrality genes
+
+This function provides degree centrality, defined as the total number of direct neighbors for each biomarkers. Degree centrality is ranked, and parameter cut is able to cut off other genes.
+
+```{r, eval = FALSE}
+top10_cent_gene<-SpidermiRanalyze_degree_centrality(miRNA_NET,cut=10)
+```
+
+
+
+## `SpidermiRanalyze_Community_detection`: Find community detection
+
+This function try to find dense subgraphs in directed or undirected graphs, by optimizing some criteria, using igraph library [@ref5]. 
+
+The user can choose the algorithm to calculate the community structure: 
+
+* **EB** edge.betweenness.community
+* **FC** fastgreedy.community
+* **WC**  walktrap.community 
+* **SC** spinglass.community
+* **LE** leading.eigenvector.community
+* **LP**  label.propagation.community 
+
+
+
+
+```{r, eval = FALSE}
+comm<-  SpidermiRanalyze_Community_detection(data=miRNA_NET,type="FC")
+```
+
+
+
+## `SpidermiRanalyze_Community_detection_net`: Find the network of community detection
+
+This function with input the community detection obtained by `SPIDERanalyze_Community_detection` find the direct network of the biomarker inside the indicated community. 
+
+```{r, eval = FALSE}
+cd_net<-SpidermiRanalyze_Community_detection_net(data=miRNA_NET,comm_det=comm,size=1)
+```
+
+
+## `SpidermiRanalyze_Community_detection_bi`: Community detection from a set of biomarkers of interest
+
+This function, starting from communites obtained from `SpidermiRanalyze_Community_detection`, is able to indicate in which communites are presented a set of biomarkers of interest.
+
+```{r, eval = FALSE}
+gi=c("CF","ROCK1","KIT","CCND2")
+mol<-SpidermiRanalyze_Community_detection_bi(data=comm,BI=gi)
+```
+
+
+# `SpidermiRvisualize`: Visualize network miRNA-target and gene-gene interaction
+## `SpidermiRvisualize_mirnanet`: Visualize the network. 
+The user can easily visualize network data.
+
+```{r, eval = FALSE}
+library(networkD3)
+
+SpidermiRvisualize_mirnanet(data=mir_pharmnet[sample(nrow(mir_pharmnet), 150), ] )
+```
+
+## `SpidermiRvisualize_BI`: Visualize the network from a set of biomarkers of interest. 
+
+The user can visualize  results obtained by SpidermiR analysis starting form a set of biomarker of interest
+
+```{r, eval = FALSE}
+
+biomark_of_interest<-c("hsa-let-7b","MUC1","PEX7","hsa-miR-222")
+SpidermiRvisualize_BI(data=miRNA_NET,BI=biomark_of_interest)
+```
+
+## `SpidermiRvisualize_plot_target`: Visualize the plot with miRNAs and the number of their targets in the network. 
+The user can Visualize results obtained by `SpidermiRanalyze_mirna_network` showing a plot with miRNAs and the number of their targets in the network.
+
+```{r, eval = TRUE}
+
+SpidermiRvisualize_plot_target(miRnet=miRNA_NET)
+```
+
+
+# SpidermiR Downstream Analysis: Case Study
+## Case Study n.1: Role of miRNAs in shared protein domains network in Prostate Cancer
+
+In this case study, we downloaded shared protein domains network in Homo Sapiens, using SpidermiRquery, SpidermiRprepare, and SpidermiRdownload.   
+
+Then, we focused on role of miRNAs in this network. We integrated miRNA information using SpidermiRanalyze. We obtained a big network, and in order to understand the underlying biological process of a set of biomarker of interest (e.g. from lab) we performed an analysis to identify their neighbor biomarkers in the shared protein domains network. 
+
+SpidermiRvisualize was used to see the results.
+
+```{r, eval = FALSE}
+
+org<-SpidermiRquery_species(species)
+net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[6,],network = "SHpd")
+out_net<-SpidermiRdownload_net(net_shar_prot)
+geneSymb_net<-SpidermiRprepare_NET(organismID = org[6,],data = out_net)
+miRNA_complNET<-SpidermiRanalyze_mirna_gene_complnet(data=geneSymb_net,
+                                                      disease="prostate cancer")
+
+biomark_of_interest<-read.delim("C:/Users/UserInLab05/Google Drive/MIRNA AND GENEMANIA/
+                                   1 case study/deg_prostate.txt",header=FALSE)
+subnet<-SpidermiRanalyze_direct_subnetwork(data=miRNA_complNET,BI=biomark_of_interest$V1)
+comm2<-  SpidermiRanalyze_Community_detection(data=subnet,type="FC") 
+cd_net<-SpidermiRanalyze_Community_detection_net(data=subnet,comm_det=comm2,size=2)
+SpidermiRvisualize_mirnanet(data=cd_net)
+miRNA_NET<-SpidermiRanalyze_mirna_network(data=geneSymb_net,disease="prostate cancer")
+
+cd_net_miRNA<-SpidermiRanalyze_Community_detection_net(data=miRNA_NET,comm_det=comm2,size=2)
+
+SpidermiRvisualize_mirnanet(data=cd_net_miRNA)
+
+
+
+```
+
+## Case Study n.2: miRNAs regulating degree centrality genes in physical interactions network in breast cancer
+
+```{r, eval = FALSE}
+org<-SpidermiRquery_species(species)
+net_PHint<-SpidermiRquery_spec_networks(organismID = org[6,],network = "PHint")
+out_net<-SpidermiRdownload_net(net_PHint)
+geneSymb_net<-SpidermiRprepare_NET(organismID = org[6,],data = out_net)
+ds<-do.call("rbind", geneSymb_net)
+data1<-as.data.frame(ds[!duplicated(ds), ]) 
+
+sdas<-cbind(data1$gene_symbolA,data1$gene_symbolB)
+
+miRNA_NET<-SpidermiRanalyze_mirna_network(data=geneSymb_net,disease="breast cancer")
+topwhol<-SpidermiRanalyze_degree_centrality(sdas)
+top10_cent_gene<-SpidermiRanalyze_degree_centrality(miRNA_NET)
+miRNA_degree<-top10_cent_gene[grep("hsa",top10_cent_gene$dfer),]
+
+
+```
+# References

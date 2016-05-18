@@ -95,7 +95,7 @@ SpidermiRdownload_miRNAprediction<-function(mirna_list){
 
 #' @title Download miRNA validated database
 #' @description SpidermiRdownload_miRNAprediction will download miRNA validated target
-#' @param mirna_list miRNA list of interest
+#' @param validated parameter
 #' @examples
 #' list<-SpidermiRdownload_miRNAvalidate(validated)
 #' @export

@@ -2,7 +2,7 @@
 % Please edit documentation in R/SpidermiRdownload.R
 \name{SpidermiRdownload_miRNAprediction}
 \alias{SpidermiRdownload_miRNAprediction}
-\title{Download miRNA validated database}
+\title{Download miRNA predicted database}
 \usage{
 SpidermiRdownload_miRNAprediction(mirna_list)
 }
@@ -13,7 +13,7 @@ SpidermiRdownload_miRNAprediction(mirna_list)
 a dataframe with miRNA target validated interactions
 }
 \description{
-SpidermiRdownload_miRNAprediction will download miRNA validated target
+SpidermiRdownload_miRNAprediction will download miRNA predicted target
 }
 \examples{
 mirna<-c('hsa-miR-567','hsa-miR-566')
