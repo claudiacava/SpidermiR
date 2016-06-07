@@ -514,3 +514,68 @@ SpidermiRanalyze_mirnanet_pharm<-function(mir_ph,net){
   return(s2)
 }
 
+
+#' @title Integration with TCGA data in order to obtain a network of  differentially expressed (DE) genes or miRNAs.
+#' @description SpidermiRanalyze_DEnetworkTCGA integrates the information of differential analysis of TCGA data in the network. The final result will be a network with only DE genes or miRNAs depending  whether the user chooses to mRNA or miRNA  TCGA data.
+#' @param data  network data (e.g. shared protein domains, co-expression,..)
+#' @param cancer  cancer type See TCGAbiolinks package 
+#' @param PlatformCancer platform See TCGAbiolinks package
+#' @param tumour barcode TCGA tumour data
+#' @param normal barcode TCGA normal data
+#' @param path Directory with the files downloaded by TCGAdownload
+#' @importFrom TCGAbiolinks TCGAquery TCGAdownload TCGAprepare TCGAanalyze_Preprocessing TCGAanalyze_Normalization TCGAanalyze_Filtering TCGAanalyze_DEA
+#' @export
+#' @return a network miRNA-gene differentially expressed as calculated by TCGAbiolinks package. The user can select the samples and cancer type from TCGA portal.
+#' @examples
+#' miRNA_cN <-data.frame(gA=c('hsa-let-7a','SSTR1'),gB=c('FOXM1','GATA5'),stringsAsFactors=FALSE)
+#' cancer <- "brca"
+#' PlatformCancer <- "IlluminaHiSeq_RNASeqV2"
+#' tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
+#' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
+#' de_int<-SpidermiRanalyze_DEnetworkTCGA(data=miRNA_cN,cancer,PlatformCancer,
+#' tumour,normal,path = "exampleData")
+SpidermiRanalyze_DEnetworkTCGA<-function(data,cancer,PlatformCancer,tumour,normal,path ){
+  
+dataType <- "rsem.genes.normalized_results"
+datQuery <- TCGAquery(tumor = cancer, platform = PlatformCancer, level = "3",samples =c(tumour,normal))  
+
+
+TCGAdownload(data = datQuery ,type = dataType,samples =c(tumour,normal),path )
+
+
+dataAssy <- TCGAprepare(query = datQuery,dir=path,type = dataType,summarizedExperiment = FALSE) 
+
+
+#dataPrep <- TCGAanalyze_Preprocessing(object = dataAssy, cor.cut = 0.6)
+
+
+#dataNorm <- TCGAanalyze_Normalization(tabDF = dataPrep,
+                                      #geneInfo,
+                                      #method = "geneLength")                
+
+dataFilt <- TCGAanalyze_Filtering(tabDF = dataAssy,
+                                  method = "quantile", 
+                                  qnt.cut =  0.25)  
+
+
+dataDEGs <- TCGAanalyze_DEA(mat1 = dataFilt[,normal],
+                            mat2 = dataFilt[,tumour],
+                            Cond1type = "Normal",
+                            Cond2type = "Tumor",logFC.cut=1,fdr.cut = 0.01) 
+
+deg<-gsub("\\|.*", "", rownames(dataDEGs))
+
+#dataDEGsFiltLevel <- TCGAanalyze_LevelTab(dataDEGs,"Tumor","Normal",
+ #                                         dataFilt[,tumour],dataFilt[,normal])
+
+#ME<-strsplit(dataDEGsFiltLevel$mRNA, "|")
+#dataDEGsFiltLevel$ID = as.character(lapply(strsplit(as.character(dataDEGsFiltLevel$mRNA), split="|"), "["))
+sub_net<-SpidermiRanalyze_direct_subnetwork(data,BI=deg)
+return(sub_net)
+}
+
+
+
+
+
+

@@ -119,3 +119,23 @@ SpidermiRdownload_miRNAvalidate<-function(validated){
     return(mir_validated_targe)
 }
 
+
+
+#' @title Download miRNA validated database
+#' @description SpidermiRdownload_miRNAprediction will download miRNA validated target
+#' @param miRNAextra_cir parameter
+#' @examples
+#' list<-SpidermiRdownload_miRNAextra_cir(miRNAextra_cir)
+#' @export
+#' @import stats
+#' @return a dataframe with miRNA target validated interactions
+SpidermiRdownload_miRNAextra_cir<-function(miRNAextra_cir){
+  # querying miRandola database (Extracellular Circulating microRNAs)
+  site<-.url_cache$get("mirandola")
+  mirandola<-read.delim(site,header = TRUE,quote = "",stringsAsFactors=FALSE)
+  return(mirandola)
+}
+
+
+
+

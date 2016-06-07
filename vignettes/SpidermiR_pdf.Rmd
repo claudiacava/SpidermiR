@@ -1,91 +1,86 @@
 ---
 title: "Working with SpidermiR package_pdf"
-author: "Claudia Cava, Antonio Colaprico, Alex Graudenzi, Gloria Bertoli,Tiago C. Silva,Catharina Olsen,Houtan Noushmehr, Gianluca Bontempi, Giancarlo Mauri, Isabella Castiglioni"
-date: "`r Sys.Date()`"
+author: Claudia Cava, Antonio Colaprico, Alex Graudenzi, Gloria Bertoli,Tiago C. Silva,Catharina
+  Olsen,Houtan Noushmehr, Gianluca Bontempi, Giancarlo Mauri, Isabella Castiglioni
+date: '`r Sys.Date()`'
 output: pdf_document
-
-
-
-references:
-- id: ref1
-  title: The Gene Mania prediction server biological network integration for gene prioritization and predicting gene function
-  author: 
-  - family:  Warde-Farley D, Donaldson S, Comes O, Zuberi K, Badrawi R, and others
-    given:
-  journal: Nucleic Acids Res.
-  volume: 38
-  number: 2
-  pages: 214-220
-  issued:
-    year: 2010
-
-- id: ref2
-  title: miR2Disease a manually curated database for microRNA deregulation in human disease. 
-  author: 
-  - family: Jiang Q, Wang Y, Hao Y, Juan L, Teng M, Zhang X, Li M, Wang G, Liu Y.
-    given:
-  journal: Nucleic Acids Res.
-  volume: 37
-  number: 1
-  pages: 98-104
-  issued:
-    year: 2009
-
-
-- id: ref3
-  title: miRWalk - database prediction of possible miRNA binding sites by "walking" the genes of 3 genomes.
-  author: 
-  - family: Dweep H, Sticht C, Pandey P, Gretz N.
-    given:
-  journal: Journal of Biomedical Informatics
-  volume: 44
-  number: 1
-  pages: 839-7
-  issued:
-    year: 2011
-
-- id: ref4
-  title: miRandola Extracellular Circulating microRNAs Database.
-  author: 
-  - family: Russo F, Di Bella S, Nigita G, Macca V, Lagana A, Giugno R, Pulvirenti A, Ferro A.
-    given:
-  journal: PLoS ONE
-  volume: 7
-  number: 10
-  pages: e47786
-  issued:
-    year: 2012
-
-- id: ref5
-  title: The igraph software package for complex network research.
-  author: 
-  - family: Csardi G, Nepusz T.
-    given:
-  journal: InterJournal
-  volume: Complex Systems
-  number: 
-  pages: 1695
-  issued:
-    year: 2006
-
-
-- id: ref6
-  title: Pharmaco miR linking microRNAs and drug effects.
-  author: 
-  - family: Rukov J, Wilentzik R, Jaffe I, Vinther J, Shomron N.
-    given:
-  journal: Briefings in Bioinformatics
-  volume: 15
-  number: 4
-  pages: 648-59
-  issued:
-    year: 2013
-
-
 vignette: >
-    %\VignetteIndexEntry{SpidermiR_pdf}}
+    %\VignetteIndexEntry{SpidermiR_pdf}
     %\VignetteEngine{knitr::rmarkdown}
     \usepackage[utf8]{inputenc}
+
+references:
+- author:
+  - family: Warde-Farley D, Donaldson S, Comes O, Zuberi K, Badrawi R, and others
+    given: null
+  id: ref1
+  issued:
+    year: 2010
+  journal: Nucleic Acids Res.
+  number: 2
+  pages: 214-220
+  title: The Gene Mania prediction server biological network integration for gene
+    prioritization and predicting gene function
+  volume: 38
+- author:
+  - family: Jiang Q, Wang Y, Hao Y, Juan L, Teng M, Zhang X, Li M, Wang G, Liu Y.
+    given: null
+  id: ref2
+  issued:
+    year: 2009
+  journal: Nucleic Acids Res.
+  number: 1
+  pages: 98-104
+  title: miR2Disease a manually curated database for microRNA deregulation in human
+    disease.
+  volume: 37
+- author:
+  - family: Dweep H, Sticht C, Pandey P, Gretz N.
+    given: null
+  id: ref3
+  issued:
+    year: 2011
+  journal: Journal of Biomedical Informatics
+  number: 1
+  pages: 839-7
+  title: miRWalk - database prediction of possible miRNA binding sites by "walking"
+    the genes of 3 genomes.
+  volume: 44
+- author:
+  - family: Russo F, Di Bella S, Nigita G, Macca V, Lagana A, Giugno R, Pulvirenti
+      A, Ferro A.
+    given: null
+  id: ref4
+  issued:
+    year: 2012
+  journal: PLoS ONE
+  number: 10
+  pages: e47786
+  title: miRandola Extracellular Circulating microRNAs Database.
+  volume: 7
+- author:
+  - family: Csardi G, Nepusz T.
+    given: null
+  id: ref5
+  issued:
+    year: 2006
+  journal: InterJournal
+  number: null
+  pages: 1695
+  title: The igraph software package for complex network research.
+  volume: Complex Systems
+- author:
+  - family: Rukov J, Wilentzik R, Jaffe I, Vinther J, Shomron N.
+    given: null
+  id: ref6
+  issued:
+    year: 2013
+  journal: Briefings in Bioinformatics
+  number: 4
+  pages: 648-59
+  title: Pharmaco miR linking microRNAs and drug effects.
+  volume: 15
+
 ---
 
 # Introduction 
@@ -124,8 +119,8 @@ You can easily search GeneMania data using the `SpidermiRquery` function.
 The user can query the species supported by GeneMania, using the function SpidermiRquery_species:
 
 
-```{r, eval = TRUE}
-
+```{r, echo=TRUE, eval = TRUE}
+require(SpidermiR)
 org<-SpidermiRquery_species(species)
 ```
 
@@ -405,8 +400,33 @@ The user can Visualize results obtained by `SpidermiRanalyze_mirna_network` show
 
 ```{r, eval = TRUE}
 
-SpidermiRvisualize_plot_target(miRnet=miRNA_NET)
+SpidermiRvisualize_plot_target(data=miRNA_NET)
 ```
+
+## `SpidermiRvisualize_degree_dist`: plots the degree distribution of the network 
+The user can Visualize the degree distribution of the network
+
+```{r, eval = TRUE}
+
+SpidermiRvisualize_degree_dist(data=miRNA_NET)
+```
+
+
+## `SpidermiRvisualize_adj_matrix`: plots the adjacency matrix of the network
+The user can Visualize the adjacency matrix of the network
+
+```{r, fig.width=10, fig.height=10,eval = TRUE}
+
+SpidermiRvisualize_adj_matrix(data=miRNA_NET[1:30,])
+```
+
+## `SpidermiRvisualize_3Dbarplot`: 3D barplot 
+The user can visualize 3D barplot with a summary representation of the network (number of edges, nodes, miRNAs):
+
+```{r,fig.width=4, fig.height=4, eval = TRUE}
+SpidermiRvisualize_3Dbarplot(Edges_1net=1041003,Edges_2net=100016,Edges_3net=3008,Edges_4net=1493,Edges_5net=1598,NODES_1net=16502,NODES_2net=13338,NODES_3net=1429,NODES_4net=675,NODES_5net=712,nmiRNAs_1net=0,nmiRNAs_2net=74,nmiRNAs_3net=0,nmiRNAs_4net=0,nmiRNAs_5net=37)
+```
+
 
 
 # SpidermiR Downstream Analysis: Case Study

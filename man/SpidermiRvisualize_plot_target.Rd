@@ -4,10 +4,10 @@
 \alias{SpidermiRvisualize_plot_target}
 \title{Visualize results obtained by SpidermiRanalyze_mirna_network}
 \usage{
-SpidermiRvisualize_plot_target(miRnet)
+SpidermiRvisualize_plot_target(data)
 }
 \arguments{
-\item{miRnet}{The input data is a dataframe containing miRNA network data (e.g. output of SpidermiRanalyze_mirna_network.}
+\item{data}{The input data is a dataframe containing miRNA network data (e.g. output of SpidermiRanalyze_mirna_network.}
 }
 \value{
 plot
@@ -17,6 +17,6 @@ It shows a plot with miRNAs and the number of their targets in the network
 }
 \examples{
 cd<-data.frame(gA=c('hsa-let-7a','hsa-miR-141'),gB=c('FOXM1','CDK'),stringsAsFactors=FALSE)
-SpidermiRvisualize_plot_target(miRnet=cd)
+SpidermiRvisualize_plot_target(data=cd)
 }
 

@@ -2,8 +2,8 @@ Package: SpidermiR
 Type: Package
 Title: SpidermiR: An R/Bioconductor package for integrative network analysis
     with miRNA data
-Version: 1.1.4
-Date: 05-18-2016
+Version: 1.2.1
+Date: 05-30-2016
 Author: Claudia Cava,
     Antonio Colaprico,
     Alex Graudenzi,
@@ -28,7 +28,12 @@ Imports:
 	AnnotationDbi,
 	org.Hs.eg.db, 
 	ggplot2,
-	gridExtra
+	gridExtra,
+	gplots,
+	grDevices,
+	lattice,
+	latticeExtra,
+	TCGAbiolinks
 Description: The aims of SpidermiR are : i) facilitate the network open-access
     data retrieval from GeneMania data, ii) prepare the data using the appropriate gene nomenclature,
     iii) integration of miRNA data in a specific network, iv) provide different

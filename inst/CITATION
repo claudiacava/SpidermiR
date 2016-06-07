@@ -1,6 +1,6 @@
 citHeader("To cite SpidermiR in publications use:")
 
-citEntry(entry = "Article",
+citEntry(entry = "article",
          title        = "SpidermiR: An R/Bioconductor package for integrative network analysis with
     miRNA data",
          author       = personList(as.person("Claudia Cava"),
@@ -24,7 +24,7 @@ citEntry(entry = "Article",
     miRNA data.")
 )
 
-citEntry(entry = "Article",
+citEntry(entry = "article",
          title        = "Integrating genetics and epigenetics in
 breast cancer: biological insights, experimental, computational methods and
 therapeutic potential.",

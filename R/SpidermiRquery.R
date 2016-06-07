@@ -44,7 +44,7 @@ SpidermiRquery_species <- function(species) {
 
 
 
-#' @title Visualize network categories
+#' @title Network categories
 #' @description The user can visualize the network types supported by GeneMania for a specific specie using SpidermiRquery_networks_type
 #' @param organismID describes index of a specific specie obtained by SpidermiRquery_species output
 #' @export

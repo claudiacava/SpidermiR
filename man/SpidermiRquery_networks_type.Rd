@@ -2,7 +2,7 @@
 % Please edit documentation in R/SpidermiRquery.R
 \name{SpidermiRquery_networks_type}
 \alias{SpidermiRquery_networks_type}
-\title{Visualize network categories}
+\title{Network categories}
 \usage{
 SpidermiRquery_networks_type(organismID)
 }
