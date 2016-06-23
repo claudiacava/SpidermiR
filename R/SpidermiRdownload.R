@@ -20,16 +20,17 @@ SpidermiRdownload_net <- function(data){
     return (list_d)  
 }
 
-#' @title Download both miRNA targeting of the gene and the gene-drug interaction from PharmacomiR database
+#' @title Download both miRNA target and the gene-drug interaction from PharmacomiR database
 #' @description SpidermiRdownload_pharmacomir will download miRNA Pharmacogenomic data
 #' @param pharmacomir variable
-#' @export
-#' @return a dataframe with gene-drug, and miR-gene associations
 #' @examples
-#' mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir)
+#' mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)
+#' @export
+#' @import stats
+#' @return a dataframe with gene-drug, and miR-gene associations
 SpidermiRdownload_pharmacomir<-function(pharmacomir){
   # querying Pharmaco-miR database (Pharmaco-miR validated interaction)
-  pharm_miR<-"http://pharmaco-mir.org/home/download_VERSE_db/pharmacomir_VERSE_DB.csv"
+  pharm_miR <- .url_cache$get("pharmacomir")
   pharm_miR_db<-read.csv(pharm_miR,header = TRUE,stringsAsFactors=FALSE)
   pharm_miR_db$miRNA <- as.character(sub("miR-","hsa-miR-", pharm_miR_db$miRNA))
   pharm_miR_db$miRNA <- as.character(sub("let-","hsa-let-", pharm_miR_db$miRNA))
@@ -45,4 +46,96 @@ SpidermiRdownload_pharmacomir<-function(pharmacomir){
   return(pmir_c)
   #SpidermiRvisualize_mirnanet(data=pmir_c)
 }
+
+
+#' @title Download miRNA predicted database
+#' @description SpidermiRdownload_miRNAprediction will download miRNA predicted target
+#' @param mirna_list miRNA list of interest
+#' @examples
+#' mirna<-c('hsa-miR-567','hsa-miR-566')
+#' list<-SpidermiRdownload_miRNAprediction(mirna_list=mirna)
+#' @export
+#' @import stats
+#' @import org.Hs.eg.db
+#' @import miRNAtap.db
+#' @importFrom miRNAtap getPredictedTargets 
+#' @importFrom org.Hs.eg.db org.Hs.egSYMBOL2EG
+#' @importFrom AnnotationDbi mappedkeys as.list
+#' @return a dataframe with miRNA target validated interactions
+SpidermiRdownload_miRNAprediction<-function(mirna_list){
+  dop=list()
+  for (k in  1:length(mirna_list)){
+    targets <- getPredictedTargets(mirna_list[k],species='hsa', method ='geom')
+    dop[[k]]<-targets
+    names(dop)[[k]]<-mirna_list[k]
+  }
+  x <- org.Hs.egSYMBOL2EG
+  mapped_genes <- mappedkeys(x)
+  xx <- as.list(x[mapped_genes])
+  top <- matrix(0, length(xx), length(dop))
+  rownames(top) <- names(xx)
+  colnames(top)<- names(dop)
+  #j=39
+  #k=1
+  for (j in  1:length(xx)){
+    for (k in  1:length(dop)){
+      if (length(intersect(xx[[j]],rownames(dop[[k]]))!=0)){
+        #print (j)
+        top[j,k]<-names(xx[j])
+      }
+    }  
+  }
+  top[top == 0] <- NA
+  top[apply(top,1,function(x)any(!is.na(x))),]
+  top<-t(top)
+  return(top)
+}
+
+
+
+#' @title Download miRNA validated database
+#' @description SpidermiRdownload_miRNAprediction will download miRNA validated target
+#' @param validated parameter
+#' @examples
+#' list<-SpidermiRdownload_miRNAvalidate(validated)
+#' @export
+#' @import stats
+#' @return a dataframe with miRNA target validated interactions
+SpidermiRdownload_miRNAvalidate<-function(validated){
+    # querying miRtar database (validated interaction miRNA-gene)
+    site_mir2disease<-.url_cache$get("miRtar")
+    mir2disease<-read.delim(site_mir2disease,header = FALSE,quote = "",stringsAsFactors=FALSE)
+    # querying miRNA WALK database (validated interaction miRNA-gene)
+    temp <- tempfile()
+    download.file(.url_cache$get("miRwalk"),temp)
+    sx<-unz(temp,"hsa-vtm-gene.rdata.Rdata")
+    load(sx)
+    id<-t(sapply(id, '[', 1:max(sapply(id, length)))) 
+    se<-int(id)
+    # merging miRtar and miRNA walk information
+    mir2disease$V3<-NULL
+    mir2disease$V4<-NULL
+    mir_validated_targe<-rbind(mir2disease,se)
+    return(mir_validated_targe)
+}
+
+
+
+#' @title Download miRNA validated database
+#' @description SpidermiRdownload_miRNAprediction will download miRNA validated target
+#' @param miRNAextra_cir parameter
+#' @examples
+#' list<-SpidermiRdownload_miRNAextra_cir(miRNAextra_cir)
+#' @export
+#' @import stats
+#' @return a dataframe with miRNA target validated interactions
+SpidermiRdownload_miRNAextra_cir<-function(miRNAextra_cir){
+  # querying miRandola database (Extracellular Circulating microRNAs)
+  site<-.url_cache$get("mirandola")
+  mirandola<-read.delim(site,header = TRUE,quote = "",stringsAsFactors=FALSE)
+  return(mirandola)
+}
+
+
+
 

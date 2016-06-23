@@ -2,8 +2,8 @@ Package: SpidermiR
 Type: Package
 Title: SpidermiR: An R/Bioconductor package for integrative network analysis
     with miRNA data
-Version: 0.99.2
-Date: 07-03-2015
+Version: 1.2.1
+Date: 05-30-2016
 Author: Claudia Cava,
     Antonio Colaprico,
     Alex Graudenzi,
@@ -16,23 +16,34 @@ Author: Claudia Cava,
     Isabella Castiglioni
 Maintainer: Claudia Cava <claudia.cava@ibfm.cnr.it>
 Depends:
-    R (>= 3.3)
+    R (>= 3.0.0)
 Imports:
     networkD3,
     httr,
     igraph,
     utils,
-	stats
+	stats,
+	miRNAtap,
+	miRNAtap.db,
+	AnnotationDbi,
+	org.Hs.eg.db, 
+	ggplot2,
+	gridExtra,
+	gplots,
+	grDevices,
+	lattice,
+	latticeExtra,
+	TCGAbiolinks
 Description: The aims of SpidermiR are : i) facilitate the network open-access
     data retrieval from GeneMania data, ii) prepare the data using the appropriate gene nomenclature,
     iii) integration of miRNA data in a specific network, iv) provide different
     standard analyses and v) allow the user to visualize the results. In more
     detail, the package provides multiple methods for query, prepare and download
-    network data (GeneMania), and the integration with miRNA data (mirWalk, miR2Disease, miRandola) and the use of standard
+    network data (GeneMania), and the integration with  validated and predicted miRNA data (mirWalk, miR2Disease,miRTar, miRandola,Pharmaco-miR,DIANA, Miranda, PicTar and TargetScan) and the use of standard
     analysis (igraph) and visualization methods (networkD3).
 License: GPL (>= 3)
 biocViews: GeneRegulation,
-    GeneExpression,
+    miRNA,
     Network
 Suggests:
     BiocStyle,
@@ -44,3 +55,4 @@ Suggests:
 VignetteBuilder: knitr
 LazyData: true
 RoxygenNote: 5.0.1
+

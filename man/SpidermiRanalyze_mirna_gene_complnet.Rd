@@ -4,10 +4,15 @@
 \alias{SpidermiRanalyze_mirna_gene_complnet}
 \title{Integration of microRNA target gene networks.}
 \usage{
-SpidermiRanalyze_mirna_gene_complnet(data, disease = NULL)
+SpidermiRanalyze_mirna_gene_complnet(data, miR_trg, mirna_t = NULL,
+  disease = NULL)
 }
 \arguments{
 \item{data}{SpidermiRprepare_NET output}
+
+\item{miR_trg}{a parameter to indicate miRNA target database used. The user can use: 1) validated database (val) or 2) predicted database (pred)}
+
+\item{mirna_t}{a list given by the user with miRNA list of interest}
 
 \item{disease}{miRNA target gene interaction can be filtered by disease using the parameters obatined from SpidermiRquery_disease}
 }
@@ -19,6 +24,6 @@ SpidermiRanalyze_mirna_gene_complnet creates a data frame with miRNA target gene
 }
 \examples{
 GS_net <- data.frame(gA=c('SMAD','MYC'),gB=c('FOXM1','KRAS'),stringsAsFactors=FALSE)
-miRNA_cNT<-SpidermiRanalyze_mirna_gene_complnet(data=GS_net,disease="prostate cancer")
+miRNA_cNT<-SpidermiRanalyze_mirna_gene_complnet(data=GS_net,disease="prostate cancer",miR_trg="val")
 }
 

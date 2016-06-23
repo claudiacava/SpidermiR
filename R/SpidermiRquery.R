@@ -5,8 +5,9 @@
 #' @export
 #' @return table of species
 SpidermiRquery_species <- function(species) {
-  site <- url_cache$get("geneMania")
+  site <- .url_cache$get("geneMania")
   site1<-.DownloadURL(site)
+  site1<-site1[-1]
   site1<-site1[-1]
   Tableorganism <- matrix(0, length(site1), 1)
   rownames(Tableorganism)<-paste("organism",c(1:length(site1)),sep="")
@@ -14,10 +15,11 @@ SpidermiRquery_species <- function(species) {
   organism_2=list()
   for ( tbi in 1:nrow(Tableorganism)){
     organism <- site1[tbi]
-    qst_find_sitep <-gsub("<a href=","", as.matrix(unlist(strsplit(organism,">")))[1])
-    qst_find_site2_subp <- substr(qst_find_sitep,3,nchar(qst_find_sitep)-1)
-    organism_2[tbi]<-qst_find_site2_subp
-    newsite_tofind <- paste(site,qst_find_site2_subp,sep="")
+    #qst_find_sitep <-gsub("<a href=","", as.matrix(unlist(strsplit(organism,">")))[1])
+    qst_find_sitep <-gsub("</a","", as.matrix(unlist(strsplit(organism,">")))[1])
+    #qst_find_site2_subp <- substr(qst_find_sitep,3,nchar(qst_find_sitep)-1)
+    organism_2[tbi]<-qst_find_sitep
+    newsite_tofind <- paste(site,qst_find_sitep,sep="")
     Tableorganism[tbi,"link"] <- newsite_tofind
   }
   organismID<-gsub("/","",organism_2)
@@ -30,7 +32,8 @@ SpidermiRquery_species <- function(species) {
  # organismID  <- as.matrix(organismID)
   #colnames(organismID) <- "Species"
   tabOrgd<-tabOrgd[- grep("COMBINED", tabOrgd$Species),]
-  
+  tabOrgd<-as.data.frame(tabOrgd)
+  tabOrgd<-tabOrgd[- grep("README", tabOrgd$tabOrgd),]
   tabOrgd<-as.data.frame(tabOrgd)
   return(tabOrgd)
   
@@ -41,7 +44,7 @@ SpidermiRquery_species <- function(species) {
 
 
 
-#' @title Visualize network categories
+#' @title Network categories
 #' @description The user can visualize the network types supported by GeneMania for a specific specie using SpidermiRquery_networks_type
 #' @param organismID describes index of a specific specie obtained by SpidermiRquery_species output
 #' @export
@@ -51,7 +54,7 @@ SpidermiRquery_species <- function(species) {
 #' @return a list of network categories in a specie indicated.
 SpidermiRquery_networks_type<-function(organismID) {
   vd<-list()
-  Tableorganism<-paste(url_cache$get("geneMania"),organismID,"/networks.txt",sep="")
+  Tableorganism<-paste(.url_cache$get("geneMania"),organismID,"/networks.txt",sep="")
   sd<-read.delim(Tableorganism,header = TRUE,stringsAsFactors=FALSE)
   net_t<-sd[!duplicated(sd$Network_Group_Name), ]
   net_t<-net_t$Network_Group_Name
@@ -91,12 +94,13 @@ SpidermiRquery_networks_type<-function(organismID) {
 #' @return a list of the database or reference where the information came from.
 SpidermiRquery_spec_networks<-function(organismID,network) {
   vd<-list()
-  Tableorganism<-paste(url_cache$get("geneMania"),organismID,"/",sep="")
+  Tableorganism<-paste(.url_cache$get("geneMania"),organismID,"/",sep="")
   Site_sec <- .DownloadURL(Tableorganism)
-  qst_find_sitep_sub<-gsub("<a href=","",Site_sec)
-  qst_find_site2_subp_sub <- substr(qst_find_sitep_sub,3,nchar(qst_find_sitep_sub)-1)
-  qst_find_site2_subp_sub<-qst_find_site2_subp_sub[-1]
-  newsite_tofind_sub_sub <- list(paste(Tableorganism,qst_find_site2_subp_sub,sep=""))
+  #qst_find_sitep_sub<-gsub("<a href=","",Site_sec)
+  qst_find_sitep <-gsub("</a","", as.matrix(unlist(strsplit(Site_sec,">"))))
+  #qst_find_site2_subp_sub <- substr(qst_find_sitep_sub,3,nchar(qst_find_sitep_sub)-1)
+  #qst_find_site2_subp_sub<-qst_find_site2_subp_sub[-1]
+  newsite_tofind_sub_sub <- list(paste(Tableorganism,qst_find_sitep,sep=""))
   mylist<-newsite_tofind_sub_sub
   for (i in 1:length(mylist)){
     mylist_gm<-mylist[i]
@@ -137,7 +141,7 @@ SpidermiRquery_spec_networks<-function(organismID,network) {
 #' disease<-SpidermiRquery_disease(diseaseID)
 #' @return a list of disease.
 SpidermiRquery_disease<-function(diseaseID) {
-all_entries<-url_cache$get("miR2Disease")
+all_entries<-.url_cache$get("miR2Disease")
 disease_ref<-read.delim(all_entries,header = FALSE,quote = "",stringsAsFactors=FALSE)
 disease<- unique(disease_ref$V2)
 disease<-disease[disease != ""]

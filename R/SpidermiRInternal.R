@@ -1,21 +1,20 @@
-
-
 #' @import utils
 #' @importFrom httr GET content stop_for_status
 .DownloadURL <-
-  function(Site_g){
-    response <- GET(Site_g)
+  function(site){
+    response <- GET(site)
     stop_for_status(response)
     x<-content(response,"text")
     x <- unlist(strsplit(x,"\n"))
     xi <- x[grep("href", x)]
-    x = sapply(strsplit(xi, ">"), function(y) y[2])
+    x <- sapply(strsplit(xi, "href"), function(y) y[2])
+    x <- sapply(strsplit(x, ">"), function(y) y[2])
     return(x)
   }
 
 #identifier_mappings for a particular 
 .identifier<-function(organism_1) {
-  Tableorganism<-paste(url_cache$get("geneMania"),organism_1,"/identifier_mappings.txt",sep="")
+  Tableorganism<-paste(.url_cache$get("geneMania"),organism_1,"/identifier_mappings.txt",sep="")
   Tableorganism<-unlist(Tableorganism)
   return(Tableorganism)
 }
@@ -33,11 +32,9 @@
 }
 
 
-
-url_cache <- local({
+#it creates link 
+.url_cache <- local({
   env <- new.env(parent=emptyenv())
-  
-  
   env[["miRtar"]] <-
     "http://watson.compbio.iupui.edu:8080/miR2Disease/download/miRtar.txt"
   env[["miRwalk"]] <-
@@ -45,10 +42,11 @@ url_cache <- local({
   env[["miR2Disease"]] <-
     "http://watson.compbio.iupui.edu:8080/miR2Disease/download/AllEntries.txt"
   env[["mirandola"]] <-
-    "http://atlas.dmi.unict.it/mirandola/download/miRandola_version_1.7_10-06-2015.csv"
+    "http://mirandola.iit.cnr.it/download/miRandola_version_1.7_10-06-2015.csv"
   env[["geneMania"]] <-
     "http://genemania.org/data/current/"
-  
+	  env[["pharmacomir"]] <-
+    "http://pharmaco-mir.org/home/download_VERSE_db/pharmacomir_VERSE_DB.csv"
   list(
     get=function(elt) {
       stopifnot(is.character(elt), length(elt) == 1L, elt %in%
@@ -63,6 +61,23 @@ url_cache <- local({
     })
 })
 
+#internal function 
+int<-function(at){
+  se2=list()
+  for (j in 1:nrow(at)){
+    az<-at[j,]
+    de<-as.data.frame(az)
+    de[,2]<-rep(rownames(at)[j],length(de))
+    de<-de[complete.cases(de),]
+    se2[[j]]<-de
 
+  }
+  ds<-do.call("rbind", se2)
+  ds<-ds[c(2,1)]
+  # merging miRtar and miRNA walk information
+  colnames(ds) <- c("V1", "V2")
+  
+  return(ds)
+}
 
 

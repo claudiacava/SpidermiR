@@ -2,7 +2,7 @@
 % Please edit documentation in R/SpidermiRdownload.R
 \name{SpidermiRdownload_pharmacomir}
 \alias{SpidermiRdownload_pharmacomir}
-\title{Download both miRNA targeting of the gene and the gene-drug interaction from PharmacomiR database}
+\title{Download both miRNA target and the gene-drug interaction from PharmacomiR database}
 \usage{
 SpidermiRdownload_pharmacomir(pharmacomir)
 }
@@ -16,6 +16,6 @@ a dataframe with gene-drug, and miR-gene associations
 SpidermiRdownload_pharmacomir will download miRNA Pharmacogenomic data
 }
 \examples{
-mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir)
+mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)
 }
 

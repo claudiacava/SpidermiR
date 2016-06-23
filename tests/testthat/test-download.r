@@ -7,7 +7,3 @@ test_that("Results of download shared protein network", {
     out_net<-SpidermiRdownload_net(net_shar_prot)
 	expect_that(length(out_net), equals(2))
 })
-
-
-
-
