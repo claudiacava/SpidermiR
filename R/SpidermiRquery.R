@@ -83,6 +83,7 @@ SpidermiRquery_networks_type<-function(organismID) {
 #'GENint  \tab   Genetic_interactions \cr
 #'PATH  \tab   Pathway \cr
 #'SHpd  \tab   Shared_protein_domains \cr
+#'pred  \tab   Predicted \cr
 #'}
 #' @export
 #' @examples
@@ -123,6 +124,9 @@ SpidermiRquery_spec_networks<-function(organismID,network) {
     #Shared_protein_domains
     if(network == "SHpd"){
       x<-x[grep("/Shared_protein_domains", x)]}
+    #predicted
+    if(network == "pred"){
+      x<-x[grep("/Predicted", x)]}
     vd[[i]]<-x
     vd<-unlist(vd)
   }

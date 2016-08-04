@@ -12,40 +12,39 @@
 #' miRNA_NET<-SpidermiRanalyze_mirna_network(data=GS_net,disease="prostate cancer",miR_trg="val")
 SpidermiRanalyze_mirna_network<-function(data,miR_trg,mirna_t=NULL,disease=NULL){
   if( miR_trg=="val"){
-    # querying miRtar database (validated interaction miRNA-gene)
-    site_mir2disease<-.url_cache$get("miRtar")
-    mir2disease<-read.delim(site_mir2disease,header = FALSE,quote = "",stringsAsFactors=FALSE)
-    # querying miRNA WALK database (validated interaction miRNA-gene)
-    temp <- tempfile()
-    download.file(.url_cache$get("miRwalk"),temp)
-    sx<-unz(temp,"hsa-vtm-gene.rdata.Rdata")
-    load(sx)
-    id<-t(sapply(id, '[', 1:max(sapply(id, length)))) 
-    se<-int(id)
-    # merging miRtar and miRNA walk information
-    mir2disease$V3<-NULL
-    mir2disease$V4<-NULL
-    mir2disease<-rbind(mir2disease,se)
+  # querying miRtar database (validated interaction miRNA-gene)
+  site_mir2disease<-.url_cache$get("miRtar")
+  mir2disease<-read.delim(site_mir2disease,header = FALSE,quote = "",stringsAsFactors=FALSE)
+  # querying miRNA WALK database (validated interaction miRNA-gene)
+  temp <- tempfile()
+  download.file(.url_cache$get("miRwalk"),temp)
+  sx<-unz(temp,"hsa-vtm-gene.rdata.Rdata")
+  load(sx)
+  id<-t(sapply(id, '[', 1:max(sapply(id, length)))) 
+  se<-int(id)
+ # merging miRtar and miRNA walk information
+  mir2disease$V3<-NULL
+  mir2disease$V4<-NULL
+  mir2disease<-rbind(mir2disease,se)
   }
   if( miR_trg=="pred"){
-    a<-SpidermiRdownload_miRNAprediction(mirna_t)
-    mir2disease<-int(a)
+    mir2disease<-SpidermiRdownload_miRNAprediction(mirna_t)
   }
   #for the disease
   all_entries<-.url_cache$get("miR2Disease")
   disease_ref<-read.delim(all_entries,header = FALSE,quote = "",stringsAsFactors=FALSE)
   #FIND MIRNA LINK TO A PARTICULAR DISEASE
   if( !is.null(disease) ){
-    AZXC<-disease_ref[disease_ref$V2==disease,]
-    trim <- function (x) gsub("^\\s+|\\s+$", "", x)
-    AZXC$V1<-trim(AZXC$V1)
-    am<-match(mir2disease$V1,AZXC$V1)
-    st3 <- cbind( mir2disease, AZXC[am,] )
-    ASWQ<-na.omit(st3)
-    ASWQ<-as.data.frame(ASWQ[!duplicated(ASWQ), ]) 
-    if (length(ASWQ)==0){
-      print("there are not miRNAs linked in this disease")
-    }
+      AZXC<-disease_ref[disease_ref$V2==disease,]
+      trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+      AZXC$V1<-trim(AZXC$V1)
+      am<-match(mir2disease$V1,AZXC$V1)
+      st3 <- cbind( mir2disease, AZXC[am,] )
+      ASWQ<-na.omit(st3)
+      ASWQ<-as.data.frame(ASWQ[!duplicated(ASWQ), ]) 
+      if (length(ASWQ)==0){
+        print("there are not miRNAs linked in this disease")
+      }
   }
   if (is.null(disease)) {
     ASWQ<-mir2disease
@@ -98,28 +97,27 @@ SpidermiRanalyze_mirna_network<-function(data,miR_trg,mirna_t=NULL,disease=NULL)
 #' miRNA_cNT<-SpidermiRanalyze_mirna_gene_complnet(data=GS_net,disease="prostate cancer",miR_trg="val")
 SpidermiRanalyze_mirna_gene_complnet<-function(data,miR_trg,mirna_t=NULL,disease=NULL){
   if( miR_trg=="val"){
-    # querying miRtar database (validated interaction miRNA-gene)
-    site_mir2disease<-.url_cache$get("miRtar")
-    mir2disease<-read.delim(site_mir2disease,header = FALSE,quote = "",stringsAsFactors=FALSE)
-    # querying miRNA WALK database (validated interaction miRNA-gene)
-    temp <- tempfile()
-    download.file(.url_cache$get("miRwalk"),temp)
-    sx<-unz(temp,"hsa-vtm-gene.rdata.Rdata")
-    load(sx)
-    id<-t(sapply(id, '[', 1:max(sapply(id, length)))) 
-    
-    se<-int(id)
-    
-    # merging miRtar and miRNA walk information
-    mir2disease$V3<-NULL
-    mir2disease$V4<-NULL
-    mir2disease<-rbind(mir2disease,se)
-    
+  # querying miRtar database (validated interaction miRNA-gene)
+  site_mir2disease<-.url_cache$get("miRtar")
+  mir2disease<-read.delim(site_mir2disease,header = FALSE,quote = "",stringsAsFactors=FALSE)
+  # querying miRNA WALK database (validated interaction miRNA-gene)
+  temp <- tempfile()
+  download.file(.url_cache$get("miRwalk"),temp)
+  sx<-unz(temp,"hsa-vtm-gene.rdata.Rdata")
+  load(sx)
+  id<-t(sapply(id, '[', 1:max(sapply(id, length)))) 
+  
+  se<-int(id)
+  
+  # merging miRtar and miRNA walk information
+  mir2disease$V3<-NULL
+  mir2disease$V4<-NULL
+  mir2disease<-rbind(mir2disease,se)
+  
   }
   
   if( miR_trg=="pred"){
-    a<-SpidermiRdownload_miRNAprediction(mirna_t)
-    mir2disease<-int(a)
+    mir2disease<-SpidermiRdownload_miRNAprediction(mirna_t)
   }
   
   #for the disease
@@ -141,11 +139,11 @@ SpidermiRanalyze_mirna_gene_complnet<-function(data,miR_trg,mirna_t=NULL,disease
   if (is.null(disease)) {
     ASWQ<-mir2disease
   }
-  list_network_mirna<-list()
+list_network_mirna<-list()
   vd<-list()
   vdb<-list()
   if(is.data.frame(data)=='FALSE'){
-    data<-do.call("rbind", data)
+  data<-do.call("rbind", data)
   }
   data<-as.data.frame(data[!duplicated(data), ]) 
   if(ncol(data)==2){
@@ -163,7 +161,7 @@ SpidermiRanalyze_mirna_gene_complnet<-function(data,miR_trg,mirna_t=NULL,disease
     vdb[[j]]<-deb
     #print(paste(" Download genes n. ", j," ",ASWQ$V2[j], " and miRNAs ",ASWQ$V1[j], " of ",length(ASWQ$V2), sep = ""))
   }
-  ds<-do.call("rbind", vd)
+ ds<-do.call("rbind", vd)
   dsb<-do.call("rbind", vdb)
   dat<-cbind(ds$miRNASyA,ds$gene_symbolA)
   dat2<-cbind(ds$gene_symbolA,ds$gene_symbolB)
@@ -522,55 +520,54 @@ SpidermiRanalyze_mirnanet_pharm<-function(mir_ph,net){
 #' @param PlatformCancer platform See TCGAbiolinks package
 #' @param tumour barcode TCGA tumour data
 #' @param normal barcode TCGA normal data
-#' @param path Directory with the files downloaded by TCGAdownload
-#' @importFrom TCGAbiolinks TCGAquery TCGAdownload TCGAprepare TCGAanalyze_Preprocessing TCGAanalyze_Normalization TCGAanalyze_Filtering TCGAanalyze_DEA
+#' @param path Directory with the files downloaded by GDCdownload
+#' @importFrom TCGAbiolinks GDCquery GDCdownload GDCprepare TCGAanalyze_Preprocessing TCGAanalyze_Normalization TCGAanalyze_Filtering TCGAanalyze_DEA
 #' @export
 #' @return a network miRNA-gene differentially expressed as calculated by TCGAbiolinks package. The user can select the samples and cancer type from TCGA portal.
 #' @examples
-#' miRNA_cN <-data.frame(gA=c('hsa-let-7a','SSTR1'),gB=c('FOXM1','GATA5'),stringsAsFactors=FALSE)
-#' cancer <- "brca"
-#' PlatformCancer <- "IlluminaHiSeq_RNASeqV2"
-#' tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-#' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-#' de_int<-SpidermiRanalyze_DEnetworkTCGA(data=miRNA_cN,cancer,PlatformCancer,
-#' tumour,normal,path = "exampleData")
-SpidermiRanalyze_DEnetworkTCGA<-function(data,cancer,PlatformCancer,tumour,normal,path ){
+#' devtools::install_github("BioinformaticsFMRP/TCGAbiolinks")
+#' library(TCGAbiolinks)
+#'miRNA_cN <-data.frame(gA=c('hsa-let-7a','SSTR1'),gB=c('FOXM1','GATA5'),stringsAsFactors=FALSE)
+#'cancer <- "TCGA-BRCA"
+#'PlatformCancer <- "Illumina HiSeq"
+#'tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
+#'normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
+#'de_int<-SpidermiRanalyze_DEnetworkTCGA(data=miRNA_cN,
+#'                                       cancer,
+#'                                       PlatformCancer,
+#'                                       tumour,
+#'                                       normal,
+#'                                      path = "exampleData")
+SpidermiRanalyze_DEnetworkTCGA <- function(data,
+                                           cancer,
+                                           PlatformCancer,
+                                           tumour,
+                                           normal,
+                                           path ){
   
-dataType <- "rsem.genes.normalized_results"
-datQuery <- TCGAquery(tumor = cancer, platform = PlatformCancer, level = "3",samples =c(tumour,normal))  
-
-
-TCGAdownload(data = datQuery ,type = dataType,samples =c(tumour,normal),path )
-
-
-dataAssy <- TCGAprepare(query = datQuery,dir=path,type = dataType,summarizedExperiment = FALSE) 
-
-
-#dataPrep <- TCGAanalyze_Preprocessing(object = dataAssy, cor.cut = 0.6)
-
-
-#dataNorm <- TCGAanalyze_Normalization(tabDF = dataPrep,
-                                      #geneInfo,
-                                      #method = "geneLength")                
-
-dataFilt <- TCGAanalyze_Filtering(tabDF = dataAssy,
-                                  method = "quantile", 
-                                  qnt.cut =  0.25)  
-
-colnames(dataFilt)<-substr(colnames(dataFilt), 1, 12)
-
-dataDEGs <- TCGAanalyze_DEA(mat1 = dataFilt[,normal],
-                            mat2 = dataFilt[,tumour],
-                            Cond1type = "Normal",
-                            Cond2type = "Tumor",logFC.cut=1,fdr.cut = 0.01) 
-
-deg<-gsub("\\|.*", "", rownames(dataDEGs))
-
-#dataDEGsFiltLevel <- TCGAanalyze_LevelTab(dataDEGs,"Tumor","Normal",
- #                                         dataFilt[,tumour],dataFilt[,normal])
-
-#ME<-strsplit(dataDEGsFiltLevel$mRNA, "|")
-#dataDEGsFiltLevel$ID = as.character(lapply(strsplit(as.character(dataDEGsFiltLevel$mRNA), split="|"), "["))
-sub_net<-SpidermiRanalyze_direct_subnetwork(data,BI=deg)
-return(sub_net)
+  dataType <- "normalized_results"
+  
+  query <- GDCquery(project = cancer,
+                    data.category = "Gene expression",
+                    data.type = "Gene expression quantification",
+                    platform = PlatformCancer, 
+                    file.type  = dataType, 
+                    barcode = c(tumour,normal),
+                    legacy = TRUE)
+  GDCdownload(query,directory = path)
+  dataAssy <- GDCprepare(query,  directory = path, summarizedExperiment = FALSE)
+  
+  dataFilt <- TCGAanalyze_Filtering(tabDF = dataAssy,
+                                    method = "quantile", 
+                                    qnt.cut =  0.25)  
+  colnames(dataFilt) <- gsub("normalized_count_","",colnames(dataFilt))
+  dataDEGs <- TCGAanalyze_DEA(mat1 = dataFilt[,normal],
+                              mat2 = dataFilt[,tumour],
+                              Cond1type = "Normal",
+                              Cond2type = "Tumor",logFC.cut=1,fdr.cut = 0.01) 
+  
+  deg<-gsub("\\|.*", "", rownames(dataDEGs))
+  
+  sub_net<-SpidermiRanalyze_direct_subnetwork(data,BI=deg)
+  return(sub_net)
 }

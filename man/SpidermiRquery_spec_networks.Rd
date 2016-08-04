@@ -18,6 +18,7 @@ COloc  \tab   Co-localization \cr
 GENint  \tab   Genetic_interactions \cr
 PATH  \tab   Pathway \cr
 SHpd  \tab   Shared_protein_domains \cr
+pred  \tab   Predicted \cr
 }}
 }
 \value{
