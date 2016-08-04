@@ -527,17 +527,17 @@ SpidermiRanalyze_mirnanet_pharm<-function(mir_ph,net){
 #' @examples
 #' devtools::install_github("BioinformaticsFMRP/TCGAbiolinks")
 #' library(TCGAbiolinks)
-#'miRNA_cN <-data.frame(gA=c('hsa-let-7a','SSTR1'),gB=c('FOXM1','GATA5'),stringsAsFactors=FALSE)
-#'cancer <- "TCGA-BRCA"
-#'PlatformCancer <- "Illumina HiSeq"
-#'tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-#'normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
-#'de_int<-SpidermiRanalyze_DEnetworkTCGA(data=miRNA_cN,
-#'                                       cancer,
-#'                                       PlatformCancer,
-#'                                       tumour,
-#'                                       normal,
-#'                                      path = "exampleData")
+#' miRNA_cN <-data.frame(gA=c('hsa-let-7a','SSTR1'),gB=c('FOXM1','GATA5'),stringsAsFactors=FALSE)
+#' cancer <- "TCGA-BRCA"
+#' PlatformCancer <- "Illumina HiSeq"
+#' tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
+#' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
+#' de_int<-SpidermiRanalyze_DEnetworkTCGA(data=miRNA_cN,
+#'                                        cancer,
+#'                                        PlatformCancer,
+#'                                        tumour,
+#'                                        normal,
+#'                                        path = "exampleData")
 SpidermiRanalyze_DEnetworkTCGA <- function(data,
                                            cancer,
                                            PlatformCancer,
@@ -554,7 +554,7 @@ SpidermiRanalyze_DEnetworkTCGA <- function(data,
                     file.type  = dataType, 
                     barcode = c(tumour,normal),
                     legacy = TRUE)
-  GDCdownload(query,directory = path)
+  GDCdownload(query,method = "client",directory = path)
   dataAssy <- GDCprepare(query,  directory = path, summarizedExperiment = FALSE)
   
   dataFilt <- TCGAanalyze_Filtering(tabDF = dataAssy,
