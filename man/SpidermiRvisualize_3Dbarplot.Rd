@@ -46,10 +46,8 @@ barplot
 It shows a barplot of 5 networks given by the user with a summary representation of number of nodes, edges, and miRNAs (log values)
 }
 \examples{
-SpidermiRvisualize_3Dbarplot(Edges_1net=1041003,Edges_2net=100016,
-Edges_3net=3008,Edges_4net=1493,Edges_5net=1598,NODES_1net=16502,
-NODES_2net=13338,NODES_3net=1429,NODES_4net=675,NODES_5net=712,
-nmiRNAs_1net=0,nmiRNAs_2net=74,nmiRNAs_3net=0,nmiRNAs_4net=0,
-nmiRNAs_5net=37)
+SpidermiRvisualize_3Dbarplot(Edges_1net=1041003,Edges_2net=100016,Edges_3net=3008,
+Edges_4net=1493,Edges_5net=1598,NODES_1net=16502,NODES_2net=13338,NODES_3net=1429,NODES_4net=675,
+NODES_5net=712,nmiRNAs_1net=0,nmiRNAs_2net=74,nmiRNAs_3net=0,nmiRNAs_4net=0,nmiRNAs_5net=37)
 }
 

@@ -2,8 +2,8 @@ Package: SpidermiR
 Type: Package
 Title: SpidermiR: An R/Bioconductor package for integrative network analysis
     with miRNA data
-Version: 1.2.1
-Date: 05-30-2016
+Version: 1.2.2
+Date: 08-06-2016
 Author: Claudia Cava,
     Antonio Colaprico,
     Alex Graudenzi,
@@ -33,6 +33,7 @@ Imports:
 	grDevices,
 	lattice,
 	latticeExtra,
+	visNetwork,
 	TCGAbiolinks
 Description: The aims of SpidermiR are : i) facilitate the network open-access
     data retrieval from GeneMania data, ii) prepare the data using the appropriate gene nomenclature,
@@ -54,5 +55,7 @@ Suggests:
 	roxygen2
 VignetteBuilder: knitr
 LazyData: true
+URL: https://github.com/claudiacava/SpidermiR
+BugReports: https://github.com/claudiacava/SpidermiR/issues
 RoxygenNote: 5.0.1
 

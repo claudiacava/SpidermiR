@@ -64,10 +64,15 @@ SpidermiRdownload_pharmacomir<-function(pharmacomir){
 #' @return a dataframe with miRNA target validated interactions
 SpidermiRdownload_miRNAprediction<-function(mirna_list){
   dop=list()
+  dop2=list()
   for (k in  1:length(mirna_list)){
     targets <- getPredictedTargets(mirna_list[k],species='hsa', method ='geom')
-    dop[[k]]<-targets
-    names(dop)[[k]]<-mirna_list[k]
+    if(is.null(targets)){
+      dop2[[k]]<-mirna_list[k]
+    }
+    if(length(targets)!=0){
+      dop[[k]]<-targets
+      names(dop)[[k]]<-mirna_list[k]}
   }
   x <- org.Hs.egSYMBOL2EG
   mapped_genes <- mappedkeys(x)
@@ -88,6 +93,7 @@ SpidermiRdownload_miRNAprediction<-function(mirna_list){
   top[top == 0] <- NA
   top[apply(top,1,function(x)any(!is.na(x))),]
   top<-t(top)
+  top<-int(top)
   return(top)
 }
 

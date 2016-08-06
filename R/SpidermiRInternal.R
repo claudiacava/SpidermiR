@@ -76,7 +76,7 @@ int<-function(at){
   ds<-ds[c(2,1)]
   # merging miRtar and miRNA walk information
   colnames(ds) <- c("V1", "V2")
-  
+
   return(ds)
 }
 
