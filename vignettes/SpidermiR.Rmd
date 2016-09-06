@@ -414,6 +414,20 @@ gi=c("CF","ROCK1","KIT","CCND2")
 mol<-SpidermiRanalyze_Community_detection_bi(data=comm,BI=gi)
 ```
 
+## `SpidermiRanalyze_DEnetworkTCGA`: Integration with TCGA data in order to obtain a network of  differentially expressed (DE) genes or miRNAs.
+
+`SpidermiRanalyze_DEnetworkTCGA` integrates the information of differential analysis of TCGA data in the network. The final result will be a network with only DE genes or miRNAs depending  whether the user chooses mRNA or miRNA  TCGA data.
+```{r, eval = FALSE}
+devtools::install_github("BioinformaticsFMRP/TCGAbiolinks")
+library(TCGAbiolinks)
+miRNA_cN <-data.frame(gA=c('hsa-let-7a','SSTR1'),gB=c('FOXM1','GATA5'),stringsAsFactors=FALSE)
+cancer <- "TCGA-BRCA"
+PlatformCancer <- "Illumina HiSeq"
+tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
+normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07")
+de_int<-SpidermiRanalyze_DEnetworkTCGA(data=miRNA_cN,cancer,PlatformCancer,
+tumour,normal,path = "exampleData")
+```
 
 # `SpidermiRvisualize`: To visualize the network 
 ## `SpidermiRvisualize_mirnanet`: To Visualize the network. 
