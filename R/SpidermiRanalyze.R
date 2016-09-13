@@ -525,8 +525,6 @@ SpidermiRanalyze_mirnanet_pharm<-function(mir_ph,net){
 #' @export
 #' @return a network miRNA-gene differentially expressed as calculated by TCGAbiolinks package. The user can select the samples and cancer type from TCGA portal.
 #' @examples
-#' devtools::install_github("BioinformaticsFMRP/TCGAbiolinks")
-#' library(TCGAbiolinks)
 #' miRNA_cN <-data.frame(gA=c('hsa-let-7a','SSTR1'),gB=c('FOXM1','GATA5'),stringsAsFactors=FALSE)
 #' cancer <- "TCGA-BRCA"
 #' PlatformCancer <- "Illumina HiSeq"
