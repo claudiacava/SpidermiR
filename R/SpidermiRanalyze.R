@@ -552,7 +552,10 @@ SpidermiRanalyze_DEnetworkTCGA <- function(data,
                     file.type  = dataType, 
                     barcode = c(tumour,normal),
                     legacy = TRUE)
-  GDCdownload(query,method = "client",directory = path)
+  
+  #CancerProject <- paste0("TCGA-",cancer)
+  #DataDirectory <- paste0(path,"GDC_",gsub("-","_",CancerProject))
+  GDCdownload(query,directory = path)
   dataAssy <- GDCprepare(query,  directory = path, summarizedExperiment = FALSE)
   
   dataFilt <- TCGAanalyze_Filtering(tabDF = dataAssy,
