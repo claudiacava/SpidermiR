@@ -27,8 +27,6 @@ a network miRNA-gene differentially expressed as calculated by TCGAbiolinks pack
 SpidermiRanalyze_DEnetworkTCGA integrates the information of differential analysis of TCGA data in the network. The final result will be a network with only DE genes or miRNAs depending  whether the user chooses to mRNA or miRNA  TCGA data.
 }
 \examples{
-devtools::install_github("BioinformaticsFMRP/TCGAbiolinks")
-library(TCGAbiolinks)
 miRNA_cN <-data.frame(gA=c('hsa-let-7a','SSTR1'),gB=c('FOXM1','GATA5'),stringsAsFactors=FALSE)
 cancer <- "TCGA-BRCA"
 PlatformCancer <- "Illumina HiSeq"
