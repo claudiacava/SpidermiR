@@ -37,7 +37,7 @@
   env <- new.env(parent=emptyenv())
   env[["miRtar"]] <-
     "http://watson.compbio.iupui.edu:8080/miR2Disease/download/miRtar.txt"
-  env[["miRwalk"]] <-
+    env[["miRwalk"]] <-
     "http://zmf.umm.uni-heidelberg.de/apps/zmf/mirwalk2/downloads/vtm/hsa-vtm-gene.rdata.zip"
   env[["miR2Disease"]] <-
     "http://watson.compbio.iupui.edu:8080/miR2Disease/download/AllEntries.txt"
