@@ -286,30 +286,40 @@ SpidermiRvisualize_direction<-function(data){
   #for (i in 1:length(id)){
   # group[i]<-as.character(paste("group",i))
   #}
+  
   nodes2$value<-""
+  value<-1:length(id)
   
-  
-  for (i in 1:length(id)){
-    nodes2$value[i]<-as.character(paste("Edge",i))
-  }
+  #for (i in 1:length(id)){
+    #nodes2$value[i]<-as.character(paste("Edge",i))
+    nodes2$value<-value
+    
+   # }
   
   nodes2$shape<-""
   nodes2$shape<- replace(nodes2$shape, nodes2$shape == "", "circle")#gene 
   nodes2$shape[(grep("[a-z]",nodes2$id))]<- "ellipse" #pharmaco
   nodes2$shape[grep("hsa" ,nodes2$id)]<- "box" #mirna
   nodes2$shape[grep("orf" ,nodes2$id)]<- "circle" #gene 
+  nodes2$shape<-as.factor(nodes2$shape)
   nodes2$title<-""
   for (i in 1:length(id)){
-    nodes2$title[i]<-as.character(paste("<p><b>",i,"</b><br>Node !</p>"))
+    nodes2$title[i]<-as.factor(paste("<p><b>",i,"</b><br>Node !</p>"))
   }
   nodes2$color<-""
   nodes2$color<- replace(nodes2$color, nodes2$color == "", "lightblue")#gene 
   nodes2$color[(grep("[a-z]",nodes2$id))]<- "green" #pharmaco
   nodes2$color[grep("hsa" ,nodes2$id)]<- "orange" #mirna
   nodes2$color[grep("orf" ,nodes2$id)]<- "blue" #gene 
+  nodes2$color<-as.factor(nodes2$color)
+  
   nodes2$shadow<-""
   nodes2$shadow<-c(rep("FALSE",length(id)))
-  return(visNetwork(nodes2, edges2, width = "200%")%>% visLegend(useGroups = FALSE, addNodes = data.frame(label = c("mirna","pharmaco","gene"), shape = c("box","ellipse","circle"),color=c("orange","green","lightblue") )
+  
+  nodes2$shadow<-as.logical(nodes2$shadow)
+  
+  
+  return(visNetwork(nodes2, edges2[,c(1,2,5)], width = "200%")%>% visLegend(useGroups = FALSE, addNodes = data.frame(label = c("mirna","pharmaco","gene"), shape = c("box","ellipse","circle"),color=c("orange","green","lightblue") )
   )%>% visInteraction(dragNodes = TRUE, dragView = TRUE, zoomView = TRUE) )
 }
 

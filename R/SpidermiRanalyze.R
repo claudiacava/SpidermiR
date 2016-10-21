@@ -534,16 +534,18 @@ SpidermiRanalyze_mirnanet_pharm<-function(mir_ph,net){
 SpidermiRanalyze_DEnetworkTCGA <- function(data,TCGAmatrix,
                                            tumour,
                                            normal){
-  
-
   dataDEGs <- TCGAanalyze_DEA(mat1 = TCGAmatrix[,normal],
                               mat2 = TCGAmatrix[,tumour],
                               Cond1type = "Normal",
                               Cond2type = "Tumor",logFC.cut=1,fdr.cut = 0.01) 
-  
+  print(paste("The number of differentially expressed genes between the two classes is ",nrow(dataDEGs)))
   deg<-gsub("\\|.*", "", rownames(dataDEGs))
-  
   sub_net<-SpidermiRanalyze_direct_subnetwork(data,BI=deg)
+  ft<-sub_net$V1
+  ft1<-sub_net$V2
+  fgt<-c(ft,ft1)
+  ty<-unique(fgt)
+  print(paste("The network containing DEGs with direct interactions consistes of  ",length(ty), " nodes and ", nrow(sub_net), " edges "))
   return(sub_net)
 }
 

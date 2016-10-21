@@ -22,6 +22,7 @@ SpidermiRprepare_NET <- function(organismID,data){
     filename_id_gs<-filename_id[filename_id$Source=="Gene Name",]
     list_r<-list()
     for(i in 1:length(data)){
+      print(paste("Preprocessing of the network n. ", i, " of ", length(data), sep = ""))     
       a<-data[[i]]
       am<-match(a$Gene_A,filename_id_gs$Preferred_Name)
       st3 <- cbind( a, filename_id_gs[am,] )
@@ -32,7 +33,7 @@ SpidermiRprepare_NET <- function(organismID,data){
       st6<-na.omit(st5)
       colnames(st6)[8]<-c("gene_symbolB")
       list_r[[i]]<-st6
-      
+
     }
     return(list_r)
   }

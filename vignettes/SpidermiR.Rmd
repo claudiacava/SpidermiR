@@ -513,56 +513,33 @@ knitr::kable(B, digits = 2,
 
 
 
-# SpidermiR Downstream Analysis: Case Study
+# SpidermiR Downstream Analysis: Case Study Please see `SpidermiR:Application Examples` for more information.
 ## Case Study n.1: Role of miRNAs in shared protein domains network in Prostate Cancer
 
 In this case study, we downloaded shared protein domains network in Homo Sapiens, using SpidermiRquery, SpidermiRprepare, and SpidermiRdownload.   
 
-Then, we focused on role of miRNAs in this network. We integrated miRNA information using SpidermiRanalyze. We obtained a big network, and in order to understand the underlying biological process of a set of biomarker of interest (e.g. from lab) we performed an analysis to identify their neighbor biomarkers in the shared protein domains network. 
+Then, we focused on role of miRNAs in this network. We integrated miRNA information using SpidermiRanalyze. We obtained a big network, and in order to understand the underlying biological process of a set of biomarker of interest (e.g. from DEG) we performed an analysis to identify their neighbor biomarkers in the shared protein domains network. Please see `SpidermiR:Application Examples` for more information. 
 
 SpidermiRvisualize was used to see the results.
 
 ```{r, eval = FALSE}
 
-org<-SpidermiRquery_species(species)
-net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[6,],network = "SHpd")
-out_net<-SpidermiRdownload_net(net_shar_prot)
-geneSymb_net<-SpidermiRprepare_NET(organismID = org[6,],data = out_net)
-miRNA_complNET<-SpidermiRanalyze_mirna_gene_complnet(data=geneSymb_net,disease="prostate cancer",miR_trg="val")
-
-biomark_of_interest<-read.delim("C:/Users/UserInLab05/Google Drive/MIRNA AND GENEMANIA/1 case study/deg_prostate.txt",header=FALSE)
-subnet<-SpidermiRanalyze_direct_subnetwork(data=miRNA_complNET,BI=biomark_of_interest$V1)
-comm2<-  SpidermiRanalyze_Community_detection(data=subnet,type="FC") 
-cd_net<-SpidermiRanalyze_Community_detection_net(data=subnet,comm_det=comm2,size=2)
-SpidermiRvisualize_mirnanet(data=cd_net)
-miRNA_NET<-SpidermiRanalyze_mirna_network(data=geneSymb_net,disease="prostate cancer")
-
-cd_net_miRNA<-SpidermiRanalyze_Community_detection_net(data=miRNA_NET,comm_det=comm2,size=2)
-
-SpidermiRvisualize_mirnanet(data=cd_net_miRNA)
-
-
+a<-Case_Study1_loading_1_network(species)
+b<-Case_Study1_loading_2_network(data=a)
+c<-Case_Study1_loading_3_network(data=b,dataFilt=dataFilt,dataClin=dataClin)
+d<-Case_Study1_loading_4_network(TERZA_NET=c)
 
 ```
 
 ## Case Study n.2: miRNAs regulating degree centrality genes in physical interactions network in breast cancer
 
+We studied in this case study the relationships between miRNAs with higher centrality and their target proteins with higher centrality. Please see `SpidermiR:Application Examples` for more information. 
+
+
 ```{r, eval = FALSE}
-org<-SpidermiRquery_species(species)
-net_PHint<-SpidermiRquery_spec_networks(organismID = org[6,],network = "PHint")
-out_net<-SpidermiRdownload_net(net_PHint)
-geneSymb_net<-SpidermiRprepare_NET(organismID = org[6,],data = out_net)
-ds<-do.call("rbind", geneSymb_net)
-data1<-as.data.frame(ds[!duplicated(ds), ]) 
-
-sdas<-cbind(data1$gene_symbolA,data1$gene_symbolB)
-sdas<-as.data.frame(sdas[!duplicated(sdas), ]) 
-miRNA_NET<-SpidermiRanalyze_mirna_network(data=geneSymb_net,disease="breast cancer")
-topwhol<-SpidermiRanalyze_degree_centrality(sdas)
-top10_cent_gene<-SpidermiRanalyze_degree_centrality(miRNA_NET)
-miRNA_degree<-top10_cent_gene[grep("hsa",top10_cent_gene$dfer),]
-
-
+a2<-Case_Study2_loading_1_network(species)
+b2<-Case_Study2_loading_2_network(data=a2)
+c2<-Case_Study2_loading_3_network(sdas=a2,miRNA_NET=b2)
 ```
 
 ******

@@ -3,10 +3,10 @@
 \docType{data}
 \name{Data_CANCER_normUQ_filt}
 \alias{Data_CANCER_normUQ_filt}
-\title{TCGA data}
+\title{TCGA data for breast cancer}
 \format{A data frame with rows and variables}
 \description{
-TCGA data
+TCGA data for breast cancer
 }
 \keyword{internal}
 
