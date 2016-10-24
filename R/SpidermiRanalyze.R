@@ -516,59 +516,41 @@ SpidermiRanalyze_mirnanet_pharm<-function(mir_ph,net){
 #' @title Integration with TCGA data in order to obtain a network of  differentially expressed (DE) genes or miRNAs.
 #' @description SpidermiRanalyze_DEnetworkTCGA integrates the information of differential analysis of TCGA data in the network. The final result will be a network with only DE genes or miRNAs depending  whether the user chooses to mRNA or miRNA  TCGA data.
 #' @param data  network data (e.g. shared protein domains, co-expression,..)
-#' @param cancer  cancer type See TCGAbiolinks package 
-#' @param PlatformCancer platform See TCGAbiolinks package
+#' @param TCGAmatrix  gene or miRNA expression matrix
 #' @param tumour barcode TCGA tumour data
 #' @param normal barcode TCGA normal data
-#' @param path Directory with the files downloaded by GDCdownload
-#' @importFrom TCGAbiolinks GDCquery GDCdownload GDCprepare TCGAanalyze_Preprocessing TCGAanalyze_Normalization TCGAanalyze_Filtering TCGAanalyze_DEA
+#' @importFrom TCGAbiolinks TCGAanalyze_DEA
 #' @export
 #' @return a network miRNA-gene differentially expressed as calculated by TCGAbiolinks package. The user can select the samples and cancer type from TCGA portal.
 #' @examples
-#' miRNA_cN <-data.frame(gA=c('hsa-let-7a','SSTR1'),gB=c('FOXM1','GATA5'),stringsAsFactors=FALSE)
-#' cancer <- "TCGA-BRCA"
-#' PlatformCancer <- "Illumina HiSeq"
-#' tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-#' normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
+#' miRNA_cN <-data.frame(gA=c('IGFL3','GABRA1'),gB=c('IGFL2','KRT13'),stringsAsFactors=FALSE)
+#' tumour<-c("TCGA-E9-A1RD-11A","TCGA-E9-A1RC-01A")
+#' normal<-c("TCGA-BH-A18P-11A","TCGA-BH-A18L-11A") 
 #' de_int<-SpidermiRanalyze_DEnetworkTCGA(data=miRNA_cN,
-#'                                        cancer,
-#'                                        PlatformCancer,
+#'                                        TCGAmatrix=Data_CANCER_normUQ_filt,
 #'                                        tumour,
-#'                                        normal,
-#'                                        path = "exampleData")
-SpidermiRanalyze_DEnetworkTCGA <- function(data,
-                                           cancer,
-                                           PlatformCancer,
+#'                                        normal
+#'                                       )
+SpidermiRanalyze_DEnetworkTCGA <- function(data,TCGAmatrix,
                                            tumour,
-                                           normal,
-                                           path ){
-  
-  dataType <- "normalized_results"
-  
-  query <- GDCquery(project = cancer,
-                    data.category = "Gene expression",
-                    data.type = "Gene expression quantification",
-                    platform = PlatformCancer, 
-                    file.type  = dataType, 
-                    barcode = c(tumour,normal),
-                    legacy = TRUE)
-  
-  #CancerProject <- paste0("TCGA-",cancer)
-  #DataDirectory <- paste0(path,"GDC_",gsub("-","_",CancerProject))
-  GDCdownload(query,directory = path)
-  dataAssy <- GDCprepare(query,  directory = path, summarizedExperiment = FALSE)
-  
-  dataFilt <- TCGAanalyze_Filtering(tabDF = dataAssy,
-                                    method = "quantile", 
-                                    qnt.cut =  0.25)  
-  colnames(dataFilt) <- gsub("normalized_count_","",colnames(dataFilt))
-  dataDEGs <- TCGAanalyze_DEA(mat1 = dataFilt[,normal],
-                              mat2 = dataFilt[,tumour],
+                                           normal){
+  dataDEGs <- TCGAanalyze_DEA(mat1 = TCGAmatrix[,normal],
+                              mat2 = TCGAmatrix[,tumour],
                               Cond1type = "Normal",
                               Cond2type = "Tumor",logFC.cut=1,fdr.cut = 0.01) 
-  
+  print(paste("The number of differentially expressed genes between the two classes is ",nrow(dataDEGs)))
   deg<-gsub("\\|.*", "", rownames(dataDEGs))
-  
   sub_net<-SpidermiRanalyze_direct_subnetwork(data,BI=deg)
+  ft<-sub_net$V1
+  ft1<-sub_net$V2
+  fgt<-c(ft,ft1)
+  ty<-unique(fgt)
+  print(paste("The network containing DEGs with direct interactions consistes of  ",length(ty), " nodes and ", nrow(sub_net), " edges "))
   return(sub_net)
 }
+
+
+
+
+
+

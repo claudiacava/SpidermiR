@@ -13,9 +13,10 @@
 SpidermiRdownload_net <- function(data){
     list_d<-list()
     for(i in 1:length(data)){
+      print(paste("Downloading: ",data[i], " ... reference n. ", i, " of ", length(data), sep = ""))
       data<-unlist(data)
       list_d[[i]]<-read.table(data[i],header = TRUE,stringsAsFactors=FALSE)
-      #print(paste(data[i], " ... reference n. ", i, " of ", length(data), sep = ""))
+
     }
     return (list_d)  
 }

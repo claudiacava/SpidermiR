@@ -4,21 +4,16 @@
 \alias{SpidermiRanalyze_DEnetworkTCGA}
 \title{Integration with TCGA data in order to obtain a network of  differentially expressed (DE) genes or miRNAs.}
 \usage{
-SpidermiRanalyze_DEnetworkTCGA(data, cancer, PlatformCancer, tumour, normal,
-  path)
+SpidermiRanalyze_DEnetworkTCGA(data, TCGAmatrix, tumour, normal)
 }
 \arguments{
 \item{data}{network data (e.g. shared protein domains, co-expression,..)}
 
-\item{cancer}{cancer type See TCGAbiolinks package}
-
-\item{PlatformCancer}{platform See TCGAbiolinks package}
+\item{TCGAmatrix}{gene or miRNA expression matrix}
 
 \item{tumour}{barcode TCGA tumour data}
 
 \item{normal}{barcode TCGA normal data}
-
-\item{path}{Directory with the files downloaded by GDCdownload}
 }
 \value{
 a network miRNA-gene differentially expressed as calculated by TCGAbiolinks package. The user can select the samples and cancer type from TCGA portal.
@@ -27,16 +22,13 @@ a network miRNA-gene differentially expressed as calculated by TCGAbiolinks pack
 SpidermiRanalyze_DEnetworkTCGA integrates the information of differential analysis of TCGA data in the network. The final result will be a network with only DE genes or miRNAs depending  whether the user chooses to mRNA or miRNA  TCGA data.
 }
 \examples{
-miRNA_cN <-data.frame(gA=c('hsa-let-7a','SSTR1'),gB=c('FOXM1','GATA5'),stringsAsFactors=FALSE)
-cancer <- "TCGA-BRCA"
-PlatformCancer <- "Illumina HiSeq"
-tumour<-c("TCGA-BH-A0DL-01A-11R-A115-07","TCGA-AO-A03P-01A-11R-A00Z-07")
-normal<-c("TCGA-BH-A209-11A-42R-A157-07","TCGA-E9-A1N4-11A-33R-A14M-07") 
+miRNA_cN <-data.frame(gA=c('IGFL3','GABRA1'),gB=c('IGFL2','KRT13'),stringsAsFactors=FALSE)
+tumour<-c("TCGA-E9-A1RD-11A","TCGA-E9-A1RC-01A")
+normal<-c("TCGA-BH-A18P-11A","TCGA-BH-A18L-11A") 
 de_int<-SpidermiRanalyze_DEnetworkTCGA(data=miRNA_cN,
-                                       cancer,
-                                       PlatformCancer,
+                                       TCGAmatrix=Data_CANCER_normUQ_filt,
                                        tumour,
-                                       normal,
-                                       path = "exampleData")
+                                       normal
+                                      )
 }
 
