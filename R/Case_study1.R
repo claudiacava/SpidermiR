@@ -36,7 +36,7 @@ return(geneSymb_net)
 #' @export
 #' @return dataframe with selected interactions
 #' @examples
-#' #' \dontrun{
+#' \dontrun{
 #' b<-Case_Study1_loading_2_network(data=a)
 #' }
 Case_Study1_loading_2_network<-function(data){
@@ -105,7 +105,7 @@ return(TERZA_NET)
 #' @export
 #' @return dataframe with selected interactions
 #' @examples
-#' #' \dontrun{
+#' \dontrun{
 #' d<-Case_Study1_loading_4_network(TERZA_NET=c)
 #' }
 Case_Study1_loading_4_network<-function(TERZA_NET){

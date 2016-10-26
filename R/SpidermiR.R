@@ -93,9 +93,24 @@ NULL
 NULL
 
 
+#' Species supported by GeneMania
+#' @docType data
+#' @keywords internal
+#' @name org
+#' @format A data frame with rows and variables
+NULL
 
+#' Output of SpidermiRquery_spec_networks
+#' @docType data
+#' @keywords internal
+#' @name net_shar_prot
+#' @format A data frame with rows and variables
+NULL
 
-
-
-
+#' Output of SpidermiRdownload_net
+#' @docType data
+#' @keywords internal
+#' @name out_net
+#' @format A data frame with rows and variables
+NULL
 

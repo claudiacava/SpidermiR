@@ -49,7 +49,6 @@ SpidermiRquery_species <- function(species) {
 #' @param organismID describes index of a specific specie obtained by SpidermiRquery_species output
 #' @export
 #' @examples
-#' org<-SpidermiRquery_species(species)
 #' net_type<-SpidermiRquery_networks_type(organismID=org[9,])
 #' @return a list of network categories in a specie indicated.
 SpidermiRquery_networks_type<-function(organismID) {
@@ -87,11 +86,8 @@ SpidermiRquery_networks_type<-function(organismID) {
 #'}
 #' @export
 #' @examples
-#' org<-SpidermiRquery_species(species)
 #' net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[9,],
 #'                                         network = "SHpd")
-#'                                         
-#'                                         
 #' @return a list of the database or reference where the information came from.
 SpidermiRquery_spec_networks<-function(organismID,network) {
   vd<-list()

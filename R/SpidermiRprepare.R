@@ -4,9 +4,6 @@
 #' @param organismID is the index of SpidermiRquery_spec_networks output
 #' @param data is the output of function SpidermiRdownload_net
 #' @examples
-#' org<-SpidermiRquery_species(species)
-#' net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[9,],network = "SHpd")
-#' out_net<-SpidermiRdownload_net(net_shar_prot)
 #' geneSymb_net<-SpidermiRprepare_NET(organismID = org[9,],
 #'                                        data = out_net)
 #' @export

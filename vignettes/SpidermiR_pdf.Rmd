@@ -85,7 +85,7 @@ references:
 
 # Introduction 
 
-n this vignette, we demonstrate some applications of `SpidermiR` as tool for the study of miRNA network. For basic use of the
+In this vignette, we demonstrate some applications of `SpidermiR` as tool for the study of miRNA network. For basic use of the
 `SpidermiR` package, please refer to the vignette `Working with SpidermiR package`.
 
 
@@ -94,7 +94,7 @@ n this vignette, we demonstrate some applications of `SpidermiR` as tool for the
 ## Case Study n.1: Role of miRNAs in shared protein domains network in Prostate Cancer
 
 In this case study, we downloaded shared protein domains network in Homo Sapiens, using SpidermiRquery, SpidermiRprepare, and SpidermiRdownload with the function `Case_Study1_loading_1_network`.  
-This function downloads the shared proteind network in HomoSapiens as provided by GeneMania. Then preprocessing the network give us the measures of the network. 
+This function downloads the shared proteind network in HomoSapiens as provided by GeneMania. Then preprocessing of the network give us the measures of the network. 
 
 ```{r, eval = FALSE}
 Case_Study1_loading_1_network<-function(species){
