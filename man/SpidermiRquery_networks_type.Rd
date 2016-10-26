@@ -16,7 +16,6 @@ a list of network categories in a specie indicated.
 The user can visualize the network types supported by GeneMania for a specific specie using SpidermiRquery_networks_type
 }
 \examples{
-org<-SpidermiRquery_species(species)
 net_type<-SpidermiRquery_networks_type(organismID=org[9,])
 }
 

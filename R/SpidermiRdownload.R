@@ -4,9 +4,6 @@
 #'
 #' @param data The SpidermiRquery_spec_networks output
 #' @examples
-#' org<-SpidermiRquery_species(species)
-#' net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[9,],
-#'                                        network = "SHpd")
 #' out_net<-SpidermiRdownload_net(data=net_shar_prot)
 #' @export
 #' @return Download GeneMania network 
@@ -67,6 +64,7 @@ SpidermiRdownload_miRNAprediction<-function(mirna_list){
   dop=list()
   dop2=list()
   for (k in  1:length(mirna_list)){
+    print(paste("Processing...",mirna_list[k]))
     targets <- getPredictedTargets(mirna_list[k],species='hsa', method ='geom')
     if(is.null(targets)){
       dop2[[k]]<-mirna_list[k]

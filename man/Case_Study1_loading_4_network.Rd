@@ -16,7 +16,7 @@ dataframe with selected interactions
 Case_Study1_loading_4_network loads network community with the higher number of elements in the 3 network
 }
 \examples{
-#' \dontrun{
+\dontrun{
 d<-Case_Study1_loading_4_network(TERZA_NET=c)
 }
 }

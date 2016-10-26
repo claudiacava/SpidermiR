@@ -16,7 +16,7 @@ dataframe with selected interactions
 Case_Study1_loading_2_network loads shared protein domain in HomoSapiens including only miRNAs already found deregulated in PC,
 }
 \examples{
-#' \dontrun{
+\dontrun{
 b<-Case_Study1_loading_2_network(data=a)
 }
 }
