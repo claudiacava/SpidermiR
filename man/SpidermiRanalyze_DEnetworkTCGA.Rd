@@ -23,7 +23,7 @@ SpidermiRanalyze_DEnetworkTCGA integrates the information of differential analys
 }
 \examples{
 miRNA_cN <-data.frame(gA=c('IGFL3','GABRA1'),gB=c('IGFL2','KRT13'),stringsAsFactors=FALSE)
-tumour<-c("TCGA-E9-A1RD-11A","TCGA-E9-A1RC-01A")
+tumour<-c("TCGA-E9-A1RD-01A","TCGA-E9-A1RC-01A")
 normal<-c("TCGA-BH-A18P-11A","TCGA-BH-A18L-11A") 
 de_int<-SpidermiRanalyze_DEnetworkTCGA(data=miRNA_cN,
                                        TCGAmatrix=Data_CANCER_normUQ_filt,

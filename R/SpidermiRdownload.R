@@ -4,6 +4,9 @@
 #'
 #' @param data The SpidermiRquery_spec_networks output
 #' @examples
+#' org<-SpidermiRquery_species(species)
+#' net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[9,],
+#' network = "SHpd")
 #' out_net<-SpidermiRdownload_net(data=net_shar_prot)
 #' @export
 #' @return Download GeneMania network 

@@ -16,6 +16,9 @@ Download GeneMania network
 SpidermiRdownload_net function will download the data
 }
 \examples{
+org<-SpidermiRquery_species(species)
+net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[9,],
+network = "SHpd")
 out_net<-SpidermiRdownload_net(data=net_shar_prot)
 }
 
