@@ -46,7 +46,7 @@ SpidermiRvisualize_mirnanet<-function(data){
   .range(["#0096ff", "#00b34a","#ff6900"]);'
     return(
       forceNetwork(Links = dataIDs2, Nodes = attr2, Source = "V1", Target = "V2", NodeID = "name", Group= "Group",height = 
-                     1000, width = 1000, opacity = 1, zoom = FALSE, bounded = TRUE, legend= TRUE, opacityNoHover= 0.5,
+                     2000, width = 2000, opacity = 1, zoom = TRUE, bounded = TRUE, legend= TRUE, opacityNoHover= 0.5,
                    colourScale=JS(ColourScale),fontSize = 16)
     )
   }
@@ -134,8 +134,14 @@ SpidermiRvisualize_BI<-function(data,BI){
 #' @export
 #' @return plot
 SpidermiRvisualize_plot_target<-function(data){
-p<-table(data[,1])
+  a<-c(data[,1],data[,2])
+
+p<-table(a)
+
 as<-as.data.frame(p)
+
+
+
 D<-as[order(as$Freq,decreasing=TRUE),]
 names(D)[1]<-"miRNAs"
 names(D)[2]<-"mRNA_target"
