@@ -325,7 +325,7 @@ SpidermiRvisualize_direction<-function(data){
   nodes2$shadow<-as.logical(nodes2$shadow)
   
   
-  return(visNetwork(nodes2, edges2[,c(1,2,5)], width = "200%")%>% visLegend(useGroups = FALSE, addNodes = data.frame(label = c("mirna","pharmaco","gene"), shape = c("box","ellipse","circle"),color=c("orange","green","lightblue") )
+  return(visNetwork(nodes2, edges2[,c(1,2,5)])%>% visLegend(useGroups = FALSE, addNodes = data.frame(label = c("mirna","pharmaco","gene"), shape = c("box","ellipse","circle"),color=c("orange","green","lightblue") )
   )%>% visInteraction(dragNodes = TRUE, dragView = TRUE, zoomView = TRUE) )
 }
 
