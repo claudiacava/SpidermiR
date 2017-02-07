@@ -17,11 +17,11 @@ citEntry(entry = "article",
          journal = "manuscript in preparation",
          year         = "2016",
          textVersion  =
-             paste("Claudia Cava, Antonio Colaprico, Alex Graudenzi,",
-                   "Gloria Bertoli, Tiago C. Silva, Catharina Olsen,Houtan Noushmehr, Gianluca Bontempi, Giancarlo Mauri,",
+             paste("Claudia Cava, Antonio Colaprico,Gloria Bertoli ,",
+                   "Alex Graudenzi, Tiago C. Silva, Catharina Olsen,Houtan Noushmehr, Gianluca Bontempi, Giancarlo Mauri,",
                    "Isabella Castiglioni (2016).",
-                   "SpidermiR: An R/Bioconductor package for integrative network analysis with
-    miRNA data.")
+                   "SpidermiR: An R/Bioconductor Package for
+Integrative Analysis with miRNA Data. Int J Mol Sci. 2017 Jan 27;18(2).")
 )
 
 citEntry(entry = "article",
