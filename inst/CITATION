@@ -14,8 +14,10 @@ Integrative Analysis with miRNA Data.",
                                    as.person("Giancarlo Mauri"),
                                    as.person("Isabella Castiglioni")
          ),
-         journal = "Int J Mol Sci. 2017 Jan 27;18(2).",
+         journal = "Int J Mol Sci. 18(2).",
          year         = "2017",
+		 volume = 18,
+		 number= 2, 
          textVersion  =
              paste("Claudia Cava, Antonio Colaprico,Gloria Bertoli ,",
                    "Alex Graudenzi, Tiago C. Silva, Catharina Olsen,Houtan Noushmehr, Gianluca Bontempi, Giancarlo Mauri,",
