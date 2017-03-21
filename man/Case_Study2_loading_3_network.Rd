@@ -22,4 +22,3 @@ Case_Study2_loading_2_network loads PI in HomoSapiens with miRNAs already found 
 c2<-Case_Study2_loading_3_network(sdas=a2,miRNA_NET=b2)
 }
 }
-

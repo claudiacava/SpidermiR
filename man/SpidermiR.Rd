@@ -14,4 +14,3 @@ The functions you're likely to need from \pkg{SpidermiR} is
 Otherwise refer to the vignettes to see
 how to format the documentation.
 }
-

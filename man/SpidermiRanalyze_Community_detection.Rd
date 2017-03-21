@@ -27,4 +27,3 @@ SpidermiRanalyze_Community_detection try to find dense subgraphs in directed or 
 miRNA_cN <-data.frame(gA=c('hsa-let-7a','hsa-miR-300'),gB=c('FOXM1','KPNA4'),stringsAsFactors=FALSE)
 comm<-  SpidermiRanalyze_Community_detection(data=miRNA_cN,type="FC") 
 }
-

@@ -19,4 +19,3 @@ SpidermiRdownload_miRNAprediction will download miRNA predicted target
 mirna<-c('hsa-miR-567','hsa-miR-566')
 list<-SpidermiRdownload_miRNAprediction(mirna_list=mirna)
 }
-

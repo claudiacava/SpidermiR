@@ -19,4 +19,3 @@ Visualize the network
 miRNA_cNET <-data.frame(gA=c('hsa-let-7a','hsa-miR-141'),gB=c('FOXM1','CDK'),stringsAsFactors=FALSE)
 SpidermiRvisualize_mirnanet(data=miRNA_cNET)
 }
-

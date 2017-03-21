@@ -16,6 +16,6 @@ a dataframe with gene-drug, and miR-gene associations
 SpidermiRdownload_pharmacomir will download miRNA Pharmacogenomic data
 }
 \examples{
-mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)
+\dontrun{
+mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)}
 }
-

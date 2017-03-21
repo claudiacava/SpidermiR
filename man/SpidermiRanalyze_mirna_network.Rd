@@ -26,4 +26,3 @@ SpidermiRanalyze_mirna_network creates a data frame with miRNA gene interaction.
 GS_net <- data.frame(gA=c('SMAD','MYC'),gB=c('FOXM1','KRAS'),stringsAsFactors=FALSE)
 miRNA_NET<-SpidermiRanalyze_mirna_network(data=GS_net,disease="prostate cancer",miR_trg="val")
 }
-

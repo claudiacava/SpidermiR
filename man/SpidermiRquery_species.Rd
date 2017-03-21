@@ -18,4 +18,3 @@ The user can visualize the species supported by GeneMania, using the function Sp
 \examples{
 org<-SpidermiRquery_species(species)
 }
-

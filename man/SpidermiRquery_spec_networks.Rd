@@ -32,4 +32,3 @@ org<-SpidermiRquery_species(species)
 net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[9,],
                                         network = "SHpd")
 }
-

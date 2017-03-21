@@ -26,4 +26,3 @@ SpidermiRanalyze_mirna_gene_complnet creates a data frame with miRNA target gene
 GS_net <- data.frame(gA=c('SMAD','MYC'),gB=c('FOXM1','KRAS'),stringsAsFactors=FALSE)
 miRNA_cNT<-SpidermiRanalyze_mirna_gene_complnet(data=GS_net,disease="prostate cancer",miR_trg="val")
 }
-

@@ -20,4 +20,3 @@ Case_Study1_loading_4_network loads network community with the higher number of 
 d<-Case_Study1_loading_4_network(TERZA_NET=c)
 }
 }
-

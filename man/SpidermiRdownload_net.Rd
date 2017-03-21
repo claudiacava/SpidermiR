@@ -21,4 +21,3 @@ net_shar_prot<-SpidermiRquery_spec_networks(organismID = org[9,],
 network = "SHpd")
 out_net<-SpidermiRdownload_net(data=net_shar_prot)
 }
-

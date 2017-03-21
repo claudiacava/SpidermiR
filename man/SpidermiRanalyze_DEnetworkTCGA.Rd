@@ -31,4 +31,3 @@ de_int<-SpidermiRanalyze_DEnetworkTCGA(data=miRNA_cN,
                                        normal
                                       )
 }
-

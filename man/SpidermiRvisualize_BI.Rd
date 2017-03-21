@@ -22,4 +22,3 @@ miRNA_cNET <-data.frame(gA=c('hsa-let-7a','hsa-miR-141'),gB=c('FOXM1','CDK'),str
 biomark_of_interest<-c("hsa-let-7a","CDK","FOXO1","hsa-miR-27a")
 SpidermiRvisualize_BI(data=miRNA_cNET,BI=biomark_of_interest)
 }
-

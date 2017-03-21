@@ -19,4 +19,3 @@ It shows a plot OF the adjacency matrix of the network
 cd<-data.frame(gA=c('hsa-let-7a','hsa-miR-141'),gB=c('FOXM1','CDK'),stringsAsFactors=FALSE)
 SpidermiRvisualize_adj_matrix(data=cd)
 }
-

@@ -23,4 +23,3 @@ comm<-  SpidermiRanalyze_Community_detection(data=miRNA_cN,type="FC")
 biomark_of_interest<-c("hsa-let-7a","CDK","FOXO1","hsa-miR-27a")
 mol<-SpidermiRanalyze_Community_detection_bi(data=comm,BI=biomark_of_interest)
 }
-

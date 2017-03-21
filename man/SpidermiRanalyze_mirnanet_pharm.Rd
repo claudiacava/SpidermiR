@@ -18,8 +18,8 @@ a dataframe with the integation of network and pharmacomiR data
 SpidermiRanalyze_mirnanet_pharm integrates both miRNA targeting of the gene and the gene-drug interaction from PharmacomiR database in the network
 }
 \examples{
+\dontrun{
 mir_p <-data.frame(gA=c('hsa-let-7a','CASP3'),gB=c('CASP3','paclitaxel'),stringsAsFactors=FALSE)
 net_p <-data.frame(gA=c('hsa-let-7a','hsa-miR-300'),gB=c('FOXM1','KPNA4'),stringsAsFactors=FALSE)
-mol<-SpidermiRanalyze_mirnanet_pharm(mir_ph=mir_p,net=net_p)
+mol<-SpidermiRanalyze_mirnanet_pharm(mir_ph=mir_p,net=net_p)}
 }
-

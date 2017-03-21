@@ -18,4 +18,3 @@ The user can visualize the disease supported by SpidermiR
 \examples{
 disease<-SpidermiRquery_disease(diseaseID)
 }
-

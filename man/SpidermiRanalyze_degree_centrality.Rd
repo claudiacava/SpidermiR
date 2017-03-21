@@ -22,4 +22,3 @@ miRNA_cN <-data.frame(gA=c('hsa-let-7a','hsa-miR-300'),gB=c('FOXM1','KPNA4'),str
 biomark_of_interest<-c("hsa-let-7a","CDK","FOXO1","hsa-miR-27a")
 top10_cent<-SpidermiRanalyze_degree_centrality(miRNA_cN)
 }
-

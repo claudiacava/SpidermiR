@@ -24,4 +24,3 @@ Case_Study1_loading_3_network loads shared protein domain in HomoSapiens includi
 c<-Case_Study1_loading_3_network(data=b,dataFilt=dataFilt,dataClin=dataClin)
 }
 }
-

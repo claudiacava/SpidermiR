@@ -24,4 +24,3 @@ SpidermiRanalyze_mirna_extra_cir creates a data frame with miRNA target or miRNA
 miRNA_cN <-data.frame(gA=c('hsa-let-7a','hsa-miR-141'),gB=c('FOXM1','CDK'),stringsAsFactors=FALSE)
 miRNA_NET_ext_circmT<-SpidermiRanalyze_mirna_extra_cir(data=miRNA_cN,"mT")
 }
-

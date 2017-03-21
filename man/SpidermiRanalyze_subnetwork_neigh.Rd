@@ -22,4 +22,3 @@ miRNA_cN <-data.frame(gA=c('hsa-let-7a','hsa-miR-300'),gB=c('FOXM1','KPNA4'),str
 biomark_of_interest<-c("hsa-let-7a","CDK","FOXO1","hsa-miR-27a")
 GIdirect_net_neigh<-SpidermiRanalyze_subnetwork_neigh(data=miRNA_cN,BI=biomark_of_interest)
 }
-

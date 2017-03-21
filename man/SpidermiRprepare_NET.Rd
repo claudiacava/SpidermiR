@@ -25,4 +25,3 @@ out_net<-SpidermiRdownload_net(data=net_shar_prot)
 geneSymb_net<-SpidermiRprepare_NET(organismID = org[9,],
                                        data = out_net)
 }
-

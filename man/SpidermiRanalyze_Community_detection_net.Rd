@@ -24,4 +24,3 @@ miRNA_cN <-data.frame(gA=c('hsa-let-7a','hsa-miR-300'),gB=c('FOXM1','KPNA4'),str
 comm<-  SpidermiRanalyze_Community_detection(data=miRNA_cN,type="FC") 
 cd_net<-SpidermiRanalyze_Community_detection_net(data=miRNA_cN,comm_det=comm,size=1)
 }
-

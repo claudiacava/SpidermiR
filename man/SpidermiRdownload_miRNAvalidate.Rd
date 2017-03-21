@@ -18,4 +18,3 @@ SpidermiRdownload_miRNAprediction will download miRNA validated target
 \examples{
 list<-SpidermiRdownload_miRNAvalidate(validated)
 }
-
