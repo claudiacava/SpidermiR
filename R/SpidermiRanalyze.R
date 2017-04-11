@@ -179,55 +179,6 @@ list_network_mirna<-list()
 
 
 
-#' @title Integration of Extracellular/Circulating miRNA
-#' @description SpidermiRanalyze_mirna_extra_cir creates a data frame with miRNA target or miRNA target gene interaction.
-#' @param data SpidermiRanalyze_mirna_gene_complnet output or network with miRNA in the first column of the dataframe
-#' @param type The user using the following parameteres can specify the network type
-#' \tabular{ll}{
-#' mT \tab   to obtain a microRNA target interactions \cr
-#' mCT  \tab   to obtain a microRNA target gene complete iteractions\cr}
-#' @export
-#' @import stats
-#' @return dataframe with Extracellular/Circulating miRNA target interaction data
-#' @examples
-#'miRNA_cN <-data.frame(gA=c('hsa-let-7a','hsa-miR-141'),gB=c('FOXM1','CDK'),stringsAsFactors=FALSE)
-#'miRNA_NET_ext_circmT<-SpidermiRanalyze_mirna_extra_cir(data=miRNA_cN,"mT")
-SpidermiRanalyze_mirna_extra_cir<-function(data,type=NULL){
-  site<-.url_cache$get("mirandola")
-  mirandola<-read.delim(site,header = TRUE,quote = "",stringsAsFactors=FALSE)
-  colnames(data) <- c("V1", "V2")
- vd=list()
-  for (j in 1:length(mirandola$RNA_name)){
-    x<-mirandola$RNA_name[j]
-    de<-data[which(data$V1==x),]
-    if(nrow(de)!=0){
-      de$miRNASyA<-mirandola$RNA_name[j]
-    vd[[j]]<-de}}
-    ds<-do.call("rbind", vd)
-    data2<-as.data.frame(ds[!duplicated(ds), ]) 
-  ASWQ<-as.data.frame(lapply(data2, as.character),stringsAsFactors=FALSE)
-  cd<-as.data.frame(cbind(ASWQ$V1,ASWQ$V2))
-  cd<-cd[!duplicated(cd), ]
-  if(!is.null(type)){
-    if (type=="mT"){
-      i <- sapply(cd, is.factor)
-      cd[i] <- lapply(cd[i], as.character)
-      return(cd)}
-    if (type=="mCT"){
-      nh<-data[-grep("hsa",data$V1),]
-      def<-rbind(nh,cd)
-      i <- sapply(def, is.factor)
-      def[i] <- lapply(def[i], as.character)
-      return(def)}
-  }
-  if (is.null(type)) {
-    nh<-data[-grep("hsa",data$V1),]
-    def<-rbind(nh,cd)
-    i <- sapply(def, is.factor)
-    def[i] <- lapply(def[i], as.character)
-    return(def)}
-}
-
 
 #' @title Searching by biomarkers of interest with direct interaction
 #' @description SpidermiRanalyze_direct_net  finds other biomarkers that are related to a set of biomarkers of interest (the input of user) with direct interations.

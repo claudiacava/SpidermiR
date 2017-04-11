@@ -42,7 +42,7 @@
   env[["miR2Disease"]] <-
     "http://watson.compbio.iupui.edu:8080/miR2Disease/download/AllEntries.txt"
   env[["mirandola"]] <-
-    "http://mirandola.iit.cnr.it/download/miRandola_version_1.7_10-06-2015.csv"
+    "http://mirandola.iit.cnr.it/download/miRandola_version_02_2017.txt"
   env[["geneMania"]] <-
     "http://genemania.org/data/current/"
 	  env[["pharmacomir"]] <-
