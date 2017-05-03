@@ -25,8 +25,7 @@ SpidermiRdownload_net <- function(data){
 #' @description SpidermiRdownload_pharmacomir will download miRNA Pharmacogenomic data
 #' @param pharmacomir variable
 #' @examples
-#' \dontrun{
-#' mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)}
+#' mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)
 #' @export
 #' @import stats
 #' @return a dataframe with gene-drug, and miR-gene associations
