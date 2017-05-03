@@ -244,7 +244,7 @@ list<-SpidermiRdownload_miRNAextra_cir(miRNAextra_cir)
 ## `SpidermiRdownload_pharmacomir`: Download Pharmaco-miR Verified Sets from PharmacomiR database
 The user can download Pharmaco-miR Verified Sets from PharmacomiR database [@ref6].
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)
 ```
 
@@ -301,7 +301,7 @@ miRNA_complNET<-SpidermiRanalyze_mirna_gene_complnet(data=geneSymb_net,disease="
 ## `SpidermiRanalyze_mirnanet_pharm`: Integration of pharmacomiR in the network
 The user in this step can integrate the pharmacomiR database in order to link miRNA and drug effect in a specific network.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 mir_pharmnet<-SpidermiRanalyze_mirnanet_pharm(mir_ph=mir_pharmaco,net=miRNA_NET)
 ```
 
@@ -437,7 +437,7 @@ The user can visualize a 3D representation of the network  in different colours 
 ```{r, eval = TRUE}
 library(networkD3)
 
-SpidermiRvisualize_mirnanet(data=miRNA_NET)
+SpidermiRvisualize_mirnanet(data=mir_pharmnet[sample(nrow(mir_pharmnet), 100), ] )
 ```
 
 ## `SpidermiRvisualize_BI`: To Visualize the network from a set of BI. 
@@ -447,7 +447,7 @@ Starting from a graphical representation of a network, the user can highlight wi
 ```{r, eval = TRUE}
 
 biomark_of_interest<-c("hsa-let-7b","MUC1","PEX7","hsa-miR-222")
-SpidermiRvisualize_BI(data=miRNA_NET,BI=biomark_of_interest)
+SpidermiRvisualize_BI(data=mir_pharmnet[sample(nrow(mir_pharmnet), 100), ],BI=biomark_of_interest)
 ```
 
 
@@ -455,7 +455,7 @@ SpidermiRvisualize_BI(data=miRNA_NET,BI=biomark_of_interest)
 ```{r, eval = TRUE}
 library(visNetwork)
 
-SpidermiRvisualize_direction(data=miRNA_NET )
+SpidermiRvisualize_direction(data=mir_pharmnet[sample(nrow(mir_pharmnet), 100), ] )
 ```
 
 
@@ -464,7 +464,7 @@ For each BI of a community, the user can visualize a plot showing the number of 
 
 ```{r, eval = TRUE}
 
-SpidermiRvisualize_plot_target(data=miRNA_NET)
+SpidermiRvisualize_plot_target(data=miRNA_NET[1:15,])
 ```
 
 ## `SpidermiRvisualize_degree_dist`: plots the degree distribution of the network 

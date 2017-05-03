@@ -41,19 +41,20 @@ SpidermiRvisualize_mirnanet<-function(data){
     # Order rows
     attr2 <- attr2[order(attr2$ID),]
     #attr2<-as.data.frame(attr2[ order(attr2$Group,decreasing = FALSE ),]) 
-    ColourScale <- 'd3.scale.ordinal()
-            .domain(["gene", "Pharmaco","miRNA"])
-  .range(["#0096ff", "#00b34a","#ff6900"]);'
+    ColourScal <- 'd3.scaleOrdinal()
+    .domain(["gene", "Pharmaco","miRNA"])
+    .range(["#1f77b4", "#2ca02c" , "#ff7f0e"]);'
     return(
       forceNetwork(Links = dataIDs2, Nodes = attr2, Source = "V1", Target = "V2", NodeID = "name", Group= "Group",height = 
-                     2000, width = 2000, opacity = 1, zoom = TRUE, bounded = TRUE, legend= TRUE, opacityNoHover= 0.5,
-                   colourScale=JS(ColourScale),fontSize = 16)
+                     1000, width = 1000, opacity = 1, zoom = FALSE, bounded = TRUE, legend= TRUE, opacityNoHover= 1,
+                   colourScale = JS(ColourScal),fontSize = 16)
     )
   }
   if( length(grep("hsa",data$V1)) ==0){
     .SpidermiRvisualize_gene(data)
   }
 }
+
 
 
 #' @title Visualize results obtained by SpidermiR analysis starting form a set of biomarker of interest
@@ -69,7 +70,6 @@ SpidermiRvisualize_mirnanet<-function(data){
 #' @importFrom networkD3 JS
 #' @export
 #' @return 3D graphic
-
 SpidermiRvisualize_BI<-function(data,BI){
   colnames(data)[1]<-"V1"
   colnames(data)[2]<-"V2"
@@ -95,9 +95,6 @@ SpidermiRvisualize_BI<-function(data,BI){
 
   att$v2[grep("orf" ,att$v1)]<- "gene"
   att$v2<-replace(att$v2, att$v2 == "", "gene")
-  
-  
-  
   #att$v1 <- "name"
   i <- sapply(att, is.factor)
   att[i] <- lapply(att[i], as.character)
@@ -106,7 +103,7 @@ SpidermiRvisualize_BI<-function(data,BI){
   attr2 <- merge(att, IDs2)
   # Order rows
   attr2 <- attr2[order(attr2$ID),]
-  ColourScale <- 'd3.scale.ordinal()
+  ColourScale <- 'd3.scaleOrdinal()
 .domain(["gene", "Pharmaco","miRNA","biomarker of interest"])
   .range(["#0096ff", "#00b34a","#ff6900","#ffe900"]);'
 
@@ -134,14 +131,9 @@ SpidermiRvisualize_BI<-function(data,BI){
 #' @export
 #' @return plot
 SpidermiRvisualize_plot_target<-function(data){
-  a<-c(data[,1],data[,2])
-
+a<-c(data[,1],data[,2])
 p<-table(a)
-
 as<-as.data.frame(p)
-
-
-
 D<-as[order(as$Freq,decreasing=TRUE),]
 names(D)[1]<-"miRNAs"
 names(D)[2]<-"mRNA_target"
@@ -321,11 +313,8 @@ SpidermiRvisualize_direction<-function(data){
   
   nodes2$shadow<-""
   nodes2$shadow<-c(rep("FALSE",length(id)))
-  
   nodes2$shadow<-as.logical(nodes2$shadow)
-  
-  
-  return(visNetwork(nodes2, edges2[,c(1,2,5)])%>% visLegend(useGroups = FALSE, addNodes = data.frame(label = c("mirna","pharmaco","gene"), shape = c("box","ellipse","circle"),color=c("orange","green","lightblue") )
+return(visNetwork(nodes2, edges2[,c(1,2,5)])%>% visLegend(useGroups = FALSE, addNodes = data.frame(label = c("mirna","pharmaco","gene"), shape = c("box","ellipse","circle"),color=c("orange","green","lightblue") )
   )%>% visInteraction(dragNodes = TRUE, dragView = TRUE, zoomView = TRUE) )
 }
 
