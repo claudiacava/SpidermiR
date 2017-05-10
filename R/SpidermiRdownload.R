@@ -53,7 +53,7 @@ SpidermiRdownload_pharmacomir<-function(pharmacomir){
 #' @description SpidermiRdownload_miRNAprediction will download miRNA predicted target
 #' @param mirna_list miRNA list of interest
 #' @examples
-#' mirna<-c('hsa-miR-567','hsa-miR-566')
+#' mirna<-c('hsa-miR-567')
 #' list<-SpidermiRdownload_miRNAprediction(mirna_list=mirna)
 #' @export
 #' @import stats

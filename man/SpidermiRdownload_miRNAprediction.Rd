@@ -16,6 +16,6 @@ a dataframe with miRNA target validated interactions
 SpidermiRdownload_miRNAprediction will download miRNA predicted target
 }
 \examples{
-mirna<-c('hsa-miR-567','hsa-miR-566')
+mirna<-c('hsa-miR-567')
 list<-SpidermiRdownload_miRNAprediction(mirna_list=mirna)
 }
