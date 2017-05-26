@@ -491,15 +491,16 @@ SpidermiRvisualize_3Dbarplot(Edges_1net=1041003,Edges_2net=100016,Edges_3net=300
 
 
 ```{r, eval = TRUE,echo = FALSE}
-B<-matrix( c("Gene network", "Validated miRNA-target","", "Predicted miRNA-target","","","", "Extracellular Circulating microRNAs", "miRNA-disease", "Drug Associations",
+B<-matrix( c("Gene network", "Validated miRNA-target","","", "Predicted miRNA-target","","","", "Extracellular Circulating microRNAs", "miRNA-disease", "Drug Associations",
       
-             "GeneMania", "miRTAR", "miRwalk", "DIANA", "Miranda", "PicTar","TargetScan","miRandola","miR2disease","Pharmaco-miR",
+             "GeneMania", "miRTAR", "miRwalk","miRTarBase", "DIANA", "Miranda", "PicTar","TargetScan","miRandola","miR2disease","Pharmaco-miR",
              
-             "Current","N/A","miRwalk2","DIANA- 5.0","N/A","N/A","TargetScan7.1","miRandola1.7","N/A","N/A",
-             2016,2009,2015,2013,2010,"N/A","2016",2015,2009,"N/A"
+             "Current","N/A","miRwalk2","miRTarBase 6.1","DIANA- 5.0","N/A","N/A","TargetScan7.1","miRandola v 02/2017","N/A","N/A",
+             2016,2009,2015,"N/A",2013,2010,"N/A","2016",2017,2009,"N/A",
+             "http://genemania.org/data/current/","http://watson.compbio.iupui.edu:8080/miR2Disease/download/miRtar.txt","http://zmf.umm.uni-heidelberg.de/apps/zmf/mirwalk2/downloads/vtm/hsa-vtm-gene.rdata.zip","http://mirtarbase.mbc.nctu.edu.tw/cache/download/6.1/miRTarBase_SE_WR.xls","https://bioconductor.org/packages/release/bioc/html/miRNAtap.html","https://bioconductor.org/packages/release/bioc/html/miRNAtap.html","https://bioconductor.org/packages/release/bioc/html/miRNAtap.html","https://bioconductor.org/packages/release/bioc/html/miRNAtap.html","http://mirandola.iit.cnr.it/download/miRandola_version_02_2017.txt","http://watson.compbio.iupui.edu:8080/miR2Disease/download/AllEntries.txt","http://pharmaco-mir.org/home/download_VERSE_db/pharmacomir_VERSE_DB.csv"
              
-             ), nrow=10, ncol=4)
-colnames(B)<-c("CATEGORY","EXTERNAL DATABASE","VERSION","LAST UPDATE")
+             ), nrow=11, ncol=5)
+colnames(B)<-c("CATEGORY","EXTERNAL DATABASE","VERSION","LAST UPDATE","LINK")
 
 ```
 

@@ -47,6 +47,8 @@
     "http://genemania.org/data/current/"
 	  env[["pharmacomir"]] <-
     "http://pharmaco-mir.org/home/download_VERSE_db/pharmacomir_VERSE_DB.csv"
+	  env[["miRTarBase"]] <-
+	    "http://mirtarbase.mbc.nctu.edu.tw/cache/download/6.1/miRTarBase_SE_WR.xls"
   list(
     get=function(elt) {
       stopifnot(is.character(elt), length(elt) == 1L, elt %in%
