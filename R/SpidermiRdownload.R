@@ -108,6 +108,7 @@ SpidermiRdownload_miRNAprediction<-function(mirna_list){
 #' list<-SpidermiRdownload_miRNAvalidate(validated)
 #' @export
 #' @import stats
+#' @importFrom gdata read.xls 
 #' @return a dataframe with miRNA target validated interactions
 SpidermiRdownload_miRNAvalidate<-function(validated){
     # querying miRtar database (validated interaction miRNA-gene)
@@ -124,7 +125,12 @@ SpidermiRdownload_miRNAvalidate<-function(validated){
     mir2disease$V3<-NULL
     mir2disease$V4<-NULL
     mir_validated_targe<-rbind(mir2disease,se)
-    return(mir_validated_targe)
+    site_mirtarbase<-.url_cache$get("miRTarBase")
+    test <- read.xls(site_mirtarbase, quote="",stringsAsFactors=FALSE)
+    pro<-as.data.frame(cbind(test$X.miRNA.,test$X.Target.Gene.))
+    dem<- print(as.data.frame(sapply(pro, function(x) gsub("\"", "", x))))
+    mir_validated_targe3<-rbind(mir_validated_targe,dem)
+    return(mir_validated_targe3)
 }
 
 
