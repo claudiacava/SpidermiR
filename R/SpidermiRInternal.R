@@ -49,7 +49,15 @@
     "http://pharmaco-mir.org/home/download_VERSE_db/pharmacomir_VERSE_DB.csv"
 	  env[["miRTarBase"]] <-
 	    "http://mirtarbase.mbc.nctu.edu.tw/cache/download/6.1/miRTarBase_SE_WR.xls"
-  list(
+	  env[["Tiger"]] <-
+	    "http://bioinfo.wilmer.jhu.edu/tiger/download/hs2tissue-Table.txt"
+	  env[["Tiger_mapping"]] <-
+	    "http://bioinfo.wilmer.jhu.edu/tiger/download/symbol2hs-Table.txt"
+	  env[["LNC"]] <-
+	    "http://genome.igib.res.in/lncRNome/downloads/general_information.txt"
+	  env[["LNC_mirna"]] <-
+	  "http://genome.igib.res.in/lncRNome/downloads/miRNA_binding_sites.txt"
+list(
     get=function(elt) {
       stopifnot(is.character(elt), length(elt) == 1L, elt %in%
                   ls(env))
