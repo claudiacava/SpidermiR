@@ -22,19 +22,21 @@ SpidermiRquery_species <- function(species) {
     newsite_tofind <- paste(site,qst_find_sitep,sep="")
     Tableorganism[tbi,"link"] <- newsite_tofind
   }
-  organismID<-gsub("/","",organism_2)
-  rownames(Tableorganism)<-organismID
+  organismID<-as.data.frame(gsub("/","",organism_2))
+  colnames(organismID) <- c("Species")
+  rownames(Tableorganism)<-organismID[,1]
   tabOrgd <- matrix(0,nrow(as.matrix(organismID)),2)
   colnames(tabOrgd) <- c("Number","Species")
   tabOrgd <- as.data.frame(tabOrgd)
   tabOrgd$Number <- rownames(organismID)
-  tabOrgd$Species <- organismID
+  tabOrgd$Species <- organismID[,1]
  # organismID  <- as.matrix(organismID)
   #colnames(organismID) <- "Species"
   tabOrgd<-tabOrgd[- grep("COMBINED", tabOrgd$Species),]
   tabOrgd<-as.data.frame(tabOrgd)
-  tabOrgd<-tabOrgd[- grep("README", tabOrgd$tabOrgd),]
-  tabOrgd<-as.data.frame(tabOrgd)
+  tabOrgd<-as.data.frame(tabOrgd[,2])
+  #tabOrgd<-tabOrgd[- grep("README", tabOrgd$tabOrgd),]
+ # tabOrgd<-as.data.frame(tabOrgd)
   return(tabOrgd)
   
 }
