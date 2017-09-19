@@ -111,13 +111,13 @@ SpidermiRquery_spec_networks<-function(organismID,network) {
       x<-x[grep("/Co-expression", x)]}
     #Physical_interactions
     if(network == "PHint"){
-      x<-x[grep("/Physical_interactions", x)]}
+      x<-x[grep("/Physical_Interactions", x)]}
     #Co-localization
     if(network == "COloc"){
       x<-x[grep("/Co-localization", x)]}
     #Genetic_interactions
     if(network == "GENint"){
-      x<-x[grep("/Genetic_interactions", x)]}
+      x<-x[grep("/Genetic_Interactions", x)]}
     #pathway
     if(network == "PATH"){
       x<-x[grep("/Pathway", x)]}
