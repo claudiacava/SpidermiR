@@ -226,7 +226,7 @@ mirna<-c('hsa-miR-567','hsa-miR-566')
 SpidermiRdownload_miRNAprediction(mirna_list=mirna)
 ```
 ## `SpidermiRdownload_miRNAvalidate`: Downloading miRNA validated data target
-The user can download the validated miRNA-gene from: miRTAR and miRwalk [@ref2] [@ref3]. 
+The user can download the validated miRNA-gene from: miRTAR, miRwalk and miRTarBase [@ref2] [@ref3]. Please more detail see the section `Features databases SpidermiR`
 
 ```{r, eval = FALSE}
 list<-SpidermiRdownload_miRNAvalidate(validated)
