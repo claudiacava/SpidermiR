@@ -46,7 +46,11 @@ SpidermiRvisualize_mirnanet<-function(data){
     .range(["#1f77b4", "#2ca02c" , "#ff7f0e"]);'
     return(
       forceNetwork(Links = dataIDs2, Nodes = attr2, Source = "V1", Target = "V2", NodeID = "name", Group= "Group",height = 
+<<<<<<< HEAD
                      1000, width = 1000, opacity = 1, zoom = TRUE, legend= TRUE, opacityNoHover= 1,
+=======
+                     1000, width = 1000, opacity = 1, zoom = TRUE, bounded = TRUE, legend= TRUE, opacityNoHover= 1,
+>>>>>>> refs/remotes/upstream/RELEASE_3_6
                    colourScale = JS(ColourScal),fontSize = 16)
     )
   }
