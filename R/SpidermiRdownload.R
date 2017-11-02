@@ -191,11 +191,6 @@ SpidermiRdownload_miRNALNC_miRNA<-function(miRNALNC_miRNA){
 
 
 
-
-
-
-<<<<<<< HEAD
-=======
 #' @title Download miRNA tissue specific from Tiger Database
 #' @description SpidermiRdownload_miR_tissue_spec will download miRNAs and genes tissue specific according to Tiger database (Liu X et al. 2008, Bioinformatics) 
 #' @param miRNATS 
@@ -325,5 +320,4 @@ SpidermiRdownload_miR_tissue_spec<-function(miRNATS){
   return(final)
 }
 
->>>>>>> refs/remotes/upstream/RELEASE_3_6
 
