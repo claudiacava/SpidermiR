@@ -226,7 +226,7 @@ mirna<-c('hsa-miR-567','hsa-miR-566')
 SpidermiRdownload_miRNAprediction(mirna_list=mirna)
 ```
 ## `SpidermiRdownload_miRNAvalidate`: Downloading miRNA validated data target
-The user can download the validated miRNA-gene from: miRTAR, miRwalk and miRTarBase [@ref2] [@ref3]. Please more detail see the section `Features databases SpidermiR`
+The user can download the validated miRNA-gene from: miRTAR and miRwalk [@ref2] [@ref3]. 
 
 ```{r, eval = FALSE}
 list<-SpidermiRdownload_miRNAvalidate(validated)
@@ -419,7 +419,7 @@ mol<-SpidermiRanalyze_Community_detection_bi(data=comm,BI=gi)
 
 `SpidermiRanalyze_DEnetworkTCGA` integrates the information of differential analysis of TCGA data in the network. The final result will be a network with only DE genes or miRNAs depending  whether the user chooses mRNA or miRNA  TCGA data.
 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 miRNA_cN <-data.frame(gA=c('IGFL3','GABRA1'),gB=c('IGFL2','KRT13'),stringsAsFactors=FALSE)
 tumour<-c("TCGA-E9-A1RD-01A","TCGA-E9-A1RC-01A")
 normal<-c("TCGA-BH-A18P-11A","TCGA-BH-A18L-11A") 

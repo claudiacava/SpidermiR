@@ -154,37 +154,6 @@ SpidermiRdownload_miRNAextra_cir<-function(miRNAextra_cir){
 
 
 
-#' @title Download Long Non-Coding RNA (LNC-RNA) from  lncRNome database
-#' @description SpidermiRdownload_LNC-RNA will download LNC-RNA 
-#' @param miRNALNC_RNA parameter
-#' @examples
-#' list<-SpidermiRdownload_miRNALNC_RNA(miRNALNC_RNA)
-#' @export
-#' @import stats
-#' @return a dataframe with miRNALNC_RNA
-SpidermiRdownload_miRNALNC_RNA<-function(miRNALNC_RNA){
-  # querying miRandola database (Extracellular Circulating microRNAs)
-  site<-.url_cache$get("LNC")
-  LNC<-read.delim(site,header = TRUE,quote = "",stringsAsFactors=FALSE)
-  return(LNC)
-}
-
-
-
-
-#' @title Download microRNAs binding sites on long non coding RNA from  lncRNome database
-#' @description SpidermiRdownload_miRNALNC_miRNA-RNA will download microRNAs binding sites on long non coding RNA
-#' @param miRNALNC_miRNA parameter
-#' @examples
-#' list_LNC_miRNA<-SpidermiRdownload_miRNALNC_miRNA(miRNALNC_miRNA)
-#' @export
-#' @import stats
-#' @return a dataframe with miRNALNC_miRNA
-SpidermiRdownload_miRNALNC_miRNA<-function(miRNALNC_miRNA){
-  site<-.url_cache$get("LNC_mirna")
-  LNC_miRNA<-read.delim(site,header = TRUE,quote = "",stringsAsFactors=FALSE)
-  return(LNC_miRNA)
-}
 
 
 
