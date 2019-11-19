@@ -1,4 +1,3 @@
-#' Download data
 #'
 #' SpidermiR allows you to Download data of samples from GeneMania
 #'
@@ -11,19 +10,4 @@
 #' @name SpidermiR
 NULL
 
-
-#' TCGA data for breast cancer
-#' @docType data
-#' @keywords internal
-#' @name Data_CANCER_normUQ_filt
-#' @format A data frame with rows and variables
-NULL
-
-
-#' clinical data for prostate cancer
-#' @docType data
-#' @keywords internal
-#' @name dataClin
-#' @format A data frame with rows and variables
-NULL
 

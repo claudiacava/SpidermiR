@@ -122,8 +122,9 @@ This techincal report gives a short overview of the essential `SpidermiR` method
 To install use the code below.
 
 ```{r, eval = FALSE}
-source("https://bioconductor.org/biocLite.R")
-biocLite("SpidermiR")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("SpidermiR")
 ```
 
 # `SpidermiRquery`: Searching network 
@@ -188,19 +189,6 @@ net_shar_prot
 ```
 
 
-## `SpidermiRquery_disease`: Searching by miRNA-disease 
-
-The user can obtain a list of the diseases supported by SpidermiR, in order to focus only on miRNAs that have been already studied in a particular disease (retrieving data from miR2Disease [@ref2]).
-
-```{r, eval = TRUE}
-disease<-SpidermiRquery_disease(diseaseID)
-```
-
-Currently, the list of diseases supported is:
-
-```{r, eval = TRUE, echo = FALSE}
-disease
-```
 
 # `SpidermiRdownload`: Downloading network data
 The user in this step can download the data, as previously queried.
@@ -237,17 +225,23 @@ list<-SpidermiRdownload_miRNAvalidate(validated)
 The user can download extracellular circulating miRNAs from miRandola database
 
 ```{r, eval = FALSE}
-list<-SpidermiRdownload_miRNAextra_cir(miRNAextra_cir)
+list_circ<-SpidermiRdownload_miRNAextra_cir(miRNAextra_cir)
 ```
 
 
 ## `SpidermiRdownload_pharmacomir`: Download Pharmaco-miR Verified Sets from PharmacomiR database
-The user can download Pharmaco-miR Verified Sets from PharmacomiR database [@ref6].
+The user can download Pharmaco-miR predicted Sets from a fisher test. This function will give an information about the significant interactions between the miRNAs and the drug of interest (in this case tamoxifen). p-value and FDR will be visualized. 
 
 ```{r, eval = TRUE}
-mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)
+list<-SpidermiRdownload_miRNAvalidate(validated)
+drug="TAMOXIFEN"
+drug_genetarget<-SpidermiRdownload_pharmacomir(list,drug="TAMOXIFEN")
 ```
+The fisher test will be calculated considering the interactions drug and gene derived by dgIdb database.
 
+```{r, eval = TRUE}
+drug_genetarget<-SpidermiRdownload_drug_gene(drug_gene)
+```
 
 
 # `SpidermiRprepare`: Preparing the data
@@ -270,69 +264,17 @@ knitr::kable(geneSymb_net[[1]][1:5,c(1,2,3,5,8)], digits = 2,
 
 # `SpidermiRanalyze`: : Analyze data from network data
 
-## `SpidermiRanalyze_mirna_network`: Integration of microRNA-target interactions. 
-The user in this step obtained a network matrix with miRNA-target interactions starting from a specific network. The user can focus on miRNAs that have been already linked to a particular disease or take all miRNAs. miRNA-gene interactions include data from validated or predicted studies.
-You can filter the search by disease.
-The miRNA network can be filtered by disease using the name of the disease, as obtained from `SpidermiRquery_disease`.
-
-
-```{r, eval = TRUE}
-miRNA_NET<-SpidermiRanalyze_mirna_network(data=geneSymb_net,disease="prostate cancer",miR_trg="val")
-```
-
-The list of miRNA network is shown below:
-```{r, eval = TRUE, echo = FALSE}
-str(miRNA_NET)
-```
 
 
 
-## `SpidermiRanalyze_mirna_gene_complnet`: Integration of microRNA-target complete interactions 
-The user in this step obtained a gene network matrix with miRNA-gene   and gene-gene interaction. 
-The user can focus on miRNAs that have been already linked to a particular disease or take all miRNAs. miRNA-gene interactions include data from validated or predicted studies.
-The miRNA network can be filtered by disease using the name of the disease, as obtained from `SpidermiRquery_disease`.
-
-
-```{r, eval = FALSE}
-miRNA_complNET<-SpidermiRanalyze_mirna_gene_complnet(data=geneSymb_net,disease="prostate cancer",miR_trg="val")
-```
-
-
-## `SpidermiRanalyze_mirnanet_pharm`: Integration of pharmacomiR in the network
-The user in this step can integrate the pharmacomiR database in order to link miRNA and drug effect in a specific network.
-
-```{r, eval = TRUE}
-mir_pharmnet<-SpidermiRanalyze_mirnanet_pharm(mir_ph=mir_pharmaco,net=miRNA_NET)
-```
-
-
-
-## `SpidermiRanalyze_mirna_extra_cir`: Integration of Extracellular/Circulating miRNA
-
-The user can select the extracellular/circulating miRNAs found in the obtained network.
-Extracellular/circulating miRNAs include data from mirandola database [@ref4].
-The user using the following parameteres can specify the network type: 
-
-* **mT** to obtain a miRNA-gene interaction
-* **mCT** to obtain a miRNA-gene-gene interaction.
-
-```{r, eval = FALSE}
-miRNA_NET_ext_circmT<-SpidermiRanalyze_mirna_extra_cir(data=miRNA_complNET,"mT")
-```
-
-
-
-```{r, eval = FALSE}
-miRNA_NET_ext_circmCT<-SpidermiRanalyze_mirna_extra_cir(data=miRNA_complNET,"mCT")
-```
 
 ## `SpidermiRanalyze_direct_net`: Searching by biomarkers of interest with direct interaction
 
 Starting from a set of biomarkers of interest (BI), genes, miRNA or both, given by the user, this function finds sub-networks including all direct interactions involving at least one of the BI.
 
 ```{r, eval = TRUE}
-biomark_of_interest<-c("hsa-miR-214","PTEN","FOXO1","hsa-miR-27a")
-
+biomark_of_interest<-c("hsa-let-7a","CDC34","hsa-miR-27a","PEX7","EPT1","FOX","hsa-miR-5a")
+miRNA_NET <-data.frame(V1=c('hsa-let-7a','CASP3','BRCA','hsa-miR-7a','hsa-miR-5a','SMAD','SOX'),V2=c('CASP3','TAMOXIFEN','MYC','PTEN','FOX','HIF1','P53'),stringsAsFactors=FALSE)
 GIdirect_net<-SpidermiRanalyze_direct_net(data=miRNA_NET,BI=biomark_of_interest)
 ```
 
@@ -367,10 +309,10 @@ GIdirect_net_neigh<-SpidermiRanalyze_subnetwork_neigh(data=miRNA_NET,BI=biomark_
 
 ## `SpidermiRanalyze_degree_centrality`: Ranking degree centrality genes
 
-This function finds the number of direct neighbours of a BI and allows the selection of those BI with a number of direct neighbours higher than a selected cut-off.
+This function finds the number of direct neighbours of a node in a network and allows the selection of those nodes with a number of direct neighbours higher than a selected cut-off.
 
 ```{r, eval = FALSE}
-top10_cent_gene<-SpidermiRanalyze_degree_centrality(miRNA_NET,cut=10)
+top10_cent_gene<-SpidermiRanalyze_degree_centrality(miRNA_NET)
 ```
 
 
@@ -411,52 +353,12 @@ cd_net<-SpidermiRanalyze_Community_detection_net(data=miRNA_NET,comm_det=comm,si
 Starting from the community to which BI belong (the output of the previously described function), this function indicates if a set of BI is included within such community.
 
 ```{r, eval = FALSE}
-gi=c("CF","ROCK1","KIT","CCND2")
+gi=c("P53","PTEN","KIT","CCND2")
 mol<-SpidermiRanalyze_Community_detection_bi(data=comm,BI=gi)
 ```
 
-## `SpidermiRanalyze_DEnetworkTCGA`: Integration with TCGA data in order to obtain a network of  differentially expressed (DE) genes or miRNAs.
-
-`SpidermiRanalyze_DEnetworkTCGA` integrates the information of differential analysis of TCGA data in the network. The final result will be a network with only DE genes or miRNAs depending  whether the user chooses mRNA or miRNA  TCGA data.
-
-```{r, eval = FALSE}
-miRNA_cN <-data.frame(gA=c('IGFL3','GABRA1'),gB=c('IGFL2','KRT13'),stringsAsFactors=FALSE)
-tumour<-c("TCGA-E9-A1RD-01A","TCGA-E9-A1RC-01A")
-normal<-c("TCGA-BH-A18P-11A","TCGA-BH-A18L-11A") 
-de_int<-SpidermiRanalyze_DEnetworkTCGA(data=miRNA_cN,
-                                        TCGAmatrix=Data_CANCER_normUQ_filt,
-                                        tumour,
-                                        normal
-                                       )
-```
-
 # `SpidermiRvisualize`: To visualize the network 
-## `SpidermiRvisualize_mirnanet`: To Visualize the network. 
-The user can visualize a 3D representation of the network  in different colours for miRNA, genes, and pharmaco.  The user can manage the network directly moving the nodes and the edges, in order to interpret the results in the graphic way. 
 
-```{r, eval = TRUE}
-library(networkD3)
-
-SpidermiRvisualize_mirnanet(data=mir_pharmnet[sample(nrow(mir_pharmnet), 100), ] )
-```
-
-## `SpidermiRvisualize_BI`: To Visualize the network from a set of BI. 
-
-Starting from a graphical representation of a network, the user can highlight with a different color specific BI. 
-
-```{r, eval = TRUE}
-
-biomark_of_interest<-c("hsa-let-7b","MUC1","PEX7","hsa-miR-222")
-SpidermiRvisualize_BI(data=mir_pharmnet[sample(nrow(mir_pharmnet), 100), ],BI=biomark_of_interest)
-```
-
-
-## `SpidermiRvisualize_direction`: To visualize the network 
-```{r, eval = TRUE}
-library(visNetwork)
-
-SpidermiRvisualize_direction(data=mir_pharmnet[sample(nrow(mir_pharmnet), 100), ] )
-```
 
 
 ## `SpidermiRvisualize_plot_target`: Visualize the plot with miRNAs and the number of their targets in the network. 
@@ -464,7 +366,7 @@ For each BI of a community, the user can visualize a plot showing the number of 
 
 ```{r, eval = TRUE}
 
-SpidermiRvisualize_plot_target(data=miRNA_NET[1:15,])
+SpidermiRvisualize_plot_target(data=miRNA_NET)
 ```
 
 ## `SpidermiRvisualize_degree_dist`: plots the degree distribution of the network 
@@ -479,7 +381,7 @@ SpidermiRvisualize_degree_dist(data=miRNA_NET)
 It plots the adjacency matrix of the community, representing the degree of connections among the nodes.
 
 ```{r, fig.width=10, fig.height=10,eval = TRUE}
-SpidermiRvisualize_adj_matrix(data=miRNA_NET[1:30,])
+SpidermiRvisualize_adj_matrix(data=miRNA_NET)
 ```
 
 ## `SpidermiRvisualize_3Dbarplot`: 3D barplot 
@@ -490,58 +392,35 @@ SpidermiRvisualize_3Dbarplot(Edges_1net=1041003,Edges_2net=100016,Edges_3net=300
 ```
 
 
+# `Features databases SpidermiR`: 
+
+Features of databases integrated in `SpidermiR` are:
+
+
+
+
 ```{r, eval = TRUE,echo = FALSE}
-B<-matrix( c("Gene network", "Validated miRNA-target","","", "Predicted miRNA-target","","","", "Extracellular Circulating microRNAs", "miRNA-disease", "Drug Associations",
+B<-matrix( c("Gene network", "Validated miRNA-target","", "Predicted miRNA-target","","","", "Extracellular Circulating microRNAs", "Drug Associations",
       
-             "GeneMania", "miRTAR", "miRwalk","miRTarBase", "DIANA", "Miranda", "PicTar","TargetScan","miRandola","miR2disease","Pharmaco-miR",
+             "GeneMania", "miRwalk","miRTarBase", "DIANA", "Miranda", "PicTar","TargetScan","miRandola","Pharmaco-miR",
              
-             "Current","N/A","miRwalk2","miRTarBase 6.1","DIANA- 5.0","N/A","N/A","TargetScan7.1","miRandola v 02/2017","N/A","N/A",
-             2016,2009,2015,"N/A",2013,2010,"N/A","2016",2017,2009,"N/A",
-             "http://genemania.org/data/current/","http://watson.compbio.iupui.edu:8080/miR2Disease/download/miRtar.txt","http://zmf.umm.uni-heidelberg.de/apps/zmf/mirwalk2/downloads/vtm/hsa-vtm-gene.rdata.zip","http://mirtarbase.mbc.nctu.edu.tw/cache/download/6.1/miRTarBase_SE_WR.xls","https://bioconductor.org/packages/release/bioc/html/miRNAtap.html","https://bioconductor.org/packages/release/bioc/html/miRNAtap.html","https://bioconductor.org/packages/release/bioc/html/miRNAtap.html","https://bioconductor.org/packages/release/bioc/html/miRNAtap.html","http://mirandola.iit.cnr.it/download/miRandola_version_02_2017.txt","http://watson.compbio.iupui.edu:8080/miR2Disease/download/AllEntries.txt","http://pharmaco-mir.org/home/download_VERSE_db/pharmacomir_VERSE_DB.csv"
+             "Current","miRwalk2","miRTarBase 7","DIANA- 5.0","N/A","N/A","TargetScan7.1","miRandola v 02/2017","N/A",
+             2016,2015,2017,2013,2010,"N/A","2016",2017,"N/A",
+             "http://genemania.org/data/current/","http://zmf.umm.uni-heidelberg.de/apps/zmf/mirwalk2/downloads/vtm/hsa-vtm-gene.rdata.zip","mirtarbase.mbc.nctu.edu.tw/cache/download/7.0/miRTarBase_SE_WR.xls","https://bioconductor.org/packages/release/bioc/html/miRNAtap.html","https://bioconductor.org/packages/release/bioc/html/miRNAtap.html","https://bioconductor.org/packages/release/bioc/html/miRNAtap.html","https://bioconductor.org/packages/release/bioc/html/miRNAtap.html","http://mirandola.iit.cnr.it/download/miRandola_version_02_2017.txt","http://pharmaco-mir.org/home/download_VERSE_db/pharmacomir_VERSE_DB.csv"
              
-             ), nrow=11, ncol=5)
+             ), nrow=9, ncol=5)
 colnames(B)<-c("CATEGORY","EXTERNAL DATABASE","VERSION","LAST UPDATE","LINK")
 
 ```
 
-# `Features databases SpidermiR`: 
 
-Features of databases integrated in `SpidermiR` are:
+
 ```{r, eval = TRUE, echo = FALSE}
 knitr::kable(B, digits = 2,
              caption = "Features",row.names = FALSE)
 ```
 
 
-
-# SpidermiR Downstream Analysis: Case Study Please see `SpidermiR:Application Examples` for more information.
-## Case Study n.1: Role of miRNAs in shared protein domains network in Prostate Cancer
-
-In this case study, we downloaded shared protein domains network in Homo Sapiens, using SpidermiRquery, SpidermiRprepare, and SpidermiRdownload.   
-
-Then, we focused on role of miRNAs in this network. We integrated miRNA information using SpidermiRanalyze. We obtained a big network, and in order to understand the underlying biological process of a set of biomarker of interest (e.g. from DEG) we performed an analysis to identify their neighbor biomarkers in the shared protein domains network. Please see `SpidermiR:Application Examples` for more information. 
-
-SpidermiRvisualize was used to see the results.
-
-```{r, eval = FALSE}
-
-a<-Case_Study1_loading_1_network(species)
-b<-Case_Study1_loading_2_network(data=a)
-c<-Case_Study1_loading_3_network(data=b,dataFilt=dataFilt,dataClin=dataClin)
-d<-Case_Study1_loading_4_network(TERZA_NET=c)
-
-```
-
-## Case Study n.2: miRNAs regulating degree centrality genes in physical interactions network in breast cancer
-
-We studied in this case study the relationships between miRNAs with higher centrality and their target proteins with higher centrality. Please see `SpidermiR:Application Examples` for more information. 
-
-
-```{r, eval = FALSE}
-a2<-Case_Study2_loading_1_network(species)
-b2<-Case_Study2_loading_2_network(data=a2)
-c2<-Case_Study2_loading_3_network(sdas=a2,miRNA_NET=b2)
-```
 
 ******
 

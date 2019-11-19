@@ -13,7 +13,7 @@ SpidermiRdownload_miRNAextra_cir(miRNAextra_cir)
 a dataframe with miRNA target validated interactions
 }
 \description{
-SpidermiRdownload_miRNAprediction will download miRNA validated target
+SpidermiRdownload_miRNAextra_cir will download miRNA validated target
 }
 \examples{
 list<-SpidermiRdownload_miRNAextra_cir(miRNAextra_cir)

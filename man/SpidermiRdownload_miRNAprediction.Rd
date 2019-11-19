@@ -2,7 +2,7 @@
 % Please edit documentation in R/SpidermiRdownload.R
 \name{SpidermiRdownload_miRNAprediction}
 \alias{SpidermiRdownload_miRNAprediction}
-\title{Download miRNA predicted database}
+\title{Download human miRNA predicted database}
 \usage{
 SpidermiRdownload_miRNAprediction(mirna_list)
 }

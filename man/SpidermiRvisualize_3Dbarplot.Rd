@@ -4,9 +4,10 @@
 \alias{SpidermiRvisualize_3Dbarplot}
 \title{plots the 3D barplot}
 \usage{
-SpidermiRvisualize_3Dbarplot(Edges_1net, Edges_2net, Edges_3net, Edges_4net,
-  Edges_5net, NODES_1net, NODES_2net, NODES_3net, NODES_4net, NODES_5net,
-  nmiRNAs_1net, nmiRNAs_2net, nmiRNAs_3net, nmiRNAs_4net, nmiRNAs_5net)
+SpidermiRvisualize_3Dbarplot(Edges_1net, Edges_2net, Edges_3net,
+  Edges_4net, Edges_5net, NODES_1net, NODES_2net, NODES_3net, NODES_4net,
+  NODES_5net, nmiRNAs_1net, nmiRNAs_2net, nmiRNAs_3net, nmiRNAs_4net,
+  nmiRNAs_5net)
 }
 \arguments{
 \item{Edges_1net}{int number of edges in the 1 net}

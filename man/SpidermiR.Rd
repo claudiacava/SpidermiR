@@ -4,11 +4,8 @@
 \name{SpidermiR}
 \alias{SpidermiR}
 \alias{SpidermiR-package}
-\title{Download data}
+\title{SpidermiR allows you to Download data of samples from GeneMania}
 \description{
-SpidermiR allows you to Download data of samples from GeneMania
-}
-\details{
 The functions you're likely to need from \pkg{SpidermiR} is
 \code{SpidermiR}
 Otherwise refer to the vignettes to see

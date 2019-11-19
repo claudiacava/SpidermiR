@@ -21,35 +21,7 @@ SpidermiRdownload_net <- function(data){
     return (list_d)  
 }
 
-#' @title Download both miRNA target and the gene-drug interaction from PharmacomiR database
-#' @description SpidermiRdownload_pharmacomir will download miRNA Pharmacogenomic data
-#' @param pharmacomir variable
-#' @examples
-#' mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)
-#' @export
-#' @import stats
-#' @return a dataframe with gene-drug, and miR-gene associations
-SpidermiRdownload_pharmacomir<-function(pharmacomir){
-  # querying Pharmaco-miR database (Pharmaco-miR validated interaction)
-  pharm_miR <- .url_cache$get("pharmacomir")
-  pharm_miR_db<-read.csv(pharm_miR,header = TRUE,stringsAsFactors=FALSE)
-  pharm_miR_db$miRNA <- as.character(sub("miR-","hsa-miR-", pharm_miR_db$miRNA))
-  pharm_miR_db$miRNA <- as.character(sub("let-","hsa-let-", pharm_miR_db$miRNA))
-  pharm_miR_db$Drug<-as.character(sub("3,3'-","", pharm_miR_db$Drug))
-  pharm_miR_db$Drug<-as.character(sub("5-","", pharm_miR_db$Drug))
-  pmir<-cbind(pharm_miR_db$miRNA,pharm_miR_db$Gene)
-  pmir<-as.data.frame(pmir[!duplicated(pmir), ]) 
-  pmir2<-cbind(pharm_miR_db$Gene,pharm_miR_db$Drug)
-  pmir2<-as.data.frame(pmir2[!duplicated(pmir2), ]) 
-  pmir_c<-rbind(pmir,pmir2)
-  i <- sapply(pmir_c, is.factor)
-  pmir_c[i] <- lapply(pmir_c[i], as.character)
-  return(pmir_c)
-  #SpidermiRvisualize_mirnanet(data=pmir_c)
-}
-
-
-#' @title Download miRNA predicted database
+#' @title Download human miRNA predicted database
 #' @description SpidermiRdownload_miRNAprediction will download miRNA predicted target
 #' @param mirna_list miRNA list of interest
 #' @examples
@@ -100,6 +72,49 @@ SpidermiRdownload_miRNAprediction<-function(mirna_list){
 }
 
 
+#' @title Download mmu miRNA predicted database
+#' @description SpidermiRdownload_miRNAprediction_mmu will download miRNA predicted target
+#' @param mirna_list miRNA list of interest
+#' @examples
+#' mirna<-c('mmu-miR-708-3p')
+#' list<-SpidermiRdownload_miRNAprediction_mmu(mirna_list=mirna)
+#' @export
+#' @import stats
+#' @importFrom MAGeCKFlute TransGeneID
+#' @import miRNAtap.db
+#' @importFrom miRNAtap getPredictedTargets 
+#' @return a dataframe with miRNA target validated interactions
+SpidermiRdownload_miRNAprediction_mmu<-function(mirna_list){
+  dop=list()
+  dop2=list()
+  for (k in  1:length(mirna_list)){
+    print(paste("Processing...",mirna_list[k]))
+    targets <- getPredictedTargets(mirna_list[k],species='mmu', method ='geom')
+    if(is.null(targets)){
+      dop2[[k]]<-mirna_list[k]
+    }
+    if(length(targets)!=0){
+      dop[[k]]<-targets
+      names(dop)[[k]]<-mirna_list[k]}
+  }
+  target<-dop
+  lla<-list()
+  for (i in 1:length(target)){
+    print(paste("Mapping to gene symbol",names(target)[i]))
+    s<-TransGeneID(rownames(target[[i]]), fromType =  "Entrez" , toType = "Symbol",organism = "mmu", useBiomart = FALSE,ensemblHost = "www.ensembl.org")
+    a<-rep(names(target)[i],length(s))
+    results<-cbind(a,toupper(s))
+    lla[[i]]<-results
+  }
+  mat<-do.call("rbind",lla)
+  
+  
+  return(mat)
+}
+
+
+
+
 
 #' @title Download miRNA validated database
 #' @description SpidermiRdownload_miRNAprediction will download miRNA validated target
@@ -112,8 +127,8 @@ SpidermiRdownload_miRNAprediction<-function(mirna_list){
 #' @return a dataframe with miRNA target validated interactions
 SpidermiRdownload_miRNAvalidate<-function(validated){
     # querying miRtar database (validated interaction miRNA-gene)
-    site_mir2disease<-.url_cache$get("miRtar")
-    mir2disease<-read.delim(site_mir2disease,header = FALSE,quote = "",stringsAsFactors=FALSE)
+    #site_mir2disease<-.url_cache$get("miRtar")
+    #mir2disease<-read.delim(site_mir2disease,header = FALSE,quote = "",stringsAsFactors=FALSE)
     # querying miRNA WALK database (validated interaction miRNA-gene)
     temp <- tempfile()
     download.file(.url_cache$get("miRwalk"),temp)
@@ -122,21 +137,22 @@ SpidermiRdownload_miRNAvalidate<-function(validated){
     id<-t(sapply(id, '[', 1:max(sapply(id, length)))) 
     se<-int(id)
     # merging miRtar and miRNA walk information
-    mir2disease$V3<-NULL
-    mir2disease$V4<-NULL
-    mir_validated_targe<-rbind(mir2disease,se)
+
+    mir_validated_targe<-se
     site_mirtarbase<-.url_cache$get("miRTarBase")
     test <- read.xls(site_mirtarbase, quote="",stringsAsFactors=FALSE)
     pro<-as.data.frame(cbind(test$X.miRNA.,test$X.Target.Gene.))
-    dem<- print(as.data.frame(sapply(pro, function(x) gsub("\"", "", x))))
+    dem<- as.data.frame(sapply(pro, function(x) gsub("\"", "", x)))
     mir_validated_targe3<-rbind(mir_validated_targe,dem)
-    return(mir_validated_targe3)
+    mir_validated_targe4<-mir_validated_targe3[!duplicated(mir_validated_targe3), ]
+    
+    return(mir_validated_targe4)
 }
 
 
 
 #' @title Download miRNA validated database
-#' @description SpidermiRdownload_miRNAprediction will download miRNA validated target
+#' @description SpidermiRdownload_miRNAextra_cir will download miRNA validated target
 #' @param miRNAextra_cir parameter
 #' @examples
 #' list<-SpidermiRdownload_miRNAextra_cir(miRNAextra_cir)
@@ -154,13 +170,79 @@ SpidermiRdownload_miRNAextra_cir<-function(miRNAextra_cir){
 
 
 
+#' @title Download drug-gene interactions in  DGIdb 
+#' @description SpidermiRdownload_drug_gene will download drug gene interactions
+#' @param miRNAextra_cir parameter
+#' @examples
+#' drug_genetarget<-SpidermiRdownload_drug_gene(drug_gene)
+#' @export
+#' @import stats
+#' @return a dataframe with miRNA target validated interactions
+SpidermiRdownload_drug_gene<-function(drug_gene){
+  # querying DGIdb
+  site<-.url_cache$get("dgidb")
+  dgidb<-read.delim(site,header = TRUE,quote = "",stringsAsFactors=FALSE)
+  return(dgidb)
+}
 
 
 
+#' @title Download drug-miRNA interactions with fisher test 
+#' @description SpidermiRdownload_pharmacomir will calculate miRNA- drug interactions 
+#' @param list miRNA-gene target as obtained from e.g.; SpidermiRdownload_miRNAvalidate
+#' @param drug parameter drug of interest
+#' @examples
+#' list<-SpidermiRdownload_miRNAvalidate(validated)
+#' drug="TAMOXIFEN"
+#' drug_genetarget<-SpidermiRdownload_pharmacomir(list,drug="TAMOXIFEN")
+#' @export
+#' @import stats
+#' @return a dataframe with miRNA target validated interactions
+SpidermiRdownload_pharmacomir<-function(list,drug){
+mirna_uni<-unique(list$V1)
+table_pathway_enriched <- matrix(0, length(mirna_uni),5)
+colnames(table_pathway_enriched) <- c("drug-target","miRNA-target","common-gene","Pvalue","FDR")
+rownames(table_pathway_enriched)<- mirna_uni                     
+table_pathway_enriched <- as.data.frame(table_pathway_enriched)
+dgidb<-SpidermiRdownload_drug_gene(drug_gene)
+a<-unique(dgidb$drug_name)
+dgidb_SEL<-dgidb[dgidb$drug_name==drug,]
+one_gene<-unique(dgidb_SEL$gene_name)
+one_gene<-toupper(one_gene[one_gene!=""])
+#i=842
+#i=1
+for (i in 1:length(mirna_uni)){
+  #print(i)
+  mirna_name<-mirna_uni[i]
+list_sel<-list[list$V1==mirna_name,]
+list_sel$V2<-toupper(list_sel$V2)
+genes_common_pathway_TFregulon <- as.matrix(intersect(toupper(one_gene),toupper(list_sel$V2)))
+if (length(genes_common_pathway_TFregulon) != 0) {
+  current_pathway_commongenes_num <- length(genes_common_pathway_TFregulon)
+  allgene<-unique(dgidb$gene_name)
+  seta <-  allgene %in% list_sel$V2 # tutti i deg geni
+  setb <-  allgene %in% one_gene 
+  ft <- fisher.test(seta,setb)
+  FisherpvalueTF <- ft$p.value
+  table_pathway_enriched[i,"Pvalue"] <- as.numeric(FisherpvalueTF)
+  if (FisherpvalueTF < 0.05) {
+     table_pathway_enriched[i,"miRNA-target"] <- nrow(list_sel)
+  table_pathway_enriched[i,"drug-target"] <- length(one_gene)
+  table_pathway_enriched[i,"common-gene"] <- length(genes_common_pathway_TFregulon)
+  
+  } 
+} 
+}
+  table_pathway_enriched <- table_pathway_enriched[order(table_pathway_enriched[,"Pvalue"],decreasing = FALSE),]
+  table_pathway_enriched <- table_pathway_enriched[table_pathway_enriched[,"Pvalue"] < 0.05 ,]
+  table_pathway_enriched[,"FDR"] <- p.adjust(table_pathway_enriched[,"Pvalue"],method = "fdr")
+  FDRThresh=0.05
+  table_pathway_enriched <- table_pathway_enriched[table_pathway_enriched[,"FDR"] < FDRThresh ,]
+  table_pathway_enriched <- table_pathway_enriched[order(table_pathway_enriched[,"FDR"],decreasing = FALSE),]
+  n_CommonGenes=2
+  table_pathway_enriched <- table_pathway_enriched[table_pathway_enriched[,"common-gene"]>n_CommonGenes,]
+ return(table_pathway_enriched) 
+}
 
-
-
-
-
-
+ 
 

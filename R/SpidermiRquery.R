@@ -145,11 +145,20 @@ SpidermiRquery_spec_networks<-function(organismID,network) {
 #' disease<-SpidermiRquery_disease(diseaseID)
 #' @return a list of disease.
 SpidermiRquery_disease<-function(diseaseID) {
-all_entries<-.url_cache$get("miR2Disease")
+all_entries<-.url_cache$get("hmdd")
 disease_ref<-read.delim(all_entries,header = FALSE,quote = "",stringsAsFactors=FALSE)
-disease<- unique(disease_ref$V2)
-disease<-disease[disease != ""]
-return (disease)
+#disease<- unique(disease_ref$V3)
+disease_ref$V3<-sapply(disease_ref$V3, function(x) gsub("\"", "", x))
+
+
+disease_sel<- unique(disease_ref$V3)
+disease_sel_ORD<-sort(disease_sel)
+
+
+#disease<-disease[disease != ""]
+#disease_mod<- as.data.frame(sapply(disease, function(x) gsub("\"", "", x)))
+#D<-as.data.frame(disease)
+return (disease_sel_ORD)
 }
 
 

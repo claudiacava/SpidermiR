@@ -1,9 +1,9 @@
 Package: SpidermiR
 Type: Package
-Title: SpidermiR: An R/Bioconductor package for integrative network analysis
-    with miRNA data
-Version: 1.9.3
-Date: 12-28-2017
+Title: SpidermiR: An R/Bioconductor package for integrative network
+        analysis with miRNA data
+Version: 1.16.1
+Date: 11-19-2019
 Author: Claudia Cava,
     Antonio Colaprico,
     Alex Graudenzi,
@@ -15,47 +15,25 @@ Author: Claudia Cava,
     Giancarlo Mauri,
     Isabella Castiglioni
 Maintainer: Claudia Cava <claudia.cava@ibfm.cnr.it>
-Depends:
-    R (>= 3.0.0)
-Imports:
-    networkD3,
-    httr,
-    igraph,
-    utils,
-	stats,
-	miRNAtap,
-	miRNAtap.db,
-	AnnotationDbi,
-	org.Hs.eg.db, 
-	ggplot2,
-	gridExtra,
-	gplots,
-	grDevices,
-	lattice,
-	latticeExtra,
-	visNetwork,
-	TCGAbiolinks,
-	gdata
+Depends: R (>= 3.0.0)
+Imports: networkD3, httr, igraph, utils, stats, miRNAtap, miRNAtap.db,
+        AnnotationDbi, org.Hs.eg.db, ggplot2, gridExtra, gplots,
+        grDevices, lattice, latticeExtra, visNetwork, TCGAbiolinks,
+        gdata, MAGeCKFlute
 Description: The aims of SpidermiR are : i) facilitate the network open-access
     data retrieval from GeneMania data, ii) prepare the data using the appropriate gene nomenclature,
     iii) integration of miRNA data in a specific network, iv) provide different
     standard analyses and v) allow the user to visualize the results. In more
     detail, the package provides multiple methods for query, prepare and download
-    network data (GeneMania), and the integration with  validated and predicted miRNA data (mirWalk, miR2Disease,miRTar, miRTarBase, miRandola,Pharmaco-miR,DIANA, Miranda, PicTar and TargetScan) and the use of standard
+    network data (GeneMania), and the integration with  validated and predicted miRNA data (mirWalk, miRTarBase, miRandola,Pharmaco-miR,DIANA, Miranda, PicTar and TargetScan) and the use of standard
     analysis (igraph) and visualization methods (networkD3).
 License: GPL (>= 3)
-biocViews: GeneRegulation,
-    miRNA,
-    Network
-Suggests:
-    BiocStyle,
-    knitr,
-    rmarkdown,
-    testthat,
-	devtools,
-	roxygen2
+biocViews: GeneRegulation, miRNA, Network
+Suggests: BiocStyle, knitr, rmarkdown, testthat, devtools, roxygen2
 VignetteBuilder: knitr
 LazyData: true
 URL: https://github.com/claudiacava/SpidermiR
 BugReports: https://github.com/claudiacava/SpidermiR/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
+NeedsCompilation: no
+Packaged: 2019-02-04 08:50:53 UTC; UserInLab05

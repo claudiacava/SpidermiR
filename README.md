@@ -2,7 +2,8 @@
 
 ### Installation ###
 ```R
-source("https://bioconductor.org/biocLite.R")
-biocLite("SpidermiR")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("SpidermiR")
 ```
 

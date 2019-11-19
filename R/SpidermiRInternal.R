@@ -35,20 +35,18 @@
 #it creates link 
 .url_cache <- local({
   env <- new.env(parent=emptyenv())
-  env[["miRtar"]] <-
-    "http://watson.compbio.iupui.edu:8080/miR2Disease/download/miRtar.txt"
     env[["miRwalk"]] <-
     "http://zmf.umm.uni-heidelberg.de/apps/zmf/mirwalk2/downloads/vtm/hsa-vtm-gene.rdata.zip"
-  env[["miR2Disease"]] <-
-    "http://watson.compbio.iupui.edu:8080/miR2Disease/download/AllEntries.txt"
+  env[["hmdd"]] <-
+    "http://www.cuilab.cn/static/hmdd3/data/alldata.txt"
   env[["mirandola"]] <-
     "http://mirandola.iit.cnr.it/download/miRandola_version_02_2017.txt"
   env[["geneMania"]] <-
     "http://genemania.org/data/current/"
-	  env[["pharmacomir"]] <-
-    "http://pharmaco-mir.org/home/download_VERSE_db/pharmacomir_VERSE_DB.csv"
+	  env[["dgidb"]] <-
+	"http://dgidb.org/data/interactions.tsv"
 	  env[["miRTarBase"]] <-
-	    "http://mirtarbase.mbc.nctu.edu.tw/cache/download/6.1/miRTarBase_SE_WR.xls"
+	    "http://mirtarbase.mbc.nctu.edu.tw/cache/download/7.0/miRTarBase_SE_WR.xls"
 	  env[["Tiger"]] <-
 	    "http://bioinfo.wilmer.jhu.edu/tiger/download/hs2tissue-Table.txt"
 	  env[["Tiger_mapping"]] <-

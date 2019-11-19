@@ -2,19 +2,23 @@
 % Please edit documentation in R/SpidermiRdownload.R
 \name{SpidermiRdownload_pharmacomir}
 \alias{SpidermiRdownload_pharmacomir}
-\title{Download both miRNA target and the gene-drug interaction from PharmacomiR database}
+\title{Download drug-miRNA interactions with fisher test}
 \usage{
-SpidermiRdownload_pharmacomir(pharmacomir)
+SpidermiRdownload_pharmacomir(list, drug)
 }
 \arguments{
-\item{pharmacomir}{variable}
+\item{list}{miRNA-gene target as obtained from e.g.; SpidermiRdownload_miRNAvalidate}
+
+\item{drug}{parameter drug of interest}
 }
 \value{
-a dataframe with gene-drug, and miR-gene associations
+a dataframe with miRNA target validated interactions
 }
 \description{
-SpidermiRdownload_pharmacomir will download miRNA Pharmacogenomic data
+SpidermiRdownload_pharmacomir will calculate miRNA- drug interactions
 }
 \examples{
-mir_pharmaco<-SpidermiRdownload_pharmacomir(pharmacomir=pharmacomir)
+list<-SpidermiRdownload_miRNAvalidate(validated)
+drug="TAMOXIFEN"
+drug_genetarget<-SpidermiRdownload_pharmacomir(list,drug="TAMOXIFEN")
 }
