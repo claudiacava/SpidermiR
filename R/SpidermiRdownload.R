@@ -192,14 +192,14 @@ SpidermiRdownload_drug_gene<-function(drug_gene){
 #' @param list miRNA-gene target as obtained from e.g.; SpidermiRdownload_miRNAvalidate
 #' @param drug parameter drug of interest
 #' @examples
-#' list<-SpidermiRdownload_miRNAvalidate(validated)
+#' list1<-SpidermiRdownload_miRNAvalidate(validated)
 #' drug="TAMOXIFEN"
-#' drug_genetarget<-SpidermiRdownload_pharmacomir(list,drug="TAMOXIFEN")
+#' drug_genetarget<-SpidermiRdownload_pharmacomir(list1,drug="TAMOXIFEN")
 #' @export
 #' @import stats
 #' @return a dataframe with miRNA target validated interactions
 SpidermiRdownload_pharmacomir<-function(list,drug){
-mirna_uni<-unique(list$V1)
+mirna_uni<-unique(list[,1])
 table_pathway_enriched <- matrix(0, length(mirna_uni),5)
 colnames(table_pathway_enriched) <- c("drug-target","miRNA-target","common-gene","Pvalue","FDR")
 rownames(table_pathway_enriched)<- mirna_uni                     
@@ -212,7 +212,7 @@ one_gene<-toupper(one_gene[one_gene!=""])
 #i=842
 #i=1
 for (i in 1:length(mirna_uni)){
-  #print(i)
+  print(paste0("processing...... ", mirna_uni[i], "....n°.....",   i, " of......", length(mirna_uni)  ))
   mirna_name<-mirna_uni[i]
 list_sel<-list[list$V1==mirna_name,]
 list_sel$V2<-toupper(list_sel$V2)
