@@ -7,7 +7,7 @@
 SpidermiRdownload_pharmacomir(list, drug)
 }
 \arguments{
-\item{list}{miRNA-gene target as obtained from e.g.; SpidermiRdownload_miRNAvalidate}
+\item{list}{miRNA gene target as obtained from e.g.; SpidermiRdownload_miRNAvalidate}
 
 \item{drug}{parameter drug of interest}
 }
@@ -18,7 +18,7 @@ a dataframe with miRNA target validated interactions
 SpidermiRdownload_pharmacomir will calculate miRNA- drug interactions
 }
 \examples{
-list<-SpidermiRdownload_miRNAvalidate(validated)
+list1<-SpidermiRdownload_miRNAvalidate(validated)
 drug="TAMOXIFEN"
-drug_genetarget<-SpidermiRdownload_pharmacomir(list,drug="TAMOXIFEN")
+drug_genetarget<-SpidermiRdownload_pharmacomir(list1[1:100,],drug="TAMOXIFEN")
 }

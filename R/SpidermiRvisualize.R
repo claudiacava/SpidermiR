@@ -116,7 +116,7 @@ SpidermiRvisualize_BI<-function(data,BI){
 
 
 #' @title Visualize results obtained by SpidermiRanalyze_mirna_network 
-#' @description It shows a plot with miRNAs and the number of their targets in the network
+#' @description It shows a plot with miRNA and the number of their targets in the network
 #' @param data The input data is a dataframe containing miRNA network data (e.g. output of SpidermiRanalyze_mirna_network.
 #' @examples 
 #' cd<-data.frame(gA=c('hsa-let-7a','hsa-miR-141'),gB=c('FOXM1','CDK'),stringsAsFactors=FALSE)
@@ -135,8 +135,8 @@ a<-c(data[,1],data[,2])
 p<-table(a)
 as<-as.data.frame(p)
 D<-as[order(as$Freq,decreasing=TRUE),]
-names(D)[1]<-"miRNAs"
-names(D)[2]<-"mRNA_target"
+names(D)[1]<-c("miRNAs")
+names(D)[2]<-c("mRNA_target")
 D$miRNAs<-factor(D$miRNAs, levels=D[order(D$mRNA_target),"miRNAs"])
 
 

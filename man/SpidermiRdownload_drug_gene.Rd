@@ -7,7 +7,7 @@
 SpidermiRdownload_drug_gene(drug_gene)
 }
 \arguments{
-\item{miRNAextra_cir}{parameter}
+\item{drug_gene}{parameter}
 }
 \value{
 a dataframe with miRNA target validated interactions

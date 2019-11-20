@@ -116,6 +116,13 @@ SpidermiRdownload_miRNAprediction_mmu<-function(mirna_list){
 
 
 
+
+
+
+
+
+
+
 #' @title Download miRNA validated database
 #' @description SpidermiRdownload_miRNAprediction will download miRNA validated target
 #' @param validated parameter
@@ -172,7 +179,7 @@ SpidermiRdownload_miRNAextra_cir<-function(miRNAextra_cir){
 
 #' @title Download drug-gene interactions in  DGIdb 
 #' @description SpidermiRdownload_drug_gene will download drug gene interactions
-#' @param miRNAextra_cir parameter
+#' @param drug_gene parameter
 #' @examples
 #' drug_genetarget<-SpidermiRdownload_drug_gene(drug_gene)
 #' @export
@@ -182,26 +189,39 @@ SpidermiRdownload_drug_gene<-function(drug_gene){
   # querying DGIdb
   site<-.url_cache$get("dgidb")
   dgidb<-read.delim(site,header = TRUE,quote = "",stringsAsFactors=FALSE)
-  return(dgidb)
+  dgib_m<-dgidb[,c(1,8)]
+  url1<-.url_cache$get("matador")
+  con <- gzcon(url(url1))
+  txt <- readLines(con)
+  zz<-read.delim(textConnection(txt))
+  zz_m<-zz[,c(5,2)]
+  colnames(zz_m)<-colnames(dgib_m)
+  dgib_m$gene_name<-toupper(dgib_m$gene_name)
+  dgib_m$drug_name<-toupper(dgib_m$drug_name)
+  zz_m$gene_name<-toupper(zz_m$gene_name)
+  zz_m$drug_name<-toupper(zz_m$drug_name)
+  dgidb_matador<-rbind(zz_m,dgib_m)
+  dgidb_matador_tot<-dgidb_matador[!duplicated(dgidb_matador), ]
+  return(dgidb_matador_tot)
 }
 
 
 
 #' @title Download drug-miRNA interactions with fisher test 
 #' @description SpidermiRdownload_pharmacomir will calculate miRNA- drug interactions 
-#' @param list miRNA-gene target as obtained from e.g.; SpidermiRdownload_miRNAvalidate
+#' @param list miRNA gene target as obtained from e.g.; SpidermiRdownload_miRNAvalidate
 #' @param drug parameter drug of interest
 #' @examples
 #' list1<-SpidermiRdownload_miRNAvalidate(validated)
 #' drug="TAMOXIFEN"
-#' drug_genetarget<-SpidermiRdownload_pharmacomir(list1,drug="TAMOXIFEN")
+#' drug_genetarget<-SpidermiRdownload_pharmacomir(list1[1:100,],drug="TAMOXIFEN")
 #' @export
 #' @import stats
 #' @return a dataframe with miRNA target validated interactions
 SpidermiRdownload_pharmacomir<-function(list,drug){
 mirna_uni<-unique(list[,1])
 table_pathway_enriched <- matrix(0, length(mirna_uni),5)
-colnames(table_pathway_enriched) <- c("drug-target","miRNA-target","common-gene","Pvalue","FDR")
+colnames(table_pathway_enriched) <- c("drug_target","miRNA_target","common_gene","Pvalue","FDR")
 rownames(table_pathway_enriched)<- mirna_uni                     
 table_pathway_enriched <- as.data.frame(table_pathway_enriched)
 dgidb<-SpidermiRdownload_drug_gene(drug_gene)
@@ -212,7 +232,7 @@ one_gene<-toupper(one_gene[one_gene!=""])
 #i=842
 #i=1
 for (i in 1:length(mirna_uni)){
-  print(paste0("processing...... ", mirna_uni[i], "....n°.....",   i, " of......", length(mirna_uni)  ))
+  print(paste0("processing...... ", mirna_uni[i], "....n. ",   i, " of......", length(mirna_uni)  ))
   mirna_name<-mirna_uni[i]
 list_sel<-list[list$V1==mirna_name,]
 list_sel$V2<-toupper(list_sel$V2)
@@ -226,9 +246,9 @@ if (length(genes_common_pathway_TFregulon) != 0) {
   FisherpvalueTF <- ft$p.value
   table_pathway_enriched[i,"Pvalue"] <- as.numeric(FisherpvalueTF)
   if (FisherpvalueTF < 0.05) {
-     table_pathway_enriched[i,"miRNA-target"] <- nrow(list_sel)
-  table_pathway_enriched[i,"drug-target"] <- length(one_gene)
-  table_pathway_enriched[i,"common-gene"] <- length(genes_common_pathway_TFregulon)
+     table_pathway_enriched[i,"miRNA_target"] <- nrow(list_sel)
+  table_pathway_enriched[i,"drug_target"] <- length(one_gene)
+  table_pathway_enriched[i,"common_gene"] <- length(genes_common_pathway_TFregulon)
   
   } 
 } 
@@ -240,7 +260,7 @@ if (length(genes_common_pathway_TFregulon) != 0) {
   table_pathway_enriched <- table_pathway_enriched[table_pathway_enriched[,"FDR"] < FDRThresh ,]
   table_pathway_enriched <- table_pathway_enriched[order(table_pathway_enriched[,"FDR"],decreasing = FALSE),]
   n_CommonGenes=2
-  table_pathway_enriched <- table_pathway_enriched[table_pathway_enriched[,"common-gene"]>n_CommonGenes,]
+  table_pathway_enriched <- table_pathway_enriched[table_pathway_enriched[,"common_gene"]>n_CommonGenes,]
  return(table_pathway_enriched) 
 }
 

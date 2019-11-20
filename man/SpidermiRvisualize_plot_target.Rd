@@ -13,7 +13,7 @@ SpidermiRvisualize_plot_target(data)
 plot
 }
 \description{
-It shows a plot with miRNAs and the number of their targets in the network
+It shows a plot with miRNA and the number of their targets in the network
 }
 \examples{
 cd<-data.frame(gA=c('hsa-let-7a','hsa-miR-141'),gB=c('FOXM1','CDK'),stringsAsFactors=FALSE)
