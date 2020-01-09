@@ -101,7 +101,7 @@ SpidermiRdownload_miRNAprediction_mmu<-function(mirna_list){
   lla<-list()
   for (i in 1:length(target)){
     print(paste("Mapping to gene symbol",names(target)[i]))
-    s<-TransGeneID(rownames(target[[i]]), fromType =  "Entrez" , toType = "Symbol",organism = "mmu", useBiomart = FALSE,ensemblHost = "www.ensembl.org")
+    s<-TransGeneID(rownames(target[[i]]), fromType =  "Entrez" , toType = "Symbol",organism = "mmu",ensemblHost = "www.ensembl.org")
     a<-rep(names(target)[i],length(s))
     results<-cbind(a,toupper(s))
     lla[[i]]<-results
@@ -190,17 +190,18 @@ SpidermiRdownload_drug_gene<-function(drug_gene){
   site<-.url_cache$get("dgidb")
   dgidb<-read.delim(site,header = TRUE,quote = "",stringsAsFactors=FALSE)
   dgib_m<-dgidb[,c(1,8)]
-  url1<-.url_cache$get("matador")
-  con <- gzcon(url(url1))
-  txt <- readLines(con)
-  zz<-read.delim(textConnection(txt))
-  zz_m<-zz[,c(5,2)]
-  colnames(zz_m)<-colnames(dgib_m)
+  #url1<-.url_cache$get("matador")
+  #con <- gzcon(url(url1))
+  #txt <- readLines(con)
+  #zz<-read.delim(textConnection(txt))
+  #zz_m<-zz[,c(5,2)]
+  #colnames(zz_m)<-colnames(dgib_m)
   dgib_m$gene_name<-toupper(dgib_m$gene_name)
   dgib_m$drug_name<-toupper(dgib_m$drug_name)
-  zz_m$gene_name<-toupper(zz_m$gene_name)
-  zz_m$drug_name<-toupper(zz_m$drug_name)
-  dgidb_matador<-rbind(zz_m,dgib_m)
+  #zz_m$gene_name<-toupper(zz_m$gene_name)
+  #zz_m$drug_name<-toupper(zz_m$drug_name)
+  #dgidb_matador<-rbind(zz_m,dgib_m)
+  dgidb_matador<-dgib_m
   dgidb_matador_tot<-dgidb_matador[!duplicated(dgidb_matador), ]
   return(dgidb_matador_tot)
 }

@@ -2,8 +2,8 @@ Package: SpidermiR
 Type: Package
 Title: SpidermiR: An R/Bioconductor package for integrative network
         analysis with miRNA data
-Version: 1.16.3
-Date: 11-21-2019
+Version: 1.16.2
+Date: 01-09-2020
 Author: Claudia Cava,
     Antonio Colaprico,
     Alex Graudenzi,
@@ -16,7 +16,7 @@ Author: Claudia Cava,
     Isabella Castiglioni
 Maintainer: Claudia Cava <claudia.cava@ibfm.cnr.it>
 Depends: R (>= 3.0.0)
-Imports:  httr, igraph, utils, stats, miRNAtap, miRNAtap.db,
+Imports: httr, igraph, utils, stats, miRNAtap, miRNAtap.db,
         AnnotationDbi, org.Hs.eg.db, ggplot2, gridExtra, gplots,
         grDevices, lattice, latticeExtra, visNetwork, TCGAbiolinks,
         gdata, MAGeCKFlute,networkD3
@@ -34,6 +34,11 @@ VignetteBuilder: knitr
 LazyData: true
 URL: https://github.com/claudiacava/SpidermiR
 BugReports: https://github.com/claudiacava/SpidermiR/issues
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 NeedsCompilation: no
-Packaged: 2019-02-04 08:50:53 UTC; UserInLab05
+Packaged: 2019-11-22 02:55:38 UTC; biocbuild
+git_url: https://git.bioconductor.org/packages/SpidermiR
+git_branch: RELEASE_3_10
+git_last_commit: b3bca99
+git_last_commit_date: 2019-11-21
+Date/Publication: 2019-11-21

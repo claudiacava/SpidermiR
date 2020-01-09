@@ -45,8 +45,8 @@
     "http://genemania.org/data/current/"
 	  env[["dgidb"]] <-
 	"http://dgidb.org/data/interactions.tsv"
-	  env[["matador"]] <-	  
-	  "http://matador.embl.de/media/download/matador.tsv.gz"
+	 # env[["matador"]] <-	  
+	 # "http://matador.embl.de/media/download/matador.tsv.gz"
 	  env[["miRTarBase"]] <-
 	    "http://mirtarbase.mbc.nctu.edu.tw/cache/download/7.0/miRTarBase_SE_WR.xls"
 	  env[["Tiger"]] <-

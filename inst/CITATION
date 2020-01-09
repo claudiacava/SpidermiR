@@ -1,45 +1,24 @@
 citHeader("To cite SpidermiR in publications use:")
 
-citEntry(entry = "article",
-         title        = "SpidermiR: An R/Bioconductor Package for
-Integrative Analysis with miRNA Data.",
+citEntry(entry = "Article",
+         title        = "SpidermiR: An R/Bioconductor package for integrative network analysis with
+    miRNA data",
          author       = personList(as.person("Claudia Cava"),
                                    as.person("Antonio Colaprico"),
-                                   as.person("Gloria Bertoli"),
                                    as.person("Alex Graudenzi"),
-								   as.person("Tiago C. Silva"),
-								   as.person("Catharina Olsen"),
-								   as.person("Houtan Noushmehr"),
+                                   as.person("Gloria Bertoli"),
                                    as.person("Gianluca Bontempi"),
                                    as.person("Giancarlo Mauri"),
                                    as.person("Isabella Castiglioni")
          ),
-         journal = "Int J Mol Sci",
-         year         = "2017",
-		 volume = 18,
-		 number= 2, 
+         journal = "manuscript in preparation",
+         year         = "2015",
+         journal      = "",
          textVersion  =
-             paste("Claudia Cava, Antonio Colaprico,Gloria Bertoli ,",
-                   "Alex Graudenzi, Tiago C. Silva, Catharina Olsen,Houtan Noushmehr, Gianluca Bontempi, Giancarlo Mauri,",
-                   "Isabella Castiglioni (2017).",
-                   "SpidermiR: An R/Bioconductor Package for
-Integrative Analysis with miRNA Data. Int J Mol Sci. 2017 Jan 27;18(2).")
+             paste("Claudia Cava, Antonio Colaprico, Alex Graudenzi,",
+                   "Gloria Bertoli, Gianluca Bontempi, Giancarlo Mauri,",
+                   "Isabella Castiglioni (2016).",
+                   "SpidermiR: An R/Bioconductor package for integrative network analysis with
+    miRNA data.")
 )
 
-citEntry(entry = "article",
-         title        = "Integrating genetics and epigenetics in
-breast cancer: biological insights, experimental, computational methods and
-therapeutic potential.",
-         author       = personList(as.person("Claudia Cava"),
-                                   as.person("Gloria Bertoli"),
-                                   as.person("Isabella Castiglioni")
-         ),
-         journal = "BMC Syst Biol",
-         year         = "2015",
-		 	volume = 9,
-	number = 62,
-         textVersion  =
-             paste("Cava C, Bertoli G, Castiglioni I. Integrating genetics and epigenetics in
-breast cancer: biological insights, experimental, computational methods and
-therapeutic potential. BMC Syst Biol.2015;9:62")
-)
