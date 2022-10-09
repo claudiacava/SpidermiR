@@ -1,0 +1,43 @@
+Package: SpidermiR
+Type: Package
+Title: SpidermiR: An R/Bioconductor package for integrative network
+        analysis with miRNA data
+Version: 1.27.1
+Date: 07-10-2022
+Author: Claudia Cava,
+    Antonio Colaprico,
+    Alex Graudenzi,
+    Gloria Bertoli,
+	Tiago C. Silva,
+	Catharina Olsen,
+	Houtan Noushmehr,
+    Gianluca Bontempi,
+    Giancarlo Mauri,
+    Isabella Castiglioni
+Maintainer: Claudia Cava <claudia.cava@ibfm.cnr.it>
+Depends: R (>= 3.0.0)
+Imports: httr, igraph, utils, stats, miRNAtap, miRNAtap.db,
+        AnnotationDbi, org.Hs.eg.db, ggplot2, gridExtra, gplots,
+        grDevices, lattice, latticeExtra, TCGAbiolinks,
+        gdata, MAGeCKFlute
+Description: The aims of SpidermiR are : i) facilitate the network open-access
+    data retrieval from GeneMania data, ii) prepare the data using the appropriate gene nomenclature,
+    iii) integration of miRNA data in a specific network, iv) provide different
+    standard analyses and v) allow the user to visualize the results. In more
+    detail, the package provides multiple methods for query, prepare and download
+    network data (GeneMania), and the integration with  validated and predicted miRNA data (mirWalk, miRTarBase, miRandola, Miranda, PicTar and TargetScan). Furthermore, we also present a statistical test to identify pharmaco-mir relationships using the gene-drug interactions derived
+	 by DGIdb and MATADOR database.
+License: GPL (>= 3)
+biocViews: GeneRegulation, miRNA, Network
+Suggests: BiocStyle, knitr, rmarkdown, testthat, devtools, roxygen2
+VignetteBuilder: knitr
+URL: https://github.com/claudiacava/SpidermiR
+BugReports: https://github.com/claudiacava/SpidermiR/issues
+RoxygenNote: 7.2.1
+NeedsCompilation: no
+Packaged: 2021-05-19 22:54:53 UTC; biocbuild
+git_url: https://git.bioconductor.org/packages/SpidermiR
+git_branch: RELEASE_3_13
+git_last_commit: 17445d0
+git_last_commit_date: 2021-05-19
+Date/Publication: 2021-05-19
