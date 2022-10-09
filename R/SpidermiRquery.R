@@ -161,6 +161,3 @@ disease_sel_ORD<-sort(disease_sel)
 return (disease_sel_ORD)
 }
 
-
-
-
