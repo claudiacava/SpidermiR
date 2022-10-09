@@ -22,21 +22,13 @@
 
 
 
-#' @importFrom networkD3 simpleNetwork
-.SpidermiRvisualize_gene<-function(data){
-  s<-as.data.frame(data)
-  Source <- (s[1])
-  Target <- (s[2])
-  NetworkData <- data.frame(Source, Target)
-  simpleNetwork(NetworkData,linkColour = "gray",textColour = "black",zoom = TRUE)
-}
 
 
 #it creates link 
 .url_cache <- local({
   env <- new.env(parent=emptyenv())
-    env[["miRwalk"]] <-
-    "http://zmf.umm.uni-heidelberg.de/apps/zmf/mirwalk2/downloads/vtm/hsa-vtm-gene.rdata.zip"
+    #env[["miRwalk"]] <-
+   # "http://zmf.umm.uni-heidelberg.de/apps/zmf/mirwalk2/downloads/vtm/hsa-vtm-gene.rdata.zip"
   env[["hmdd"]] <-
     "http://www.cuilab.cn/static/hmdd3/data/alldata.txt"
   env[["mirandola"]] <-
@@ -44,11 +36,11 @@
   env[["geneMania"]] <-
     "http://genemania.org/data/current/"
 	  env[["dgidb"]] <-
-	"http://dgidb.org/data/interactions.tsv"
+	"https://www.dgidb.org/data/monthly_tsvs/2020-Sep/interactions.tsv"
 	 # env[["matador"]] <-	  
 	 # "http://matador.embl.de/media/download/matador.tsv.gz"
-	  env[["miRTarBase"]] <-
-	    "http://mirtarbase.mbc.nctu.edu.tw/cache/download/7.0/miRTarBase_SE_WR.xls"
+	 # env[["miRTarBase"]] <-
+	  #  "https://mirtarbase.cuhk.edu.cn/~miRTarBase/miRTarBase_2019/cache/download/8.0/miRTarBase_SE_WR.xls"
 	  env[["Tiger"]] <-
 	    "http://bioinfo.wilmer.jhu.edu/tiger/download/hs2tissue-Table.txt"
 	  env[["Tiger_mapping"]] <-
